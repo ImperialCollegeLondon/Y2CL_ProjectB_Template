@@ -1,0 +1,1161 @@
+{
+  "tests": [
+    {
+      "name": "code style >= 20%",
+      "setup": "",
+      "run": "pytest -vv tests/test_code_quality.py::TestStyle::test_20pc",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+    {
+      "name": "code style >= 40%",
+      "setup": "",
+      "run": "pytest -vv tests/test_code_quality.py::TestStyle::test_40pc",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+    {
+      "name": "code style >= 60%",
+      "setup": "",
+      "run": "pytest -vv tests/test_code_quality.py::TestStyle::test_60pc",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+    {
+      "name": "code style >= 80%",
+      "setup": "",
+      "run": "pytest -vv tests/test_code_quality.py::TestStyle::test_80pc",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+    {
+      "name": "code style >= 90%",
+      "setup": "",
+      "run": "pytest -vv tests/test_code_quality.py::TestStyle::test_90pc",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+    {
+      "name": "test documentation",
+      "setup": "",
+      "run": "pytest -vv tests/test_code_quality.py::test_documentation",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+    {
+      "name": "test task1 - docstring present",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask1::test_docstring_present",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+    {
+      "name": "test task1 - docstring not blank",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask1::test_docstring_not_blank",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+
+    {
+      "name": "test task2 - test_p_exists",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask2::test_p_exists",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+
+    {
+      "name": "test task2 - test_pos_method",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask2::test_pos_method",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+
+    {
+      "name": "test task2 - test_default_p_array",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask2::test_default_p_array",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+
+    {
+      "name": "test task2 - test_p_array",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask2::test_p_array",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+
+    {
+      "name": "test task2 - test_p_set",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask2::test_p_set",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+
+    {
+      "name": "test task2 - test_k_exists",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask2::test_k_exists",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+
+    {
+      "name": "test task2 - test_direc_method",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask2::test_direc_method",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+
+    {
+      "name": "test task2 - test_k_array",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask2::test_k_array",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+
+    {
+      "name": "test task2 - test_k_set",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask2::test_k_set",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+
+    {
+      "name": "test task2 - test_append_exists",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask2::test_append_exists",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+
+    {
+      "name": "test task2 - test_append_method",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask2::test_append_method",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+
+    {
+      "name": "test task2 - test_append_increases_length",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask2::test_append_increases_length",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+
+    {
+      "name": "test task2 - test_append_pos_type",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask2::test_append_pos_type",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+
+    {
+      "name": "test task2 - test_append_pos_array",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask2::test_append_pos_array",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+
+    {
+      "name": "test task2 - test_append_pos",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask2::test_append_pos",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+
+    {
+      "name": "test task2 - test_append_direc_array",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask2::test_append_direc_array",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+
+    {
+      "name": "test task2 - test_append_direc",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask2::test_append_direc",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+
+    {
+      "name": "test task2 - test_append_pos_iterable_check",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask2::test_append_pos_iterable_check",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+
+    {
+      "name": "test task2 - test_append_pos_too_long_check",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask2::test_append_pos_too_long_check",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+
+    {
+      "name": "test task2 - test_append_pos_too_short_check",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask2::test_append_pos_too_short_check",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+
+    {
+      "name": "test task2 - test_append_direc_iterable_check",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask2::test_append_direc_iterable_check",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+
+    {
+      "name": "test task2 - test_append_direc_too_long_check",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask2::test_append_direc_too_long_check",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+
+    {
+      "name": "test task2 - test_append_direc_too_short_check",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask2::test_append_direc_too_short_check",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+
+    {
+      "name": "test task2 - test_vertices_exists",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask2::test_vertices_exists",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+
+    {
+      "name": "test task2 - test_vertices_method",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask2::test_vertices_method",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+
+    {
+      "name": "test task2 - test_vertices_list",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask2::test_vertices_list",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+
+    {
+      "name": "test task2 - test_vertices_array",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask2::test_vertices_array",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+
+    {
+      "name": "test task2 - test_vertices",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask2::test_vertices",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+
+    {
+      "name": "test task2 - test_multiple_vertices",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask2::test_multiple_vertices",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+
+    {
+      "name": "test task3 - test_sr_class_exists",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask3::test_sr_class_exists",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+
+    {
+      "name": "test task3 - test_inheritance",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask3::test_inheritance",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+
+    {
+      "name": "test task3 - test_num_parameters",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask3::test_num_parameters",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+
+    {
+      "name": "test task4 - test_intercept_exists",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask4::test_intercept_exists",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+
+    {
+      "name": "test task4 - test_num_parameters",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask4::test_num_parameters",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+
+    {
+      "name": "test task4 - test_no_intercept",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask4::test_no_intercept",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+
+    {
+      "name": "test task4 - test_intercept_array",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask4::test_intercept_array",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+
+    {
+      "name": "test task4 - test_onaxis_ray_convex_intercept",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask4::test_onaxis_ray_convex_intercept",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+
+    {
+      "name": "test task4 - test_onaxis_ray_concave_intercept",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask4::test_onaxis_ray_concave_intercept",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+
+    {
+      "name": "test task4 - test_offaxis_convex_intercept",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask4::test_offaxis_convex_intercept",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+
+    {
+      "name": "test task4 - test_offaxis_concave_intercept",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask4::test_offaxis_concave_intercept",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+
+    {
+      "name": "test task4 - test_ray_pos_called",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask4::test_ray_pos_called",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+
+    {
+      "name": "test task4 - test_ray_direc_called",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask4::test_ray_direc_called",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+
+    {
+      "name": "test task5 - test_refract_exists",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask5::test_refract_exists",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+
+    {
+      "name": "test task5 - test_num_params",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask5::test_num_params",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+
+    {
+      "name": "test task5 - test_returns_unitvector",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask5::test_returns_unitvector",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+
+    {
+      "name": "test task5 - test_onaxis_refract",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask5::test_onaxis_refract",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+
+    {
+      "name": "test task5 - test_offaxis_refract_lower",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask5::test_offaxis_refract_lower",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+
+    {
+      "name": "test task5 - test_offaxis_refract_upper",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask5::test_offaxis_refract_upper",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+
+    {
+      "name": "test task5 - test_equal_ref_indices_onaxis",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask5::test_equal_ref_indices_onaxis",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+
+    {
+      "name": "test task5 - test_equal_ref_indices_upper",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask5::test_equal_ref_indices_upper",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+
+    {
+      "name": "test task5 - test_equal_ref_indices_lower",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask5::test_equal_ref_indices_lower",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+
+    {
+      "name": "test task5 - test_TIR",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask5::test_TIR",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+
+    {
+      "name": "test task6 - test_pr_exists",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask6::test_pr_exists",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+
+    {
+      "name": "test task6 - test_num_parameters",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask6::test_num_parameters",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+
+    {
+      "name": "test task6 - test_pr_calls_intercept",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask6::test_pr_calls_intercept",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+
+    {
+      "name": "test task6 - test_pr_calls_refract",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask6::test_pr_calls_refract",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+
+    {
+      "name": "test task6 - test_pr_calls_append",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask6::test_pr_calls_append",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+
+    {
+      "name": "test task7 - test_exists",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask7::test_exists",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+
+    {
+      "name": "test task7 - test_doesnt_crash",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask7::test_doesnt_crash",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+
+    {
+      "name": "test task7 - test_ray_called",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask7::test_ray_called",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+
+    {
+      "name": "test task7 - test_sr_called",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask7::test_sr_called",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+
+    {
+      "name": "test task7 - test_sr_calls_propagate",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask7::test_sr_calls_propagate",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+
+    {
+      "name": "test task7 - test_multiple_rays_created",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask7::test_multiple_rays_created",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+
+    {
+      "name": "test task7 - test_multiple_propagates",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask7::test_multiple_propagates",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+
+    {
+      "name": "test task8 - test_op_exists",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask8::test_op_exists",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+
+    {
+      "name": "test task8 - test_intercept_exists",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask8::test_intercept_exists",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+
+    {
+      "name": "test task8 - test_propagate_exists",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask8::test_propagate_exists",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+
+    {
+      "name": "test task8 - test_pr_calls_intercept",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask8::test_pr_calls_intercept",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+
+    {
+      "name": "test task8 - test_pr_doesnt_call_refract",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask8::test_pr_doesnt_call_refract",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+
+    {
+      "name": "test task8 - test_pr_calls_append",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask8::test_pr_calls_append",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+
+    {
+      "name": "test task8 - test_parallel_intercept",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask8::test_parallel_intercept",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+
+    {
+      "name": "test task8 - test_nonparallel_intercept",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask8::test_nonparallel_intercept",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+
+    {
+      "name": "test task9 - test_task9_exists",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask9::test_task9_exists",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+
+    {
+      "name": "test task9 - test_sr_called",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask9::test_sr_called",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+
+    {
+      "name": "test task9 - test_sr_setup",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask9::test_sr_setup",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+
+    {
+      "name": "test task9 - test_op_called",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask9::test_op_called",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+
+    {
+      "name": "test task9 - test_op_setup",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask9::test_op_setup",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+
+    {
+      "name": "test task9 - test_ray_called",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask9::test_ray_called",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+
+    {
+      "name": "test task9 - test_ray_called_multiple",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask9::test_ray_called_multiple",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+
+    {
+      "name": "test task9 - test_ray_vertices_called",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask9::test_ray_vertices_called",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+
+    {
+      "name": "test task9 - test_ray_vertices_called_multiple",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask9::test_ray_vertices_called_multiple",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+
+    {
+      "name": "test task9 - test_output_fig",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask9::test_output_fig",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+
+    {
+      "name": "test task9 - test_plot9",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask9::test_plot9",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+
+    {
+      "name": "test task10 - test_task10_exists",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask10::test_task10_exists",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+
+    {
+      "name": "test task10 - test_focal_point",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask10::test_focal_point",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+
+    {
+      "name": "test task10 - test_ouput_fig",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask10::test_ouput_fig",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+
+    {
+      "name": "test task10 - test_plot10",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask10::test_plot10",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+
+    {
+      "name": "test task12 - test_task12_exists",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask12::test_task12_exists",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+
+    {
+      "name": "test task12 - test_ouput_fig",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask12::test_ouput_fig",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+
+    {
+      "name": "test task12 - test_plot12",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask12::test_plot12",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+
+    {
+      "name": "test task13 - test_task13_exists",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask13::test_task13_exists",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+
+    {
+      "name": "test task13 - test_rms",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask13::test_rms",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+
+    {
+      "name": "test task13 - test_output_fig",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask13::test_output_fig",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+
+    {
+      "name": "test task13 - test_plot13",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask13::test_plot13",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+
+    {
+      "name": "test task14 - test_output_fig",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask14::test_output_fig",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+
+    {
+      "name": "test task14 - test_difraction",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask14::test_difraction",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+
+    {
+      "name": "test task15 - test_output_fig",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask15::test_output_fig",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    },
+    {
+      "name": "test task15 - test_2SR_objects_created",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask15::test_2SR_objects_created",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 1
+    }
+  ]
+}

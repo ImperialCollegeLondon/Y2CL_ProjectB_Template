@@ -1,0 +1,20 @@
+name: GitHub Classroom Workflow
+
+on: [push]
+
+permissions:
+  checks: write
+  actions: read
+  contents: read
+
+jobs:
+  build:
+    name: Autograding
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set-up for grading
+        uses: ImperialCollegeLondon/y2cl-setup@main
+        with:
+          project: B
+          src_dir: thermosnooker
+      - uses: education/autograding@v1
