@@ -9,6 +9,7 @@
         "**/*.egg-info": true,
         "**/tests":true
     },
+    "editor.tabCompletion": "on",
     "python.testing.pytestArgs": [
         "tests", "-vv"
     ],
