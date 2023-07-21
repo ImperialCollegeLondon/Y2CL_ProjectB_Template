@@ -8,7 +8,7 @@ class TestStyle:
 
     def setup_class(self):
         project_path = os.path.split(os.path.dirname(__file__))[0]
-        course_file = glob(os.path.join(project_path, "raytracer", "*.py"))
+        course_file = glob(os.path.join(project_path, "thermosnooker", "*.py"))
 
         pylint_results = Run(course_file, exit=False)
         self.style_result = pylint_results.linter.stats.global_note
@@ -28,10 +28,25 @@ class TestStyle:
     def test_90pc(self):
         assert self.style_result >= 9.
 
-def test_documentation():
-    project_path = os.path.split(os.path.dirname(__file__))[0]
-    course_files = " ".join(glob(os.path.join(project_path, "raytracer", "*.py")))
-    cmd = rf"pydocstyle --select=D100,D102,D103,D419 {course_files}"
-    res = run(cmd, shell=True, capture_output=True, check=False)
-    missing_docs = len(res.stdout.splitlines()) / 2
-    assert missing_docs == 0
+class TestDocumentation:
+
+    def test_documentation_present(self):
+        project_path = os.path.split(os.path.dirname(__file__))[0]
+        course_files = " ".join(glob(os.path.join(project_path, "thermosnooker", "*.py")))
+        cmd = rf"pydocstyle --select=D100,D102,D103,D419 {course_files}"
+        res = run(cmd, shell=True, capture_output=True, check=False, text=True)
+        missing_docs = len(res.stdout.splitlines()) / 2
+        if missing_docs:
+            print(res.stdout)
+        assert missing_docs == 0
+
+    def test_documentation_style(self):
+        project_path = os.path.split(os.path.dirname(__file__))[0]
+        course_files = " ".join(glob(os.path.join(project_path, "thermosnooker", "*.py")))
+        cmd = rf"darglint {course_files}"
+        res = run(cmd, shell=True, capture_output=True, check=False, text=True)
+        print(res.stdout)
+        malformed_docs = len(res.stdout.splitlines()) - 1
+        if malformed_docs:
+            print(malformed_docs)
+        assert malformed_docs == 0
