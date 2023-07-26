@@ -7,7 +7,8 @@
         "**/result_images": true,
         "**/pyproject.toml": true,
         "**/*.egg-info": true,
-        "**/tests":true
+        "**/tests": true,
+        "**/__init__.py": true
     },
     "editor.tabCompletion": "on",
     "python.testing.pytestArgs": [
