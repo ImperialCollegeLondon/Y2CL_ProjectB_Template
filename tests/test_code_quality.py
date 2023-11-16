@@ -40,7 +40,6 @@ class TestDocumentation:
             print("---------")
             print(f"cmd:\n{cmd}")
             print(f"return code: {res.returncode}")
-            print(f"stdout:\n{res.stdout}")
             print(f"stderr:\n{res.stderr}")
             assert not res.stderr, "Problem running pydocstyle command."
         missing_docs = len(res.stdout.splitlines()) / 2
