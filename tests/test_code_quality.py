@@ -1,39 +1,38 @@
 import os
+from pprint import pformat
 from subprocess import run
 from glob import glob
 from pylint.lint import Run
+import pytest
 
+
+@pytest.fixture(scope="class")
+def pylint_results(source_files):
+    print(f"Checking files:\n{pformat(source_files)}")
+    return Run(["--disable=dangerous-default-value,too-many-arguments,too-few-public-methods"] + source_files, exit=False).linter.stats.global_note
 
 class TestStyle:
 
-    def setup_class(self):
-        project_path = os.path.split(os.path.dirname(__file__))[0]
-        course_file = glob(os.path.join(project_path, "thermosnooker", "[a-zA-Z]*.py"))
+    def test_20pc(self, pylint_results):
+        assert pylint_results >= 2.
 
-        pylint_results = Run(course_file, exit=False)
-        self.style_result = pylint_results.linter.stats.global_note
+    def test_40pc(self, pylint_results):
+        assert pylint_results >= 4.
 
-    def test_20pc(self):
-        assert self.style_result >= 2.
+    def test_60pc(self, pylint_results):
+        assert pylint_results >= 6.
 
-    def test_40pc(self):
-        assert self.style_result >= 4.
+    def test_80pc(self, pylint_results):
+        assert pylint_results >= 8.
 
-    def test_60pc(self):
-        assert self.style_result >= 6.
+    def test_90pc(self, pylint_results):
+        assert pylint_results >= 9.
 
-    def test_80pc(self):
-        assert self.style_result >= 8.
-
-    def test_90pc(self):
-        assert self.style_result >= 9.
 
 class TestDocumentation:
 
-    def test_documentation_present(self):
-        project_path = os.path.split(os.path.dirname(__file__))[0]
-        course_files = " ".join(repr(path) for path in glob(os.path.join(project_path, "thermosnooker", "[a-zA-Z]*.py")))
-        cmd = rf'pydocstyle --select=D100,D102,D103,D419 "{course_files}"'
+    def test_documentation_present(self, source_files_str):
+        cmd = rf'pydocstyle --select=D100,D102,D103,D419 {source_files_str}'
         res = run(cmd, shell=True, capture_output=True, check=False, text=True)
         if res.returncode:
             print("pydocstyle")
@@ -48,10 +47,8 @@ class TestDocumentation:
             print(f"stdout:\n{res.stdout}")
         assert missing_docs == 0
 
-    def test_documentation_style(self):
-        project_path = os.path.split(os.path.dirname(__file__))[0]
-        course_files = " ".join(repr(path) for path in glob(os.path.join(project_path, "thermosnooker", "[a-zA-Z]*.py")))
-        cmd = rf'darglint "{course_files}"'
+    def test_documentation_style(self, source_files_str):
+        cmd = rf'darglint {source_files_str}'
         res = run(cmd, shell=True, capture_output=True, check=False, text=True)
         if res.returncode:
             print("darglight")
