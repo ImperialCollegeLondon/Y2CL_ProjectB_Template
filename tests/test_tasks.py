@@ -4,6 +4,7 @@ Septemvber 2023
     """
 from types import FunctionType, MethodType, NoneType
 from inspect import signature
+from unittest.mock import MagicMock
 import pytest
 import numpy as np
 import matplotlib.pyplot as plt
@@ -398,7 +399,111 @@ class TestTask6:
         # need to check if assuming infinite mass for container
         pass
 
+
 class TestTask7:
 
-    def test_simulations_exits(self, simulation_mod):
+    def test_simulations_exits(self, simulations_mod):
         pass
+
+    def test_simulation_class_exists(self, simulations_mod):
+        assert "Simulation" in vars(simulations_mod)
+
+    def test_run_exists(self, simulations_mod):
+        assert isinstance(simulations_mod.Simulation.run, FunctionType)
+
+    def test_run_signature(self, simulations_mod):
+        assert {"num_collisions",
+                "animate",
+                "pause_time"}.issubset(signature(simulations_mod.Simulation.run).parameters.keys())
+
+    def test_next_collision_exists(self, simulations_mod):
+        assert isinstance(simulations_mod.Simulation.next_collision, FunctionType)
+
+    def test_next_collision_not_implemented(self, simulations_mod):
+        sim = simulations_mod.Simulation()
+        with pytest.raises(NotImplementedError):
+            sim.next_collision()
+
+    def test_setup_figure_exists(self, simulations_mod):
+        assert isinstance(simulations_mod.Simulation.setup_figure, FunctionType)
+
+    def test_setup_figure_not_implemented(self, simulations_mod):
+        sim = simulations_mod.Simulation()
+        with pytest.raises(NotImplementedError):
+            sim.setup_figure()
+
+
+class TestTask8:
+
+    def test_singleballsimulation_exists(self, simulations_mod):
+        assert "SingleBallSimulation" in vars(simulations_mod)
+
+    def test_initialisation_args(self, simulations_mod):
+        assert {"container",
+                "ball"}.issubset(signature(simulations_mod.SingleBallSimulation).parameters.keys())
+
+    def test_initialisation(self, balls_mod, simulations_mod):
+        c = balls_mod.Container(radius=10.)
+        b = balls_mod.Ball(pos=[-5, 0], vel=[1, 0.], radius=1., mass=1.)
+        simulations_mod.SingleBallSimulation(container=c, ball=b)
+
+    def test_container_exists(self, simulations_mod):
+        assert isinstance(simulations_mod.SingleBallSimulation.container, (FunctionType, property))
+
+    def test_container_correct(self, balls_mod, simulations_mod):
+        c = balls_mod.Container(radius=10.)
+        b = balls_mod.Ball(pos=[-5, 0], vel=[1, 0.], radius=1., mass=1.)
+        sim = simulations_mod.SingleBallSimulation(container=c, ball=b)
+
+        cont = sim.container
+        if isinstance(cont, MethodType):
+            cont = cont()
+        assert isinstance(cont, balls_mod.Container)
+
+        radius = cont.radius
+        if isinstance(radius, MethodType):
+            radius = radius()
+        assert radius == 10.
+
+    def test_ball_exists(self, simulations_mod):
+        assert isinstance(simulations_mod.SingleBallSimulation.ball, (FunctionType, property))
+
+    def test_ball_correct(self, balls_mod, simulations_mod):
+        c = balls_mod.Container(radius=10.)
+        b = balls_mod.Ball(pos=[-5, 0], vel=[1, 0.], radius=1., mass=1.)
+        sim = simulations_mod.SingleBallSimulation(container=c, ball=b)
+
+        ball = sim.ball
+        if isinstance(ball, MethodType):
+            ball = ball()
+        assert isinstance(ball, balls_mod.Ball)
+
+        radius = ball.radius
+        if isinstance(radius, MethodType):
+            radius = radius()
+        assert radius == 1.
+
+    def test_setup_figure_exists(self, simulations_mod):
+        assert "setup_figure" in vars(simulations_mod.SingleBallSimulation)
+
+    def test_setup_figure_base_raises(self, simulations_mod):
+        sim = simulations_mod.Simulation()
+        with pytest.raises(NotImplementedError):
+            sim.setup_figure()
+
+    def test_next_collision_exists(self, simulations_mod):
+        assert "next_collision" in vars(simulations_mod.SingleBallSimulation)
+
+    def test_next_collision_base_raises(self, simulations_mod):
+        sim = simulations_mod.Simulation()
+        with pytest.raises(NotImplementedError):
+            sim.next_collision()
+
+    def test_next_collision_called(self, simulations_mod, monkeypatch):
+
+        nc_mock = MagicMock()
+        with monkeypatch.context() as m:
+            m.setattr(simulations_mod.SingleBallSimulation, "next_collision", nc_mock)
+        # TODO
+        
+

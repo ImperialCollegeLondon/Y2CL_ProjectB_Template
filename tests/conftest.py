@@ -30,7 +30,7 @@ def default_container(balls_mod):
 
 
 @pytest.fixture(scope="session")
-def simulation_mod():
+def simulations_mod():
     return import_module("thermosnooker.simulations")
 
 
