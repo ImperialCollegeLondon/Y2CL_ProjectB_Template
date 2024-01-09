@@ -7,7 +7,8 @@
         "**/result_images": true,
         "**/pyproject.toml": true,
         "**/*.egg-info": true,
-        "**/tests":true
+        "**/tests": true,
+        "**/__init__.py": true
     },
     "editor.tabCompletion": "on",
     "python.testing.pytestArgs": [
@@ -15,5 +16,6 @@
     ],
     "python.testing.unittestEnabled": false,
     "python.testing.pytestEnabled": true,
-    "python.analysis.typeCheckingMode": "basic"
+    "python.analysis.typeCheckingMode": "basic",
+    "git.postCommitCommand": "push"
 }
