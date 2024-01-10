@@ -9,6 +9,7 @@ import pytest
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.patches import Circle
+from matplotlib.figure import Figure
 
 
 
@@ -459,6 +460,7 @@ class TestTask8:
         if isinstance(cont, MethodType):
             cont = cont()
         assert isinstance(cont, balls_mod.Container)
+        assert cont is c
 
         radius = cont.radius
         if isinstance(radius, MethodType):
@@ -477,6 +479,7 @@ class TestTask8:
         if isinstance(ball, MethodType):
             ball = ball()
         assert isinstance(ball, balls_mod.Ball)
+        assert ball is b
 
         radius = ball.radius
         if isinstance(radius, MethodType):
@@ -499,11 +502,221 @@ class TestTask8:
         with pytest.raises(NotImplementedError):
             sim.next_collision()
 
-    def test_next_collision_called(self, simulations_mod, monkeypatch):
-
-        nc_mock = MagicMock()
+    def test_next_collision_functionality(self, balls_mod, simulations_mod, monkeypatch):
+        c = balls_mod.Container(radius=10.)
+        b = balls_mod.Ball(pos=[-5, 0], vel=[1, 0.], radius=1., mass=1.)
+        sim = simulations_mod.SingleBallSimulation(container=c, ball=b)
+        ttc_mock = MagicMock(return_value=9.)
+        collide_mock = MagicMock()
         with monkeypatch.context() as m:
-            m.setattr(simulations_mod.SingleBallSimulation, "next_collision", nc_mock)
-        # TODO
+            m.setattr(b, "time_to_collision", ttc_mock)
+            m.setattr(c, "time_to_collision", ttc_mock)
+            m.setattr(b, "collide", collide_mock)
+            m.setattr(c, "collide", collide_mock)
+            sim.next_collision()
+        ttc_mock.assert_called_once()
+        collide_mock.assert_called_once()
+
+
+class TestTask9:
+
+    def test_run_called(self, an, simulations_mod, monkeypatch):
+        run_mock = MagicMock()
+        with monkeypatch.context() as m:
+            m.setattr(simulations_mod.SingleBallSimulation, "run", run_mock)
+            if hasattr(an, "SingleBallSimulation"):
+                m.setattr(an.SingleBallSimulation, "run", run_mock)
+            an.task9()
+        run_mock.assert_called_once()
+
+    def test_run_correct(self, an, monkeypatch):
+        show_mock = MagicMock()
+        with monkeypatch.context() as m:
+            m.setattr(an.plt, "show", show_mock)
+            pos, vel = an.task9()
+        assert np.allclose(pos, [-9., 0.])
+        assert np.allclose(vel, [1., 0.])
+
+
+class TestTask10:
+
+    def test_multiballsim_exists(self, simulations_mod):
+        assert "MultiBallSimulation" in vars(simulations_mod)
+
+    def test_multiballsim_args(self, simulations_mod):
+        args = signature(simulations_mod.MultiBallSimulation).parameters.keys()
+        assert {"c_radius", "b_radius", "b_speed", "b_mass"}.issubset(args)
+
+    def test_construction(self, simulations_mod):
+        simulations_mod.MultiBallSimulation()
+        simulations_mod.MultiBallSimulation(c_radius=10., b_radius=1., b_speed=10., b_mass=1.)
+
+    def test_container_exists(self, simulations_mod):
+        assert isinstance(simulations_mod.MultiBallSimulation.container, (FunctionType, property))
+
+    def test_container_correct(self, balls_mod, simulations_mod):
+        sim = simulations_mod.MultiBallSimulation()
+
+        cont = sim.container
+        if isinstance(cont, MethodType):
+            cont = cont()
+        assert isinstance(cont, balls_mod.Container)
+
+        radius = cont.radius
+        if isinstance(radius, MethodType):
+            radius = radius()
+        assert radius == 10.
+
+    def test_balls_exists(self, simulations_mod):
+        assert isinstance(simulations_mod.MultiBallSimulation.balls, (FunctionType, property))
+
+    def test_balls_correct(self, balls_mod, simulations_mod):
+        sim = simulations_mod.MultiBallSimulation()
+
+        balls = sim.balls
+        if isinstance(balls, MethodType):
+            balls = balls()
+        assert isinstance(balls, list)
+
+        if balls:
+            b = balls[0]
+            assert isinstance(b, balls_mod.Ball)
+
+            radius = b.radius
+            if isinstance(radius, MethodType):
+                radius = radius()
+            assert radius == 1.
+
+    def test_setup_figure_exists(self, simulations_mod):
+        assert "setup_figure" in vars(simulations_mod.MultiBallSimulation)
+
+    def test_next_collision_exists(self, simulations_mod):
+        assert "next_collision" in vars(simulations_mod.MultiBallSimulation)
+
+    def test_run_called(self, an, simulations_mod, monkeypatch):
+        run_mock = MagicMock()
+        with monkeypatch.context() as m:
+            m.setattr(simulations_mod.MultiBallSimulation, "run", run_mock)
+            if hasattr(an, "MultiBallSimulation"):
+                m.setattr(an.MultiBallSimulation, "run", run_mock)
+            an.task10()
+        run_mock.assert_called_once()
+
+
+class TestTask11:
+
+    # def test_alex(self, an, simulations_mod, monkeypatch):
+    #     run_mock = MagicMock()
+    #     with monkeypatch.context() as m:
+    #         m.setattr(simulations_mod.MultiBallSimulation, "run", run_mock)
+    #         if hasattr(an, "MultiBallSimulation"):
+    #             m.setattr(an.MultiBallSimulation, "run", run_mock)
+    #         fig = an.task11()
+    #     assert isinstance(fig, Figure)
+    pass
+
+class TestTask12:
+
+    def test_ke_exists(self, simulations_mod):
+        assert isinstance(simulations_mod.MultiBallSimulation.kinetic_energy, (FunctionType, property))
+
+    def test_ke_correct(self, simulations_mod):
+        sim = simulations_mod.MultiBallSimulation()
+        ke_tot = 0.
+        balls = sim.balls
+        if isinstance(balls, MethodType):
+            balls = balls()
+
+        for ball in balls:
+            vel = ball.vel
+            if isinstance(vel, MethodType):
+                vel = vel()
+            mass = ball.mass
+            if isinstance(mass, MethodType):
+                mass = mass
+            ke_tot += 0.5 * mass * np.dot(vel, vel)
+
+        sim_ke = sim.kinetic_energy
+        if isinstance(sim_ke, MethodType):
+            sim_ke = sim_ke()
+        assert np.isclose(ke_tot, sim_ke)
+
+    def test_time_exists(self, simulations_mod):
+        assert isinstance(simulations_mod.MultiBallSimulation.time, (FunctionType, property))
+
+    def test_time_correct(self, balls_mod, simulations_mod, monkeypatch):
+
+        time_tot = set()
+        original_move = balls_mod.Ball.move
+        def move_wrapper(self, dt):
+            nonlocal time_tot
+            time_tot.add(dt)
+            original_move(self, dt)
+
+        with monkeypatch.context() as m:
+            m.setattr(balls_mod.Ball, "move", move_wrapper)
+            if "Ball" in vars(simulations_mod):
+                m.setattr(simulations_mod.Ball, "move", move_wrapper)
+
+            sim = simulations_mod.MultiBallSimulation()
+            sim.run(10)
+
+        assert len(time_tot) == 10, "Incorrect number of collisions."
+        assert np.isclose(sum(time_tot), sim.time)
+
+    def test_momentum_exists(self, simulations_mod):
+        assert isinstance(simulations_mod.MultiBallSimulation.momentum, (FunctionType, property))
+
+    def test_momentum_correct(self, simulations_mod):
+        sim = simulations_mod.MultiBallSimulation()
+
+        mom_tot = np.zeros(2, dtype=np.float64)
+        balls = sim.balls
+        if isinstance(balls, MethodType):
+            balls = balls()
+
+        for ball in balls:
+            vel = ball.vel
+            if isinstance(vel, MethodType):
+                vel = vel()
+            mass = ball.mass
+            if isinstance(mass, MethodType):
+                mass = mass
+            mom_tot += mass * vel
+
+        sim_mom = sim.momentum
+        if isinstance(sim_mom, MethodType):
+            sim_mom = sim_mom()
+        assert np.allclose(mom_tot, sim_mom)
+
+    def test_pressure_exists(self, simulations_mod):
+        assert isinstance(simulations_mod.MultiBallSimulation.pressure, (FunctionType, property))
+
+    def test_pressure_correct(self, simulations_mod):
+        sim = simulations_mod.MultiBallSimulation()
+        sim.run(10)
+
+        cont = sim.container
+        if isinstance(cont, MethodType):
+            cont = cont()
         
+        sa = cont.surface_area
+        if isinstance(sa, MethodType):
+            sa = sa()
+
+        dp_tot = cont.dp_tot
+        if isinstance(dp_tot, MethodType):
+            dp_tot = dp_tot()
+
+        time = sim.time
+        if isinstance(time, MethodType):
+            time = time()
+
+        pressure = sim.pressure
+        if isinstance(pressure, MethodType):
+            pressure = pressure()
+        assert np.isclose(dp_tot / (time * sa), pressure)
+
+    def test_test12(self):
+        pass
 

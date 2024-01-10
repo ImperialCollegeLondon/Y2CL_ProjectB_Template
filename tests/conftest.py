@@ -3,6 +3,7 @@ from importlib import import_module
 from pathlib import Path
 import pytest
 import numpy as np
+import matplotlib
 import matplotlib.pyplot as plt
 
 
@@ -45,6 +46,13 @@ def source_files():
 @pytest.fixture(scope="module")
 def source_files_str(source_files):
     return ' '.join(source_files)
+
+
+@pytest.fixture(scope="session")
+def an():
+    matplotlib.use("agg")  # Non-interactive backend more stable for testing that interactive Tk
+    yield import_module("thermosnooker.analysis")
+    plt.close()
 
 # @pytest.fixture
 # def sim_module():
