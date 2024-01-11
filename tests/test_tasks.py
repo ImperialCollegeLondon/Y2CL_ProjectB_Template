@@ -7,6 +7,7 @@ from inspect import signature
 from unittest.mock import MagicMock
 import pytest
 import numpy as np
+from scipy.constants import Boltzmann
 import matplotlib.pyplot as plt
 from matplotlib.patches import Circle
 from matplotlib.figure import Figure
@@ -717,6 +718,113 @@ class TestTask12:
             pressure = pressure()
         assert np.isclose(dp_tot / (time * sa), pressure)
 
-    def test_test12(self):
+    @pytest.mark.skip
+    def test_test12_plots(self):
         pass
 
+
+class TestTask13:
+
+    def test_t_equipartition_exists(self, simulations_mod):
+        assert isinstance(simulations_mod.MultiBallSimulation.t_equipartition, (FunctionType, property))
+
+    def test_t_equipartition_correct(self, simulations_mod):
+        sim = simulations_mod.MultiBallSimulation()
+        sim.run(10)
+
+        ke_tot = sim.kinetic_energy
+        if isinstance(ke_tot, MethodType):
+            ke_tot = ke_tot()
+        
+        balls = sim.balls
+        if isinstance(balls, MethodType):
+            balls = balls()
+        nballs = len(balls)
+
+        t_equi = sim.t_equipartition
+        if isinstance(t_equi, MethodType):
+            t_equi = t_equi()
+        # assert ke_tot / (Boltzmann * nballs) == t_equi
+        assert t_equi in {ke_tot / nballs, ke_tot / (Boltzmann * nballs)}
+
+    @pytest.mark.skip
+    def test_task13_plots(self):
+        pass
+
+
+class TestTask14:
+
+    def test_t_ideal_exists(self, simulations_mod):
+        assert isinstance(simulations_mod.MultiBallSimulation.t_ideal, (FunctionType, property))
+
+    def test_t_ideal_correct(self, simulations_mod):
+        sim = simulations_mod.MultiBallSimulation()
+        sim.run(10)
+
+        balls = sim.balls
+        if isinstance(balls, MethodType):
+            balls = balls()
+        nballs = len(balls)
+
+        t_ideal = sim.t_ideal
+        if isinstance(t_ideal, MethodType):
+            t_ideal = t_ideal()
+
+        pressure = sim.pressure
+        if isinstance(pressure, MethodType):
+            pressure = pressure()
+
+        cont = sim.container
+        if isinstance(cont, MethodType):
+            cont = cont()
+        volume = cont.volume
+        if isinstance(volume, MethodType):
+            volume = volume()
+
+        assert t_ideal in {pressure * volume / nballs, pressure * volume / (Boltzmann * nballs)}
+
+    @pytest.mark.skip
+    def test_task14_plots(self):
+        pass
+
+
+class TestTask15:
+
+    def test_speeds_exists(self, simulations_mod):
+        assert isinstance(simulations_mod.MultiBallSimulation.speeds, (FunctionType, property))
+
+    def test_speeds_correct(self, simulations_mod):
+        sim = simulations_mod.MultiBallSimulation()
+        sim.run(5)
+
+        balls = sim.balls
+        if isinstance(balls, MethodType):
+            balls = balls()
+
+        b_speeds = []
+        for ball in balls:
+            vel = ball.vel
+            if isinstance(vel, MethodType):
+                vel = vel()
+            b_speeds.append(np.linalg.norm(vel))
+
+        sim_speeds = sim.speeds
+        if isinstance(sim_speeds, MethodType):
+            sim_speeds = sim_speeds()
+
+        assert np.allclose(sim_speeds, b_speeds)
+
+    def test_maxwell_exists(self, physics_mod):
+        assert isinstance(physics_mod.maxwell, FunctionType)
+
+    def test_maxwell_args(self, physics_mod):
+        args = signature(physics_mod.maxwell).parameters.keys()
+        assert {"speed", "kbt", "mass"}.issubset(args)
+
+    def test_maxwell_correct(self, physics_mod):
+        mass = 2.
+        speed = 0.5
+        kbt = Boltzmann * 2000
+
+        mb_prob = mass * speed * np.exp(-mass * speed * speed / (2. * kbt)) / kbt
+        assert np.isclose(mb_prob, physics_mod.maxwell(speed=speed, kbt=kbt, mass=mass))

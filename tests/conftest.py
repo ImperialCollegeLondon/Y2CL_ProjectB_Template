@@ -54,6 +54,10 @@ def an():
     yield import_module("thermosnooker.analysis")
     plt.close()
 
+@pytest.fixture(scope="session")
+def physics_mod():
+    return import_module("thermosnooker.physics")
+
 # @pytest.fixture
 # def sim_module():
 #     return import_module("simulation")
