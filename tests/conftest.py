@@ -19,7 +19,7 @@ def default_ball(balls_mod):
 
 @pytest.fixture
 def custom_ball(balls_mod):
-    return balls_mod.Ball(pos=[1., 2.], vel=[3., 4.], radius=5, mass=6.)
+    return balls_mod.Ball(pos=[1., 2.], vel=[3., 4.], radius=5., mass=6.)
 
 @pytest.fixture
 def container_class(balls_mod):
@@ -53,6 +53,25 @@ def an():
     matplotlib.use("agg")  # Non-interactive backend more stable for testing that interactive Tk
     yield import_module("thermosnooker.analysis")
     plt.close()
+
+@pytest.fixture(scope="session")
+def physics_mod():
+    return import_module("thermosnooker.physics")
+
+@pytest.fixture
+def var_name_map(custom_ball):
+    ret = {}
+    for var_name, var_val in vars(custom_ball).items():
+        if isinstance(var_val, (list, np.ndarray)) and len(var_val) and np.allclose(var_val, [1., 2.]):
+            ret["pos"] = var_name
+        elif isinstance(var_val, (list, np.ndarray)) and len(var_val) and np.allclose(var_val, [3., 4.]):
+            ret["vel"] = var_name
+        elif isinstance(var_val, (int, float)) and np.isclose(var_val, 5.):
+            ret["radius"] = var_name
+        elif isinstance(var_val, (int, float)) and np.isclose(var_val, 6.):
+            ret["mass"] = var_name
+    return ret
+
 
 # @pytest.fixture
 # def sim_module():
