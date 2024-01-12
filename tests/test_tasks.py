@@ -109,28 +109,6 @@ class TestTask2():
             default_ball.vel = [8, 9]
             assert np.allclose(default_ball.vel, [8., 9.])
 
-
-
-
-## advanced check raise exception, check setting as well
-
-#     def test_pos_input(self, balls_mod):
-#         with pytest.raises(Exception):
-#             ball = balls_mod.Ball(pos=[1, 2, 3])
-#         with pytest.raises(Exception):
-#             ball = balls_mod.Ball(pos=[1])
-#         with pytest.raises(Exception):
-#             ball = balls_mod.Ball(pos=4)
-## check thats it's a float64 as well
-
-#     def test_vel_input(self, ball_mod):
-#         with pytest.raises(Exception):
-#             ball = ball_mod.Ball(vel=[1, 2, 3])
-#         with pytest.raises(Exception):
-#             ball = ball_mod.Ball(vel=[1])
-#         with pytest.raises(Exception):
-#             ball = ball_mod.Ball(vel=4)
-
     def test_mass_type(self, default_ball, custom_ball):
         default_mass = default_ball.mass
         if isinstance(default_mass, MethodType):
@@ -181,24 +159,6 @@ class TestTask2():
         if isinstance(pos, MethodType):
             pos = pos()
         assert np.allclose(pos, [3, 0])
-
-    ## advanced
-    # def move_correct(self, default_ball):
-    #     with pytest.raises(Exception):
-    #         default_ball.move(-0.4)
-
-# class TestTask2():
-#     def test_default_con_rad_type(self, default_con):
-#         assert isinstance(default_con.radius, MethodType)
-    
-#     def test_default_rad_type(self, default_con):
-#         assert isinstance(default_con.radius(), float)
-    
-#     def test_default_con_rad(self, default_con):
-#         assert default_con.radius() == 10.
-        
-#     def test_repr(self, con_class):
-#         assert hasattr(con_class, '__repr__')
 
 class TestTask3():
 
@@ -490,18 +450,20 @@ class TestTask8:
     def test_setup_figure_exists(self, simulations_mod):
         assert "setup_figure" in vars(simulations_mod.SingleBallSimulation)
 
-    def test_setup_figure_base_raises(self, simulations_mod):
-        sim = simulations_mod.Simulation()
-        with pytest.raises(NotImplementedError):
-            sim.setup_figure()
+    # # dulplicate of task7
+    # def test_setup_figure_base_raises(self, simulations_mod):
+    #     sim = simulations_mod.Simulation()
+    #     with pytest.raises(NotImplementedError):
+    #         sim.setup_figure()
 
     def test_next_collision_exists(self, simulations_mod):
         assert "next_collision" in vars(simulations_mod.SingleBallSimulation)
 
-    def test_next_collision_base_raises(self, simulations_mod):
-        sim = simulations_mod.Simulation()
-        with pytest.raises(NotImplementedError):
-            sim.next_collision()
+    # # dulplicate of task7
+    # def test_next_collision_base_raises(self, simulations_mod):
+    #     sim = simulations_mod.Simulation()
+    #     with pytest.raises(NotImplementedError):
+    #         sim.next_collision()
 
     def test_next_collision_functionality(self, balls_mod, simulations_mod, monkeypatch):
         c = balls_mod.Container(radius=10.)
@@ -828,3 +790,7 @@ class TestTask15:
 
         mb_prob = mass * speed * np.exp(-mass * speed * speed / (2. * kbt)) / kbt
         assert np.isclose(mb_prob, physics_mod.maxwell(speed=speed, kbt=kbt, mass=mass))
+
+    @pytest.mark.skip
+    def test_task15_plots(self):
+        pass
