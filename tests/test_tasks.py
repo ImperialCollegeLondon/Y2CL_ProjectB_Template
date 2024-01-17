@@ -680,9 +680,9 @@ class TestTask12:
             pressure = pressure()
         assert np.isclose(dp_tot / (time * sa), pressure)
 
-    @pytest.mark.skip
-    def test_test12_plots(self):
-        pass
+    # @pytest.mark.skip
+    # def test_test12_plots(self):
+    #     pass
 
 
 class TestTask13:
@@ -709,9 +709,9 @@ class TestTask13:
         # assert ke_tot / (Boltzmann * nballs) == t_equi
         assert t_equi in {ke_tot / nballs, ke_tot / (Boltzmann * nballs)}
 
-    @pytest.mark.skip
-    def test_task13_plots(self):
-        pass
+    # @pytest.mark.skip
+    # def test_task13_plots(self):
+    #     pass
 
 
 class TestTask14:
@@ -745,9 +745,9 @@ class TestTask14:
 
         assert t_ideal in {pressure * volume / nballs, pressure * volume / (Boltzmann * nballs)}
 
-    @pytest.mark.skip
-    def test_task14_plots(self):
-        pass
+    # @pytest.mark.skip
+    # def test_task14_plots(self):
+    #     pass
 
 
 class TestTask15:
@@ -791,6 +791,6 @@ class TestTask15:
         mb_prob = mass * speed * np.exp(-mass * speed * speed / (2. * kbt)) / kbt
         assert np.isclose(mb_prob, physics_mod.maxwell(speed=speed, kbt=kbt, mass=mass))
 
-    @pytest.mark.skip
-    def test_task15_plots(self):
-        pass
+    # @pytest.mark.skip
+    # def test_task15_plots(self):
+    #     pass

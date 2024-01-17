@@ -3,7 +3,6 @@ import sys
 from pathlib import Path
 from pprint import pformat
 from subprocess import run
-from glob import glob
 from pylint.lint import Run
 import pytest
 

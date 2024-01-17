@@ -113,18 +113,30 @@ class TestAdvancedDesign:
             m.setattr(balls_mod.Ball, "__init__", MagicMock())
             cont_vars = set(vars(balls_mod.Container()).keys())
         derived_vars = cont_vars.difference(circle_vars)
-        print(derived_vars)
         assert not derived_vars.intersection(base_vars)
 
     def test_hidden_variables(self, balls_mod, simulations_mod):
         non_hidden_vars = set()
         for module in (balls_mod, simulations_mod):
             for name, cls in getmembers(module, isclass):
-                cls_vars = vars(cls)
-                if module == balls_mod:
-                    cls_vars = {name: var for name, var in cls_vars.items() if name not in vars(Circle)}
-                if init_func := cls_vars.get("__init__", False):
+                if module == balls_mod and cls == Circle:
+                    continue
+                if init_func := vars(cls).get("__init__", False):
                     non_hidden_vars.update(f"{name}.{var}" for var in DATA_ATTRIBUTE_REGEX.findall(getsource(init_func))
                                            if not var.startswith('_'))
 
         assert not non_hidden_vars, f"Non hidden data attributes:\n {pformat(non_hidden_vars)}"
+
+    def test_collide_doesnt_call_ttc(self, balls_mod, monkeypatch):
+        b1 = balls_mod.Ball(pos=[-5., 0.], vel=[1., 0.])
+        b2 = balls_mod.Ball(pos=[5., 0.], vel=[-1., 0.])
+
+        ttc_mock1 = MagicMock(wraps=b1.time_to_collision)
+        ttc_mock2 = MagicMock(wraps=b2.time_to_collision)
+        with monkeypatch.context() as m:
+            m.setattr(b1, "time_to_collision", ttc_mock1)
+            m.setattr(b2, "time_to_collision", ttc_mock2)
+            b1.collide(b2)
+
+        ttc_mock1.assert_not_called()
+        ttc_mock2.assert_not_called()
