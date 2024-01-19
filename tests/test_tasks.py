@@ -596,7 +596,7 @@ class TestTask12:
                 vel = vel()
             mass = ball.mass
             if isinstance(mass, MethodType):
-                mass = mass
+                mass = mass()
             ke_tot += 0.5 * mass * np.dot(vel, vel)
 
         sim_ke = sim.kinetic_energy
