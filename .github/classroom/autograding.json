@@ -1,1160 +1,1213 @@
 {
   "tests": [
     {
-      "name": "code style >= 20%",
+      "name": "Test documentation - documentation present",
+      "setup": "",
+      "run": "pytest -vv tests/test_code_quality.py::TestDocumentation::test_documentation_present",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 300,
+      "points": 1
+    },
+    {
+      "name": "Test documentation - documentation style",
+      "setup": "",
+      "run": "pytest -vv tests/test_code_quality.py::TestDocumentation::test_documentation_style",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 300,
+      "points": 1
+    },
+    {
+      "name": "Test style - 20pc",
       "setup": "",
       "run": "pytest -vv tests/test_code_quality.py::TestStyle::test_20pc",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
     {
-      "name": "code style >= 40%",
+      "name": "Test style - 40pc",
       "setup": "",
       "run": "pytest -vv tests/test_code_quality.py::TestStyle::test_40pc",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
     {
-      "name": "code style >= 60%",
+      "name": "Test style - 60pc",
       "setup": "",
       "run": "pytest -vv tests/test_code_quality.py::TestStyle::test_60pc",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
     {
-      "name": "code style >= 80%",
+      "name": "Test style - 80pc",
       "setup": "",
       "run": "pytest -vv tests/test_code_quality.py::TestStyle::test_80pc",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
     {
-      "name": "code style >= 90%",
+      "name": "Test style - 90pc",
       "setup": "",
       "run": "pytest -vv tests/test_code_quality.py::TestStyle::test_90pc",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
     {
-      "name": "test documentation",
+      "name": "Test advanceddesign - collide doesnt call ttc",
       "setup": "",
-      "run": "pytest -vv tests/test_code_quality.py::test_documentation",
+      "run": "pytest -vv tests/test_fine_details.py::TestAdvancedDesign::test_collide_doesnt_call_ttc",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
     {
-      "name": "test task1 - docstring present",
+      "name": "Test advanceddesign - container doesnt hide vars",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask1::test_docstring_present",
+      "run": "pytest -vv tests/test_fine_details.py::TestAdvancedDesign::test_container_doesnt_hide_vars",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
     {
-      "name": "test task1 - docstring not blank",
+      "name": "Test advanceddesign - container inheritance",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask1::test_docstring_not_blank",
+      "run": "pytest -vv tests/test_fine_details.py::TestAdvancedDesign::test_container_inheritance",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
-
     {
-      "name": "test task2 - test_p_exists",
+      "name": "Test advanceddesign - container inherits ttc",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask2::test_p_exists",
+      "run": "pytest -vv tests/test_fine_details.py::TestAdvancedDesign::test_container_inherits_ttc",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
-
     {
-      "name": "test task2 - test_pos_method",
+      "name": "Test advanceddesign - hidden variables",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask2::test_pos_method",
+      "run": "pytest -vv tests/test_fine_details.py::TestAdvancedDesign::test_hidden_variables",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
-
     {
-      "name": "test task2 - test_default_p_array",
+      "name": "Test ballinternals - custom pos type",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask2::test_default_p_array",
+      "run": "pytest -vv tests/test_fine_details.py::TestBallInternals::test_custom_pos_type",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
-
     {
-      "name": "test task2 - test_p_array",
+      "name": "Test ballinternals - custom vel type",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask2::test_p_array",
+      "run": "pytest -vv tests/test_fine_details.py::TestBallInternals::test_custom_vel_type",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
-
     {
-      "name": "test task2 - test_p_set",
+      "name": "Test ballinternals - default pos type",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask2::test_p_set",
+      "run": "pytest -vv tests/test_fine_details.py::TestBallInternals::test_default_pos_type",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
-
     {
-      "name": "test task2 - test_k_exists",
+      "name": "Test ballinternals - default vel type",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask2::test_k_exists",
+      "run": "pytest -vv tests/test_fine_details.py::TestBallInternals::test_default_vel_type",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
-
     {
-      "name": "test task2 - test_direc_method",
+      "name": "Test ballinternals - hidden vars",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask2::test_direc_method",
+      "run": "pytest -vv tests/test_fine_details.py::TestBallInternals::test_hidden_vars",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
-
     {
-      "name": "test task2 - test_k_array",
+      "name": "Test ballinternals - pos list or array check",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask2::test_k_array",
+      "run": "pytest -vv tests/test_fine_details.py::TestBallInternals::test_pos_list_or_array_check",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
-
     {
-      "name": "test task2 - test_k_set",
+      "name": "Test ballinternals - pos too long check",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask2::test_k_set",
+      "run": "pytest -vv tests/test_fine_details.py::TestBallInternals::test_pos_too_long_check",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
-
     {
-      "name": "test task2 - test_append_exists",
+      "name": "Test ballinternals - pos too short check",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask2::test_append_exists",
+      "run": "pytest -vv tests/test_fine_details.py::TestBallInternals::test_pos_too_short_check",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
-
     {
-      "name": "test task2 - test_append_method",
+      "name": "Test ballinternals - set vel list or array check",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask2::test_append_method",
+      "run": "pytest -vv tests/test_fine_details.py::TestBallInternals::test_set_vel_list_or_array_check",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
-
     {
-      "name": "test task2 - test_append_increases_length",
+      "name": "Test ballinternals - set vel too long",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask2::test_append_increases_length",
+      "run": "pytest -vv tests/test_fine_details.py::TestBallInternals::test_set_vel_too_long",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
-
     {
-      "name": "test task2 - test_append_pos_type",
+      "name": "Test ballinternals - set vel too short",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask2::test_append_pos_type",
+      "run": "pytest -vv tests/test_fine_details.py::TestBallInternals::test_set_vel_too_short",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
-
     {
-      "name": "test task2 - test_append_pos_array",
+      "name": "Test ballinternals - set vel type",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask2::test_append_pos_array",
+      "run": "pytest -vv tests/test_fine_details.py::TestBallInternals::test_set_vel_type",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
-
     {
-      "name": "test task2 - test_append_pos",
+      "name": "Test ballinternals - vel list or array check",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask2::test_append_pos",
+      "run": "pytest -vv tests/test_fine_details.py::TestBallInternals::test_vel_list_or_array_check",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
-
     {
-      "name": "test task2 - test_append_direc_array",
+      "name": "Test ballinternals - vel too long check",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask2::test_append_direc_array",
+      "run": "pytest -vv tests/test_fine_details.py::TestBallInternals::test_vel_too_long_check",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
-
     {
-      "name": "test task2 - test_append_direc",
+      "name": "Test ballinternals - vel too short check",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask2::test_append_direc",
+      "run": "pytest -vv tests/test_fine_details.py::TestBallInternals::test_vel_too_short_check",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
-
     {
-      "name": "test task2 - test_append_pos_iterable_check",
+      "name": "Test task10 - balls correct",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask2::test_append_pos_iterable_check",
+      "run": "pytest -vv tests/test_tasks.py::TestTask10::test_balls_correct",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
-
     {
-      "name": "test task2 - test_append_pos_too_long_check",
+      "name": "Test task10 - balls exists",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask2::test_append_pos_too_long_check",
+      "run": "pytest -vv tests/test_tasks.py::TestTask10::test_balls_exists",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
-
     {
-      "name": "test task2 - test_append_pos_too_short_check",
+      "name": "Test task10 - construction",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask2::test_append_pos_too_short_check",
+      "run": "pytest -vv tests/test_tasks.py::TestTask10::test_construction",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
-
     {
-      "name": "test task2 - test_append_direc_iterable_check",
+      "name": "Test task10 - container correct",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask2::test_append_direc_iterable_check",
+      "run": "pytest -vv tests/test_tasks.py::TestTask10::test_container_correct",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
-
     {
-      "name": "test task2 - test_append_direc_too_long_check",
+      "name": "Test task10 - container exists",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask2::test_append_direc_too_long_check",
+      "run": "pytest -vv tests/test_tasks.py::TestTask10::test_container_exists",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
-
     {
-      "name": "test task2 - test_append_direc_too_short_check",
+      "name": "Test task10 - multiballsim args",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask2::test_append_direc_too_short_check",
+      "run": "pytest -vv tests/test_tasks.py::TestTask10::test_multiballsim_args",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
-
     {
-      "name": "test task2 - test_vertices_exists",
+      "name": "Test task10 - multiballsim exists",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask2::test_vertices_exists",
+      "run": "pytest -vv tests/test_tasks.py::TestTask10::test_multiballsim_exists",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
-
     {
-      "name": "test task2 - test_vertices_method",
+      "name": "Test task10 - next collision exists",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask2::test_vertices_method",
+      "run": "pytest -vv tests/test_tasks.py::TestTask10::test_next_collision_exists",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
-
     {
-      "name": "test task2 - test_vertices_list",
+      "name": "Test task10 - run called",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask2::test_vertices_list",
+      "run": "pytest -vv tests/test_tasks.py::TestTask10::test_run_called",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
-
     {
-      "name": "test task2 - test_vertices_array",
+      "name": "Test task10 - setup figure exists",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask2::test_vertices_array",
+      "run": "pytest -vv tests/test_tasks.py::TestTask10::test_setup_figure_exists",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
-
     {
-      "name": "test task2 - test_vertices",
+      "name": "Test task12 - ke correct",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask2::test_vertices",
+      "run": "pytest -vv tests/test_tasks.py::TestTask12::test_ke_correct",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
-
     {
-      "name": "test task2 - test_multiple_vertices",
+      "name": "Test task12 - ke exists",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask2::test_multiple_vertices",
+      "run": "pytest -vv tests/test_tasks.py::TestTask12::test_ke_exists",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
-
     {
-      "name": "test task3 - test_sr_class_exists",
+      "name": "Test task12 - momentum correct",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask3::test_sr_class_exists",
+      "run": "pytest -vv tests/test_tasks.py::TestTask12::test_momentum_correct",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
-
     {
-      "name": "test task3 - test_inheritance",
+      "name": "Test task12 - momentum exists",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask3::test_inheritance",
+      "run": "pytest -vv tests/test_tasks.py::TestTask12::test_momentum_exists",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
-
     {
-      "name": "test task3 - test_num_parameters",
+      "name": "Test task12 - pressure correct",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask3::test_num_parameters",
+      "run": "pytest -vv tests/test_tasks.py::TestTask12::test_pressure_correct",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
-
     {
-      "name": "test task4 - test_intercept_exists",
+      "name": "Test task12 - pressure exists",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask4::test_intercept_exists",
+      "run": "pytest -vv tests/test_tasks.py::TestTask12::test_pressure_exists",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
-
     {
-      "name": "test task4 - test_num_parameters",
+      "name": "Test task12 - time correct",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask4::test_num_parameters",
+      "run": "pytest -vv tests/test_tasks.py::TestTask12::test_time_correct",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
-
     {
-      "name": "test task4 - test_no_intercept",
+      "name": "Test task12 - time exists",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask4::test_no_intercept",
+      "run": "pytest -vv tests/test_tasks.py::TestTask12::test_time_exists",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
-
     {
-      "name": "test task4 - test_intercept_array",
+      "name": "Test task13 - t equipartition correct",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask4::test_intercept_array",
+      "run": "pytest -vv tests/test_tasks.py::TestTask13::test_t_equipartition_correct",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
-
     {
-      "name": "test task4 - test_onaxis_ray_convex_intercept",
+      "name": "Test task13 - t equipartition exists",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask4::test_onaxis_ray_convex_intercept",
+      "run": "pytest -vv tests/test_tasks.py::TestTask13::test_t_equipartition_exists",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
-
     {
-      "name": "test task4 - test_onaxis_ray_concave_intercept",
+      "name": "Test task14 - t ideal correct",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask4::test_onaxis_ray_concave_intercept",
+      "run": "pytest -vv tests/test_tasks.py::TestTask14::test_t_ideal_correct",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
-
     {
-      "name": "test task4 - test_offaxis_convex_intercept",
+      "name": "Test task14 - t ideal exists",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask4::test_offaxis_convex_intercept",
+      "run": "pytest -vv tests/test_tasks.py::TestTask14::test_t_ideal_exists",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
-
     {
-      "name": "test task4 - test_offaxis_concave_intercept",
+      "name": "Test task15 - maxwell args",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask4::test_offaxis_concave_intercept",
+      "run": "pytest -vv tests/test_tasks.py::TestTask15::test_maxwell_args",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
-
     {
-      "name": "test task4 - test_ray_pos_called",
+      "name": "Test task15 - maxwell correct",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask4::test_ray_pos_called",
+      "run": "pytest -vv tests/test_tasks.py::TestTask15::test_maxwell_correct",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
-
     {
-      "name": "test task4 - test_ray_direc_called",
+      "name": "Test task15 - maxwell exists",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask4::test_ray_direc_called",
+      "run": "pytest -vv tests/test_tasks.py::TestTask15::test_maxwell_exists",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
-
     {
-      "name": "test task5 - test_refract_exists",
+      "name": "Test task15 - speeds correct",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask5::test_refract_exists",
+      "run": "pytest -vv tests/test_tasks.py::TestTask15::test_speeds_correct",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
-
     {
-      "name": "test task5 - test_num_params",
+      "name": "Test task15 - speeds exists",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask5::test_num_params",
+      "run": "pytest -vv tests/test_tasks.py::TestTask15::test_speeds_exists",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
-
     {
-      "name": "test task5 - test_returns_unitvector",
+      "name": "Test task2 - ball class exists",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask5::test_returns_unitvector",
+      "run": "pytest -vv tests/test_tasks.py::TestTask2::test_ball_class_exists",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
-
     {
-      "name": "test task5 - test_onaxis_refract",
+      "name": "Test task2 - construction",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask5::test_onaxis_refract",
+      "run": "pytest -vv tests/test_tasks.py::TestTask2::test_construction",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
-
     {
-      "name": "test task5 - test_offaxis_refract_lower",
+      "name": "Test task2 - init args",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask5::test_offaxis_refract_lower",
+      "run": "pytest -vv tests/test_tasks.py::TestTask2::test_init_args",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
-
     {
-      "name": "test task5 - test_offaxis_refract_upper",
+      "name": "Test task2 - mass correct",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask5::test_offaxis_refract_upper",
+      "run": "pytest -vv tests/test_tasks.py::TestTask2::test_mass_correct",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
-
     {
-      "name": "test task5 - test_equal_ref_indices_onaxis",
+      "name": "Test task2 - mass method exists",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask5::test_equal_ref_indices_onaxis",
+      "run": "pytest -vv tests/test_tasks.py::TestTask2::test_mass_method_exists",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
-
     {
-      "name": "test task5 - test_equal_ref_indices_upper",
+      "name": "Test task2 - mass type",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask5::test_equal_ref_indices_upper",
+      "run": "pytest -vv tests/test_tasks.py::TestTask2::test_mass_type",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
-
     {
-      "name": "test task5 - test_equal_ref_indices_lower",
+      "name": "Test task2 - module exists",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask5::test_equal_ref_indices_lower",
+      "run": "pytest -vv tests/test_tasks.py::TestTask2::test_module_exists",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
-
     {
-      "name": "test task5 - test_TIR",
+      "name": "Test task2 - move correct",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask5::test_TIR",
+      "run": "pytest -vv tests/test_tasks.py::TestTask2::test_move_correct",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
-
     {
-      "name": "test task6 - test_pr_exists",
+      "name": "Test task2 - move method exists",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask6::test_pr_exists",
+      "run": "pytest -vv tests/test_tasks.py::TestTask2::test_move_method_exists",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
-
     {
-      "name": "test task6 - test_num_parameters",
+      "name": "Test task2 - pos correct",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask6::test_num_parameters",
+      "run": "pytest -vv tests/test_tasks.py::TestTask2::test_pos_correct",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
-
     {
-      "name": "test task6 - test_pr_calls_intercept",
+      "name": "Test task2 - pos method exists",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask6::test_pr_calls_intercept",
+      "run": "pytest -vv tests/test_tasks.py::TestTask2::test_pos_method_exists",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
-
     {
-      "name": "test task6 - test_pr_calls_refract",
+      "name": "Test task2 - pos returns array",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask6::test_pr_calls_refract",
+      "run": "pytest -vv tests/test_tasks.py::TestTask2::test_pos_returns_array",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
-
     {
-      "name": "test task6 - test_pr_calls_append",
+      "name": "Test task2 - radius correct",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask6::test_pr_calls_append",
+      "run": "pytest -vv tests/test_tasks.py::TestTask2::test_radius_correct",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
-
     {
-      "name": "test task7 - test_exists",
+      "name": "Test task2 - radius method exists",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask7::test_exists",
+      "run": "pytest -vv tests/test_tasks.py::TestTask2::test_radius_method_exists",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
-
     {
-      "name": "test task7 - test_doesnt_crash",
+      "name": "Test task2 - radius type",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask7::test_doesnt_crash",
+      "run": "pytest -vv tests/test_tasks.py::TestTask2::test_radius_type",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
-
     {
-      "name": "test task7 - test_ray_called",
+      "name": "Test task2 - set vel correct",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask7::test_ray_called",
+      "run": "pytest -vv tests/test_tasks.py::TestTask2::test_set_vel_correct",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
-
     {
-      "name": "test task7 - test_sr_called",
+      "name": "Test task2 - set vel method exists",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask7::test_sr_called",
+      "run": "pytest -vv tests/test_tasks.py::TestTask2::test_set_vel_method_exists",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
-
     {
-      "name": "test task7 - test_sr_calls_propagate",
+      "name": "Test task2 - set vel sets array",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask7::test_sr_calls_propagate",
+      "run": "pytest -vv tests/test_tasks.py::TestTask2::test_set_vel_sets_array",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
-
     {
-      "name": "test task7 - test_multiple_rays_created",
+      "name": "Test task2 - vel correct",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask7::test_multiple_rays_created",
+      "run": "pytest -vv tests/test_tasks.py::TestTask2::test_vel_correct",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
-
     {
-      "name": "test task7 - test_multiple_propagates",
+      "name": "Test task2 - vel method exists",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask7::test_multiple_propagates",
+      "run": "pytest -vv tests/test_tasks.py::TestTask2::test_vel_method_exists",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
-
     {
-      "name": "test task8 - test_op_exists",
+      "name": "Test task2 - vel returns array",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask8::test_op_exists",
+      "run": "pytest -vv tests/test_tasks.py::TestTask2::test_vel_returns_array",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
-
     {
-      "name": "test task8 - test_intercept_exists",
+      "name": "Test task3 - patch correct",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask8::test_intercept_exists",
+      "run": "pytest -vv tests/test_tasks.py::TestTask3::test_patch_correct",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
-
     {
-      "name": "test task8 - test_propagate_exists",
+      "name": "Test task3 - patch exists",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask8::test_propagate_exists",
+      "run": "pytest -vv tests/test_tasks.py::TestTask3::test_patch_exists",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
-
     {
-      "name": "test task8 - test_pr_calls_intercept",
+      "name": "Test task3 - patch moves",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask8::test_pr_calls_intercept",
+      "run": "pytest -vv tests/test_tasks.py::TestTask3::test_patch_moves",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
-
     {
-      "name": "test task8 - test_pr_doesnt_call_refract",
+      "name": "Test task3 - patch type",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask8::test_pr_doesnt_call_refract",
+      "run": "pytest -vv tests/test_tasks.py::TestTask3::test_patch_type",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
-
     {
-      "name": "test task8 - test_pr_calls_append",
+      "name": "Test task4 - ttc correct",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask8::test_pr_calls_append",
+      "run": "pytest -vv tests/test_tasks.py::TestTask4::test_ttc_correct",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
-
     {
-      "name": "test task8 - test_parallel_intercept",
+      "name": "Test task4 - ttc exists",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask8::test_parallel_intercept",
+      "run": "pytest -vv tests/test_tasks.py::TestTask4::test_ttc_exists",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
-
     {
-      "name": "test task8 - test_nonparallel_intercept",
+      "name": "Test task4 - ttc going away",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask8::test_nonparallel_intercept",
+      "run": "pytest -vv tests/test_tasks.py::TestTask4::test_ttc_going_away",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
-
     {
-      "name": "test task9 - test_task9_exists",
+      "name": "Test task4 - ttc parallel",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask9::test_task9_exists",
+      "run": "pytest -vv tests/test_tasks.py::TestTask4::test_ttc_parallel",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
-
     {
-      "name": "test task9 - test_sr_called",
+      "name": "Test task4 - ttc return type",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask9::test_sr_called",
+      "run": "pytest -vv tests/test_tasks.py::TestTask4::test_ttc_return_type",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
-
     {
-      "name": "test task9 - test_sr_setup",
+      "name": "Test task5 - collide correct 1D",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask9::test_sr_setup",
+      "run": "pytest -vv tests/test_tasks.py::TestTask5::test_collide_correct_1D",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
-
     {
-      "name": "test task9 - test_op_called",
+      "name": "Test task5 - collide correct 2D",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask9::test_op_called",
+      "run": "pytest -vv tests/test_tasks.py::TestTask5::test_collide_correct_2D",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
-
     {
-      "name": "test task9 - test_op_setup",
+      "name": "Test task5 - collide exists",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask9::test_op_setup",
+      "run": "pytest -vv tests/test_tasks.py::TestTask5::test_collide_exists",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
-
     {
-      "name": "test task9 - test_ray_called",
+      "name": "Test task6 - collide correct",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask9::test_ray_called",
+      "run": "pytest -vv tests/test_tasks.py::TestTask6::test_collide_correct",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
-
     {
-      "name": "test task9 - test_ray_called_multiple",
+      "name": "Test task6 - collide exists",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask9::test_ray_called_multiple",
+      "run": "pytest -vv tests/test_tasks.py::TestTask6::test_collide_exists",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
-
     {
-      "name": "test task9 - test_ray_vertices_called",
+      "name": "Test task6 - container args",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask9::test_ray_vertices_called",
+      "run": "pytest -vv tests/test_tasks.py::TestTask6::test_container_args",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
-
     {
-      "name": "test task9 - test_ray_vertices_called_multiple",
+      "name": "Test task6 - container construction",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask9::test_ray_vertices_called_multiple",
+      "run": "pytest -vv tests/test_tasks.py::TestTask6::test_container_construction",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
-
     {
-      "name": "test task9 - test_output_fig",
+      "name": "Test task6 - container exists",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask9::test_output_fig",
+      "run": "pytest -vv tests/test_tasks.py::TestTask6::test_container_exists",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
-
     {
-      "name": "test task9 - test_plot9",
+      "name": "Test task6 - dp tot correct",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask9::test_plot9",
+      "run": "pytest -vv tests/test_tasks.py::TestTask6::test_dp_tot_correct",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
-
     {
-      "name": "test task10 - test_task10_exists",
+      "name": "Test task6 - dp tot exists",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask10::test_task10_exists",
+      "run": "pytest -vv tests/test_tasks.py::TestTask6::test_dp_tot_exists",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
-
     {
-      "name": "test task10 - test_focal_point",
+      "name": "Test task6 - sa correct",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask10::test_focal_point",
+      "run": "pytest -vv tests/test_tasks.py::TestTask6::test_sa_correct",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
-
     {
-      "name": "test task10 - test_ouput_fig",
+      "name": "Test task6 - sa exists",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask10::test_ouput_fig",
+      "run": "pytest -vv tests/test_tasks.py::TestTask6::test_sa_exists",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
-
     {
-      "name": "test task10 - test_plot10",
+      "name": "Test task6 - ttc correct",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask10::test_plot10",
+      "run": "pytest -vv tests/test_tasks.py::TestTask6::test_ttc_correct",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
-
     {
-      "name": "test task12 - test_task12_exists",
+      "name": "Test task6 - ttc exists",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask12::test_task12_exists",
+      "run": "pytest -vv tests/test_tasks.py::TestTask6::test_ttc_exists",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
-
     {
-      "name": "test task12 - test_ouput_fig",
+      "name": "Test task6 - ttc return type",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask12::test_ouput_fig",
+      "run": "pytest -vv tests/test_tasks.py::TestTask6::test_ttc_return_type",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
-
     {
-      "name": "test task12 - test_plot12",
+      "name": "Test task6 - volume correct",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask12::test_plot12",
+      "run": "pytest -vv tests/test_tasks.py::TestTask6::test_volume_correct",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
-
     {
-      "name": "test task13 - test_task13_exists",
+      "name": "Test task6 - volume exists",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask13::test_task13_exists",
+      "run": "pytest -vv tests/test_tasks.py::TestTask6::test_volume_exists",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
-
     {
-      "name": "test task13 - test_rms",
+      "name": "Test task7 - next collision exists",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask13::test_rms",
+      "run": "pytest -vv tests/test_tasks.py::TestTask7::test_next_collision_exists",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
-
     {
-      "name": "test task13 - test_output_fig",
+      "name": "Test task7 - next collision not implemented",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask13::test_output_fig",
+      "run": "pytest -vv tests/test_tasks.py::TestTask7::test_next_collision_not_implemented",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
-
     {
-      "name": "test task13 - test_plot13",
+      "name": "Test task7 - run exists",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask13::test_plot13",
+      "run": "pytest -vv tests/test_tasks.py::TestTask7::test_run_exists",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
-
     {
-      "name": "test task14 - test_output_fig",
+      "name": "Test task7 - run signature",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask14::test_output_fig",
+      "run": "pytest -vv tests/test_tasks.py::TestTask7::test_run_signature",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
-
     {
-      "name": "test task14 - test_difraction",
+      "name": "Test task7 - setup figure exists",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask14::test_difraction",
+      "run": "pytest -vv tests/test_tasks.py::TestTask7::test_setup_figure_exists",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
-
     {
-      "name": "test task15 - test_output_fig",
+      "name": "Test task7 - setup figure not implemented",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask15::test_output_fig",
+      "run": "pytest -vv tests/test_tasks.py::TestTask7::test_setup_figure_not_implemented",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
       "points": 1
     },
     {
-      "name": "test task15 - test_2SR_objects_created",
+      "name": "Test task7 - simulation class exists",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask15::test_2SR_objects_created",
+      "run": "pytest -vv tests/test_tasks.py::TestTask7::test_simulation_class_exists",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 300,
+      "points": 1
+    },
+    {
+      "name": "Test task7 - simulations exits",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask7::test_simulations_exits",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 300,
+      "points": 1
+    },
+    {
+      "name": "Test task8 - ball correct",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask8::test_ball_correct",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 300,
+      "points": 1
+    },
+    {
+      "name": "Test task8 - ball exists",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask8::test_ball_exists",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 300,
+      "points": 1
+    },
+    {
+      "name": "Test task8 - container correct",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask8::test_container_correct",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 300,
+      "points": 1
+    },
+    {
+      "name": "Test task8 - container exists",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask8::test_container_exists",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 300,
+      "points": 1
+    },
+    {
+      "name": "Test task8 - initialisation",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask8::test_initialisation",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 300,
+      "points": 1
+    },
+    {
+      "name": "Test task8 - initialisation args",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask8::test_initialisation_args",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 300,
+      "points": 1
+    },
+    {
+      "name": "Test task8 - next collision exists",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask8::test_next_collision_exists",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 300,
+      "points": 1
+    },
+    {
+      "name": "Test task8 - next collision functionality",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask8::test_next_collision_functionality",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 300,
+      "points": 1
+    },
+    {
+      "name": "Test task8 - setup figure exists",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask8::test_setup_figure_exists",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 300,
+      "points": 1
+    },
+    {
+      "name": "Test task8 - singleballsimulation exists",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask8::test_singleballsimulation_exists",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 300,
+      "points": 1
+    },
+    {
+      "name": "Test task9 - run called",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask9::test_run_called",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 300,
+      "points": 1
+    },
+    {
+      "name": "Test task9 - run correct",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask9::test_run_correct",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 300,
       "points": 1
     }
   ]
