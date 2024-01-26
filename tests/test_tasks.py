@@ -315,11 +315,12 @@ class TestTask6:
     def test_collide_exists(self, container_class):
         assert isinstance(container_class.collide, FunctionType)
 
-    @pytest.mark.skip
-    def test_collide_correct(self):  ##FIXME
-        pass  # are we insisting on container not having infinite mass?
-
-    # advanced, test inheritance of these methods
+    def test_collide_correct(self, default_container, default_ball):
+        default_container.collide(default_ball)
+        vel = default_ball.vel
+        if isinstance(vel, MethodType):
+            vel = vel()
+        assert np.allclose(vel, [-0.9999998,  0.])
 
     def test_volume_exists(self, container_class):
         assert isinstance(container_class.volume, (FunctionType, property))
@@ -356,10 +357,16 @@ class TestTask6:
     def test_dp_tot_exists(self, container_class):
         assert isinstance(container_class.dp_tot, (FunctionType, property))
 
-    @pytest.mark.skip
-    def test_dp_tot_correct(self): ##FIXME
-        # need to check if assuming infinite mass for container
-        pass
+    def test_dp_tot_correct(self, default_ball, default_container): ##FIXME
+        default_container.collide(default_ball)
+        default_container.collide(default_ball)
+        default_container.collide(default_ball)
+        default_container.collide(default_ball)
+        default_container.collide(default_ball)
+        dp_tot = default_container.dp_tot
+        if isinstance(dp_tot, MethodType):
+            dp_tot = dp_tot()
+        assert np.isclose(dp_tot, 9.999999000000098)
 
 
 class TestTask7:
