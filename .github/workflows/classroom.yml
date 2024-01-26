@@ -15,6 +15,7 @@ jobs:
       - name: Set-up for grading
         uses: ImperialCollegeLondon/y2cl-setup@main
         with:
-          project: B
+          project: ProjectB
           src_dir: thermosnooker
+          python_version: 3.11
       - uses: education/autograding@v1
