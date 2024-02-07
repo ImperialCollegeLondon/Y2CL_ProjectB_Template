@@ -1081,6 +1081,16 @@
       "points": 1
     },
     {
+      "name": "Test task7 - simulation not inherited",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask7::test_simulation_not_inherited",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 300,
+      "points": 1
+    },
+    {
       "name": "Test task7 - simulations exits",
       "setup": "",
       "run": "pytest -vv tests/test_tasks.py::TestTask7::test_simulations_exits",
