@@ -357,7 +357,7 @@ class TestTask6:
     def test_dp_tot_exists(self, container_class):
         assert isinstance(container_class.dp_tot, (FunctionType, property))
 
-    def test_dp_tot_correct(self, default_ball, default_container): ##FIXME
+    def test_dp_tot_correct(self, default_ball, default_container):
         default_container.collide(default_ball)
         default_container.collide(default_ball)
         default_container.collide(default_ball)
@@ -376,6 +376,10 @@ class TestTask7:
 
     def test_simulation_class_exists(self, simulations_mod):
         assert "Simulation" in vars(simulations_mod)
+
+    def test_simulation_not_inherited(self, simulations_mod):
+        assert len(simulations_mod.Simulation.__bases__) == 1
+        assert object in simulations_mod.Simulation.__bases__
 
     def test_run_exists(self, simulations_mod):
         assert isinstance(simulations_mod.Simulation.run, FunctionType)
