@@ -92,7 +92,7 @@ class TestBallInternals:
         assert vel.dtype == np.float_
 
 
-DATA_ATTRIBUTE_REGEX = re.compile(r"self\.([_a-zA-Z0-9]*)", re.MULTILINE)
+DATA_ATTRIBUTE_REGEX = re.compile(r"^\s*self\.([_a-zA-Z0-9]+)[^=]*=(?!=)", re.MULTILINE)
 
 
 class TestAdvancedDesign:
@@ -104,16 +104,11 @@ class TestAdvancedDesign:
         assert "time_to_collision" not in vars(balls_mod.Container)
         assert hasattr(balls_mod.Container, "time_to_collision")
 
-    def test_container_doesnt_hide_vars(self, balls_mod, default_ball, monkeypatch):
-        ball_vars = set(vars(default_ball).keys())
-        circle_vars = set(vars(Circle([0., 1.], 5.6)).keys())
-        base_vars = ball_vars.difference(circle_vars)
-
-        with monkeypatch.context() as m:
-            m.setattr(balls_mod.Ball, "__init__", MagicMock())
-            cont_vars = set(vars(balls_mod.Container()).keys())
-        derived_vars = cont_vars.difference(circle_vars)
-        assert not derived_vars.intersection(base_vars)
+    def test_container_doesnt_hide_vars(self, balls_mod):
+        ball_vars = set(DATA_ATTRIBUTE_REGEX.findall(getsource(balls_mod.Ball.__init__)))
+        cont_vars = set(DATA_ATTRIBUTE_REGEX.findall(getsource(balls_mod.Container.__init__)))
+        hidden_vars = ball_vars.intersection(cont_vars)
+        assert not hidden_vars, f"Container hides the following variables from Base class Ball:\n {pformat(hidden_vars)}"
 
     def test_hidden_variables(self, balls_mod, simulations_mod):
         non_hidden_vars = set()
