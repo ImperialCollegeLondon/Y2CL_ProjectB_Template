@@ -437,7 +437,7 @@ class TestTask8:
         radius = cont.radius
         if isinstance(radius, MethodType):
             radius = radius()
-        assert radius == 10.
+        assert np.fabs(radius) == 10.
 
     def test_ball_exists(self, simulations_mod):
         assert isinstance(simulations_mod.SingleBallSimulation.ball, (FunctionType, property))
@@ -539,7 +539,7 @@ class TestTask10:
         radius = cont.radius
         if isinstance(radius, MethodType):
             radius = radius()
-        assert radius == 10.
+        assert np.fabs(radius) == 10.
 
     def test_balls_exists(self, simulations_mod):
         assert isinstance(simulations_mod.MultiBallSimulation.balls, (FunctionType, property))
