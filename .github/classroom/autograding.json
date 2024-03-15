@@ -371,6 +371,26 @@
       "points": 1
     },
     {
+      "name": "Test task11 - creating hist",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask11::test_creating_hist",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 300,
+      "points": 1
+    },
+    {
+      "name": "Test task11 - running simulation",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask11::test_running_simulation",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 300,
+      "points": 1
+    },
+    {
       "name": "Test task12 - ke correct",
       "setup": "",
       "run": "pytest -vv tests/test_tasks.py::TestTask12::test_ke_correct",
