@@ -2,8 +2,10 @@
 Laura Hollister
 Septemvber 2023
     """
+import re
+from pathlib import Path
 from types import FunctionType, MethodType, NoneType
-from inspect import signature
+from inspect import signature, getsource
 from unittest.mock import MagicMock
 import pytest
 import numpy as np
@@ -11,7 +13,6 @@ from scipy.constants import Boltzmann
 import matplotlib.pyplot as plt
 from matplotlib.patches import Circle
 from matplotlib.figure import Figure
-
 
 
 class TestTask2():
@@ -160,6 +161,7 @@ class TestTask2():
             pos = pos()
         assert np.allclose(pos, [3, 0])
 
+
 class TestTask3():
 
     def test_patch_exists(self, balls_mod):
@@ -234,8 +236,8 @@ class TestTask4():
     def test_ttc_going_away(self, balls_mod):
         ball1 = balls_mod.Ball(pos=[2, 0], vel=[1, 0])
         ball2 = balls_mod.Ball(pos=[-3, 0], vel=[-1, 0])
-        assert ball1.time_to_collision(ball2) is None   
-               
+        assert ball1.time_to_collision(ball2) is None
+
     # def test_time_to_collision_con(self, ball_mod, default_con):
     #     ball1 = ball_mod.Ball(pos=[1., -1.], vel=[0., 2.])
     #     assert np.isclose(ball1.time_to_collision(default_con), 5.42468273)
@@ -247,7 +249,7 @@ class TestTask5():
         assert isinstance(balls_mod.Ball.collide, FunctionType)
 
     def test_collide_correct_1D(self, balls_mod, default_ball):
-        ball = balls_mod.Ball(pos=[5.,0], vel=[-1, 0.])
+        ball = balls_mod.Ball(pos=[5., 0], vel=[-1, 0.])
         default_ball.collide(ball)
 
         default_vel = default_ball.vel
@@ -258,8 +260,8 @@ class TestTask5():
         if isinstance(ball_vel, MethodType):
             ball_vel = ball_vel()
 
-        assert np.allclose(ball_vel, [1,0.])
-        assert np.allclose(default_vel, [-1, 0.]) 
+        assert np.allclose(ball_vel, [1, 0.])
+        assert np.allclose(default_vel, [-1, 0.])
 
     def test_collide_correct_2D(self, balls_mod):
         ball1 = balls_mod.Ball(pos=[1, 1.], vel=[1, 0])
@@ -287,7 +289,8 @@ class TestTask5():
     #     assert np.allclose(default_con.pos(),[0., 0.])
     #     assert np.allclose(ball1.vel(),[-0.4019739 , -1.95918784])
     #     assert np.allclose(default_con.vel() ,[0., 0.])
-        
+
+
 class TestTask6:
 
     def test_container_exists(self, balls_mod):
@@ -352,7 +355,7 @@ class TestTask6:
         sa2 = cont2.surface_area
         if isinstance(sa2, MethodType):
             sa2 = sa2()
-        assert np.isclose(sa2, 10*np.pi)    
+        assert np.isclose(sa2, 10*np.pi)
 
     def test_dp_tot_exists(self, container_class):
         assert isinstance(container_class.dp_tot, (FunctionType, property))
@@ -579,15 +582,13 @@ class TestTask10:
 
 class TestTask11:
 
-    # def test_alex(self, an, simulations_mod, monkeypatch):
-    #     run_mock = MagicMock()
-    #     with monkeypatch.context() as m:
-    #         m.setattr(simulations_mod.MultiBallSimulation, "run", run_mock)
-    #         if hasattr(an, "MultiBallSimulation"):
-    #             m.setattr(an.MultiBallSimulation, "run", run_mock)
-    #         fig = an.task11()
-    #     assert isinstance(fig, Figure)
-    pass
+    def test_running_simulation(self, an):
+        assert re.search(r"MultiBallSimulation", getsource(an.task11)) is not None
+        assert re.search(r"\.run", getsource(an.task11))
+
+    def test_creating_hist(self, an):
+        assert re.search(r"hist\(", getsource(an.task11)) is not None
+
 
 class TestTask12:
 
@@ -622,6 +623,7 @@ class TestTask12:
 
         time_tot = set()
         original_move = balls_mod.Ball.move
+
         def move_wrapper(self, dt):
             nonlocal time_tot
             time_tot.add(dt)
@@ -655,7 +657,7 @@ class TestTask12:
                 vel = vel()
             mass = ball.mass
             if isinstance(mass, MethodType):
-                mass = mass
+                mass = mass()
             mom_tot += mass * vel
 
         sim_mom = sim.momentum
@@ -673,7 +675,7 @@ class TestTask12:
         cont = sim.container
         if isinstance(cont, MethodType):
             cont = cont()
-        
+
         sa = cont.surface_area
         if isinstance(sa, MethodType):
             sa = sa()
@@ -708,7 +710,7 @@ class TestTask13:
         ke_tot = sim.kinetic_energy
         if isinstance(ke_tot, MethodType):
             ke_tot = ke_tot()
-        
+
         balls = sim.balls
         if isinstance(balls, MethodType):
             balls = balls()
