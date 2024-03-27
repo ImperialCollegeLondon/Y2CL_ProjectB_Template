@@ -56,7 +56,7 @@ try:
     with open(".vscode/settings.json", "w", encoding='utf-8') as settings_file:
         json.dump(settings, settings_file, indent=4)
     logging.info("Setup script sucessfully hiden.")
-except:  # pylint: disable=bare-except
+except:  # noqa: E722  # pylint: disable=bare-except
     logging.error("Failed to hide setup script.")
 
 logging.info("Script finished.")
