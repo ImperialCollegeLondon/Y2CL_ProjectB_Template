@@ -11,6 +11,7 @@ should work on your personal computers (regardless of OS) but has not been teste
 than Windows.
 """
 import sys
+import json
 import logging
 import platform
 from subprocess import run
@@ -44,4 +45,19 @@ logging.info("Installing dependencies...")
 run([VENV_INTERPRETER, '-m', 'pip', 'install', '-e', '.'], check=False, stdout=sys.stdout, stderr=sys.stderr)
 
 logging.info("Setup complete!")
+
+logging.info("Hiding setup script from workspace...")
+try:
+    with open(".vscode/settings.json", "r", encoding='utf-8') as settings_file:
+        settings = json.load(settings_file)
+
+    settings["files.exclude"]['**/setup_workspace.py'] = True
+
+    with open(".vscode/settings.json", "w", encoding='utf-8') as settings_file:
+        json.dump(settings, settings_file, indent=4)
+    logging.info("Setup script sucessfully hiden.")
+except:  # pylint: disable=bare-except
+    logging.error("Failed to hide setup script.")
+
+logging.info("Script finished.")
 logging.warning("Please re-launch the terminal for changes to take effect.")
