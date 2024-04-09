@@ -18,4 +18,4 @@ jobs:
           project: ProjectB
           src_dir: thermosnooker
           python_version: 3.11
-      - uses: education/autograding@v1
+      - uses: alexanderrichards/autograding@master
