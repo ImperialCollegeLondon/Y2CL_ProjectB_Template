@@ -303,6 +303,17 @@ class TestTask6:
         balls_mod.Container(radius=11.)
         balls_mod.Container(radius=12., mass=10000000.)
 
+    def test_default_args(self, default_container):
+        default_radius = default_container.radius
+        if isinstance(default_radius, MethodType):
+            default_radius = default_radius()
+        assert np.isclose(default_radius, 10.)
+
+        default_mass = default_container.mass
+        if isinstance(default_mass, MethodType):
+            default_mass = default_mass()
+        assert np.isclose(default_mass, 10000000.)
+
     def test_ttc_exists(self, container_class):
         assert isinstance(container_class.time_to_collision, FunctionType)
 
@@ -318,9 +329,9 @@ class TestTask6:
     def test_collide_exists(self, container_class):
         assert isinstance(container_class.collide, FunctionType)
 
-    def test_collide_correct(self, default_container, default_ball):
-        default_container.collide(default_ball)
-        vel = default_ball.vel
+    def test_collide_correct(self, default_container, colliding_ball):
+        default_container.collide(colliding_ball)
+        vel = colliding_ball.vel
         if isinstance(vel, MethodType):
             vel = vel()
         assert np.allclose(vel, [-0.9999998,  0.])
@@ -360,12 +371,12 @@ class TestTask6:
     def test_dp_tot_exists(self, container_class):
         assert isinstance(container_class.dp_tot, (FunctionType, property))
 
-    def test_dp_tot_correct(self, default_ball, default_container):
-        default_container.collide(default_ball)
-        default_container.collide(default_ball)
-        default_container.collide(default_ball)
-        default_container.collide(default_ball)
-        default_container.collide(default_ball)
+    def test_dp_tot_correct(self, colliding_ball, default_container):
+        default_container.collide(colliding_ball)
+        default_container.collide(colliding_ball)
+        default_container.collide(colliding_ball)
+        default_container.collide(colliding_ball)
+        default_container.collide(colliding_ball)
         dp_tot = default_container.dp_tot
         if isinstance(dp_tot, MethodType):
             dp_tot = dp_tot()

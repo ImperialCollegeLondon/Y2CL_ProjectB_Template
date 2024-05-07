@@ -29,6 +29,9 @@ def container_class(balls_mod):
 def default_container(balls_mod):
     return balls_mod.Container()
 
+@pytest.fixture
+def colliding_ball(balls_mod):
+    return balls_mod.Ball(pos=[9., 0.])
 
 @pytest.fixture(scope="session")
 def simulations_mod():
