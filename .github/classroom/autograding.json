@@ -941,6 +941,16 @@
       "points": 1
     },
     {
+      "name": "Test task6 - default args",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask6::test_default_args",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 300,
+      "points": 1
+    },
+    {
       "name": "Test task6 - dp tot correct",
       "setup": "",
       "run": "pytest -vv tests/test_tasks.py::TestTask6::test_dp_tot_correct",
