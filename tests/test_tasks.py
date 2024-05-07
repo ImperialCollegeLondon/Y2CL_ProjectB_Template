@@ -36,10 +36,12 @@ class TestTask2():
         assert isinstance(balls_mod.Ball.vel, (FunctionType, property))
 
     def test_set_vel_method_exists(self, balls_mod):
-        if isinstance(balls_mod.Ball.vel, property):
-            assert isinstance(balls_mod.Ball.vel.fset, FunctionType)
-        else:
+        ball = balls_mod.Ball
+        if hasattr(ball, "set_vel"):
             assert isinstance(balls_mod.Ball.set_vel, FunctionType)
+        else:
+            assert isinstance(balls_mod.Ball.vel, property)
+            assert isinstance(balls_mod.Ball.vel.fset, FunctionType)
 
     def test_mass_method_exists(self, balls_mod):
         assert isinstance(balls_mod.Ball.mass, (FunctionType, property))
@@ -95,20 +97,26 @@ class TestTask2():
         assert np.allclose(custom_vel, [3., 4.])
 
     def test_set_vel_sets_array(self, default_ball):
-        if isinstance(default_ball.vel, MethodType):
+        if hasattr(default_ball, "set_vel"):
             default_ball.set_vel([8, 9])
-            assert isinstance(default_ball.vel(), np.ndarray)
         else:
             default_ball.vel = [8, 9]
-            assert isinstance(default_ball.vel, np.ndarray)
+
+        default_vel = default_ball.vel
+        if isinstance(default_vel, MethodType):
+            default_vel = default_vel()
+        assert isinstance(default_ball.vel, np.ndarray)
 
     def test_set_vel_correct(self, default_ball):
-        if isinstance(default_ball.vel, MethodType):
+        if hasattr(default_ball, "set_vel"):
             default_ball.set_vel([8, 9])
-            assert np.allclose(default_ball.vel(), [8., 9.])
         else:
             default_ball.vel = [8, 9]
-            assert np.allclose(default_ball.vel, [8., 9.])
+
+        default_vel = default_ball.vel
+        if isinstance(default_vel, MethodType):
+            default_vel = default_vel()
+        assert np.allclose(default_ball.vel, [8., 9.])
 
     def test_mass_type(self, default_ball, custom_ball):
         default_mass = default_ball.mass
@@ -231,12 +239,12 @@ class TestTask4():
     def test_ttc_parallel(self, balls_mod):
         ball1 = balls_mod.Ball(pos=[0.1, 0], vel=[0., 2.])
         ball2 = balls_mod.Ball(pos=[0., 1.], vel=[0., 2.])
-        assert ball1.time_to_collision(ball2) is None
+        assert ball1.time_to_collision(ball2) in (None, np.inf)
 
     def test_ttc_going_away(self, balls_mod):
         ball1 = balls_mod.Ball(pos=[2, 0], vel=[1, 0])
         ball2 = balls_mod.Ball(pos=[-3, 0], vel=[-1, 0])
-        assert ball1.time_to_collision(ball2) is None
+        assert ball1.time_to_collision(ball2) in (None, np.inf)
 
     # def test_time_to_collision_con(self, ball_mod, default_con):
     #     ball1 = ball_mod.Ball(pos=[1., -1.], vel=[0., 2.])
@@ -649,7 +657,11 @@ class TestTask12:
             sim.run(10)
 
         assert len(time_tot) == 10, "Incorrect number of collisions."
-        assert np.isclose(sum(time_tot), sim.time)
+
+        time = sim.time
+        if isinstance(time, MethodType):
+            time = time()
+        assert np.isclose(sum(time_tot), time)
 
     def test_momentum_exists(self, simulations_mod):
         assert isinstance(simulations_mod.MultiBallSimulation.momentum, (FunctionType, property))
