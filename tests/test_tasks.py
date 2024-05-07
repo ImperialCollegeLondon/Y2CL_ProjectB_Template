@@ -105,7 +105,7 @@ class TestTask2():
         default_vel = default_ball.vel
         if isinstance(default_vel, MethodType):
             default_vel = default_vel()
-        assert isinstance(default_ball.vel, np.ndarray)
+        assert isinstance(default_vel, np.ndarray)
 
     def test_set_vel_correct(self, default_ball):
         if hasattr(default_ball, "set_vel"):
@@ -116,7 +116,7 @@ class TestTask2():
         default_vel = default_ball.vel
         if isinstance(default_vel, MethodType):
             default_vel = default_vel()
-        assert np.allclose(default_ball.vel, [8., 9.])
+        assert np.allclose(default_vel, [8., 9.])
 
     def test_mass_type(self, default_ball, custom_ball):
         default_mass = default_ball.mass
@@ -743,7 +743,8 @@ class TestTask13:
         if isinstance(t_equi, MethodType):
             t_equi = t_equi()
         # assert ke_tot / (Boltzmann * nballs) == t_equi
-        assert t_equi in {ke_tot / nballs, ke_tot / (Boltzmann * nballs)}
+        assert np.any(np.isclose(t_equi, [ke_tot / nballs, ke_tot / (Boltzmann * nballs)]))
+        # assert t_equi in {ke_tot / nballs, ke_tot / (Boltzmann * nballs)}
 
     # @pytest.mark.skip
     # def test_task13_plots(self):
@@ -779,7 +780,8 @@ class TestTask14:
         if isinstance(volume, MethodType):
             volume = volume()
 
-        assert t_ideal in {pressure * volume / nballs, pressure * volume / (Boltzmann * nballs)}
+        assert np.any(np.isclose(t_ideal, [pressure * volume / nballs, pressure * volume / (Boltzmann * nballs)]))
+        # assert t_ideal in {pressure * volume / nballs, pressure * volume / (Boltzmann * nballs)}
 
     # @pytest.mark.skip
     # def test_task14_plots(self):
