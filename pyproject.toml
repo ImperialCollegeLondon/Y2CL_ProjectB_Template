@@ -17,7 +17,7 @@ classifiers = [
 ]
 
 dependencies = [
-  "numpy",
+  "numpy == 1.26.2",
   "scipy",
   "matplotlib",
   "pylint",
