@@ -93,12 +93,39 @@ def task15():
     """
     Task 15.
 
+    In this function we shall also be looking at the divergence of our simulation from the IGL. We shall
+    quantify the ball radii dependence of this divergence by plotting the temperature ratio 
+    and volume fraction defined in the project brief. We shall fit this temperature ratio before
+    plotting the VDW b parameters radii dependence.
+
+    Returns:
+        tuple[Figure, Figure]: The ratio figure. and b parameter figure.
+    """
+    return
+
+
+def task16():
+    """
+    Task 16.
+
     In this function we shall plot a histogram to investigate how the speeds of the balls evolve from the initial
     value. We shall then compare this to the Maxwell-Boltzmann distribution. Ensure that this function returns
     the created histogram.
 
     Returns:
         Figure: The speed histogram.
+    """
+    return
+
+
+def task17():
+    """
+    Task 17.
+
+    In this function we shall run a Brownian motion simulation and plot the resulting trajectory of the 'big' ball.
+
+    Returns:
+        Figure: The track plot showing the motion of the 'big' ball
     """
     return
 
@@ -124,6 +151,12 @@ if __name__ == "__main__":
     # FIG14 = task14()
 
     # Run task 15 function
-    # FIG15 = task15()
+    # FIG15_RATIO, FIG15_BPARAM = task15()
+
+    # Run task 16 function
+    # FIG15 = task16()
+
+    # Run task 17 function
+    # FIG15 = task17()
 
     plt.show()
