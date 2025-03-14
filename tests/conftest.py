@@ -1,8 +1,10 @@
 """Pytest fixtures."""
 from importlib import import_module
 from pathlib import Path
+from unittest.mock import MagicMock, patch
 import pytest
 import numpy as np
+import scipy.optimize as spo
 import matplotlib
 import matplotlib.pyplot as plt
 
@@ -55,6 +57,67 @@ def source_files_str(source_files):
 def an():
     matplotlib.use("agg")  # Non-interactive backend more stable for testing that interactive Tk
     yield import_module("thermosnooker.analysis")
+    plt.close()
+
+# @pytest.fixture(scope="function")
+# def an_mock_run(simulations_mod, monkeypatch):
+#     matplotlib.use("agg")  # Non-interactive backend more stable for testing that interactive Tk
+#     with monkeypatch.context() as m:
+#         run_mock = MagicMock(autospec=True)
+#         m.setattr(simulations_mod.MultiBallSimulation, "run", run_mock)
+#         yield import_module("thermosnooker.analysis"), run_mock
+#     plt.close()
+
+# @pytest.fixture(scope="function")
+# def an_mock_run(simulations_mod):
+#     matplotlib.use("agg")  # Non-interactive backend more stable for testing that interactive Tk
+
+#     simulations_mod.MultiBallSimulation._run = simulations_mod.MultiBallSimulation.run
+#     with patch.object(simulations_mod.MultiBallSimulation,
+#                       "run",
+#                       autospec=True,
+#                       side_effect=lambda self, _: simulations_mod.MultiBallSimulation._run(self, 1)) as run_mock:
+#         yield import_module("thermosnooker.analysis"), run_mock
+#     delattr(simulations_mod.MultiBallSimulation, "_run")
+#     plt.close()
+
+@pytest.fixture(scope="function")
+def curve_fit_mock():
+    with patch("scipy.optimize.curve_fit", wraps=spo.curve_fit) as cf_mock:
+        yield cf_mock
+
+@pytest.fixture(scope="function")
+def an_mock_run(simulations_mod):
+    matplotlib.use("agg")  # Non-interactive backend more stable for testing that interactive Tk
+
+    simulations_mod.MultiBallSimulation._run = simulations_mod.MultiBallSimulation.run
+    with (patch.object(simulations_mod.MultiBallSimulation,
+                       "__init__",
+                       autospec=True,
+                       wraps=simulations_mod.MultiBallSimulation.__init__) as mbs_mock, 
+          patch.object(simulations_mod.MultiBallSimulation,
+                       "run",
+                       autospec=True,
+                       side_effect=lambda self, *args, **kwargs: simulations_mod.MultiBallSimulation._run(self, 1)) as run_mock):
+        yield import_module("thermosnooker.analysis"), mbs_mock, run_mock
+    delattr(simulations_mod.MultiBallSimulation, "_run")
+    plt.close()
+
+@pytest.fixture(scope="function")
+def an_bms_mock(simulations_mod):
+    matplotlib.use("agg")  # Non-interactive backend more stable for testing that interactive Tk
+
+    simulations_mod.BrownianSimulation._run = simulations_mod.BrownianSimulation.run
+    with (patch.object(simulations_mod.BrownianSimulation,
+                       "__init__",
+                       autospec=True,
+                       wraps=simulations_mod.BrownianSimulation.__init__) as bms_mock, 
+          patch.object(simulations_mod.BrownianSimulation,
+                       "run",
+                       autospec=True,
+                       side_effect=lambda self, *args, **kwargs: simulations_mod.BrownianSimulation._run(self, 1)) as run_mock):
+        yield import_module("thermosnooker.analysis"), bms_mock, run_mock
+    delattr(simulations_mod.BrownianSimulation, "_run")
     plt.close()
 
 @pytest.fixture(scope="session")
