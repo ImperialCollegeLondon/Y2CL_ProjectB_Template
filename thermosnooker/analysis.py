@@ -94,7 +94,7 @@ def task15():
     Task 15.
 
     In this function we shall also be looking at the divergence of our simulation from the IGL. We shall
-    quantify the ball radii dependence of this divergence by plotting the temperature ratio 
+    quantify the ball radii dependence of this divergence by plotting the temperature ratio
     and volume fraction defined in the project brief. We shall fit this temperature ratio before
     plotting the VDW b parameters radii dependence.
 
@@ -154,9 +154,9 @@ if __name__ == "__main__":
     # FIG15_RATIO, FIG15_BPARAM = task15()
 
     # Run task 16 function
-    # FIG15 = task16()
+    # FIG16 = task16()
 
     # Run task 17 function
-    # FIG15 = task17()
+    # FIG17 = task17()
 
     plt.show()
