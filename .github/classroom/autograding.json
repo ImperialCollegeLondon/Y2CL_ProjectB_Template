@@ -71,6 +71,16 @@
       "points": 1
     },
     {
+      "name": "Test advanceddesign - brownian inheritance",
+      "setup": "",
+      "run": "pytest -vv tests/test_fine_details.py::TestAdvancedDesign::test_brownian_inheritance",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 300,
+      "points": 1
+    },
+    {
       "name": "Test advanceddesign - collide doesnt call ttc",
       "setup": "",
       "run": "pytest -vv tests/test_fine_details.py::TestAdvancedDesign::test_collide_doesnt_call_ttc",
@@ -264,6 +274,36 @@
       "name": "Test ballinternals - vel too short check",
       "setup": "",
       "run": "pytest -vv tests/test_fine_details.py::TestBallInternals::test_vel_too_short_check",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 300,
+      "points": 1
+    },
+    {
+      "name": "Test norelativeimports - balls module",
+      "setup": "",
+      "run": "pytest -vv tests/test_important_details.py::TestNoRelativeImports::test_balls_module",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 300,
+      "points": 1
+    },
+    {
+      "name": "Test norelativeimports - physics module",
+      "setup": "",
+      "run": "pytest -vv tests/test_important_details.py::TestNoRelativeImports::test_physics_module",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 300,
+      "points": 1
+    },
+    {
+      "name": "Test norelativeimports - simulations module",
+      "setup": "",
+      "run": "pytest -vv tests/test_important_details.py::TestNoRelativeImports::test_simulations_module",
       "input": "",
       "output": "",
       "comparison": "included",
@@ -511,9 +551,9 @@
       "points": 1
     },
     {
-      "name": "Test task15 - maxwell args",
+      "name": "Test task15 - curve fit called",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask15::test_maxwell_args",
+      "run": "pytest -vv tests/test_tasks.py::TestTask15::test_curve_fit_called",
       "input": "",
       "output": "",
       "comparison": "included",
@@ -521,9 +561,9 @@
       "points": 1
     },
     {
-      "name": "Test task15 - maxwell correct",
+      "name": "Test task15 - doesnt crash",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask15::test_maxwell_correct",
+      "run": "pytest -vv tests/test_tasks.py::TestTask15::test_doesnt_crash",
       "input": "",
       "output": "",
       "comparison": "included",
@@ -531,9 +571,9 @@
       "points": 1
     },
     {
-      "name": "Test task15 - maxwell exists",
+      "name": "Test task15 - multiple sims created",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask15::test_maxwell_exists",
+      "run": "pytest -vv tests/test_tasks.py::TestTask15::test_multiple_sims_created",
       "input": "",
       "output": "",
       "comparison": "included",
@@ -541,9 +581,9 @@
       "points": 1
     },
     {
-      "name": "Test task15 - speeds correct",
+      "name": "Test task15 - output",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask15::test_speeds_correct",
+      "run": "pytest -vv tests/test_tasks.py::TestTask15::test_output",
       "input": "",
       "output": "",
       "comparison": "included",
@@ -551,9 +591,109 @@
       "points": 1
     },
     {
-      "name": "Test task15 - speeds exists",
+      "name": "Test task16 - maxwell args",
       "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask15::test_speeds_exists",
+      "run": "pytest -vv tests/test_tasks.py::TestTask16::test_maxwell_args",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 300,
+      "points": 1
+    },
+    {
+      "name": "Test task16 - maxwell correct",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask16::test_maxwell_correct",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 300,
+      "points": 1
+    },
+    {
+      "name": "Test task16 - maxwell exists",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask16::test_maxwell_exists",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 300,
+      "points": 1
+    },
+    {
+      "name": "Test task16 - speeds correct",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask16::test_speeds_correct",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 300,
+      "points": 1
+    },
+    {
+      "name": "Test task16 - speeds exists",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask16::test_speeds_exists",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 300,
+      "points": 1
+    },
+    {
+      "name": "Test task17 - bbpositions exists",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask17::test_bbpositions_exists",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 300,
+      "points": 1
+    },
+    {
+      "name": "Test task17 - browniansimulation created",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask17::test_browniansimulation_created",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 300,
+      "points": 1
+    },
+    {
+      "name": "Test task17 - browniansimulation exists",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask17::test_browniansimulation_exists",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 300,
+      "points": 1
+    },
+    {
+      "name": "Test task17 - defaults init args",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask17::test_defaults_init_args",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 300,
+      "points": 1
+    },
+    {
+      "name": "Test task17 - doesnt crash",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask17::test_doesnt_crash",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 300,
+      "points": 1
+    },
+    {
+      "name": "Test task17 - initialisation args",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask17::test_initialisation_args",
       "input": "",
       "output": "",
       "comparison": "included",

@@ -6,7 +6,7 @@ import re
 from pathlib import Path
 from types import FunctionType, MethodType, NoneType
 from inspect import signature, getsource
-from unittest.mock import MagicMock
+from unittest.mock import MagicMock, patch
 import pytest
 import numpy as np
 from scipy.constants import Boltzmann
@@ -790,6 +790,29 @@ class TestTask14:
 
 class TestTask15:
 
+    def test_doesnt_crash(self, an_mock_run):
+        an_mock_run[0].task15()
+
+    def test_output(self, an_mock_run):
+        an_mod, mbs_mock, run_mock = an_mock_run
+        task15_output = an_mod.task15()
+        assert isinstance(task15_output, tuple)
+        assert isinstance(task15_output[0], Figure)
+        assert isinstance(task15_output[1], Figure)
+
+    def test_multiple_sims_created(self, an_mock_run):
+        an_mod, mbs_mock, _ = an_mock_run
+        an_mod.task15()
+        assert mbs_mock.call_count > 3
+
+    def test_curve_fit_called(self, curve_fit_mock, an_mock_run):
+        an_mod, _, _ = an_mock_run
+        an_mod.task15()
+        assert curve_fit_mock.called
+
+
+class TestTask16:
+
     def test_speeds_exists(self, simulations_mod):
         assert isinstance(simulations_mod.MultiBallSimulation.speeds, (FunctionType, property))
 
@@ -830,5 +853,31 @@ class TestTask15:
         assert np.isclose(mb_prob, physics_mod.maxwell(speed=speed, kbt=kbt, mass=mass))
 
     # @pytest.mark.skip
-    # def test_task15_plots(self):
+    # def test_task16_plots(self):
     #     pass
+
+
+class TestTask17:
+
+    def test_browniansimulation_exists(self, simulations_mod):
+        assert "BrownianSimulation" in vars(simulations_mod)
+
+    def test_doesnt_crash(self, an_bms_mock):
+        an_mod, _, _ = an_bms_mock
+        an_mod.task17()
+
+    def test_browniansimulation_created(self, an_bms_mock):
+        an_mod, bms_mock, _ = an_bms_mock
+        an_mod.task17()
+        assert bms_mock.called
+
+    def test_bbpositions_exists(self, simulations_mod):
+        assert isinstance(simulations_mod.BrownianSimulation.bb_positions, (FunctionType, property))
+
+    def test_initialisation_args(self, simulations_mod):
+        assert {"bb_radius", "bb_mass"}.issubset(signature(simulations_mod.BrownianSimulation).parameters.keys())
+
+    def test_defaults_init_args(self, simulations_mod):
+        params = signature(simulations_mod.BrownianSimulation).parameters
+        assert params['bb_radius'].default == 2.
+        assert params['bb_mass'].default == 10.

@@ -97,6 +97,9 @@ DATA_ATTRIBUTE_REGEX = re.compile(r"^\s*self\.([_a-zA-Z0-9]+)[^=]*=(?!=)", re.MU
 
 class TestAdvancedDesign:
 
+    def test_brownian_inheritance(self, simulations_mod):
+        assert simulations_mod.BrownianSimulation.__bases__ == (simulations_mod.MultiBallSimulation,)
+
     def test_container_inheritance(self, balls_mod):
         assert balls_mod.Container.__bases__ == (balls_mod.Ball,)
 
