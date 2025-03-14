@@ -123,11 +123,7 @@ def task17():
     Task 17.
 
     In this function we shall run a Brownian motion simulation and plot the resulting trajectory of the 'big' ball.
-
-    Returns:
-        Figure: The track plot showing the motion of the 'big' ball
     """
-    return
 
 
 if __name__ == "__main__":
@@ -157,6 +153,6 @@ if __name__ == "__main__":
     # FIG16 = task16()
 
     # Run task 17 function
-    # FIG17 = task17()
+    # task17()
 
     plt.show()
