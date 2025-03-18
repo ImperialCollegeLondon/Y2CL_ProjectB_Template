@@ -44,22 +44,22 @@ class TestBallInternals:
     def test_default_pos_type(self, default_ball, var_name_map):
         pos = getattr(default_ball, var_name_map["pos"])
         assert isinstance(pos, np.ndarray)
-        assert pos.dtype == np.float_
+        assert pos.dtype == float
 
     def test_default_vel_type(self, default_ball, var_name_map):
         vel = getattr(default_ball, var_name_map["vel"])
         assert isinstance(vel, np.ndarray)
-        assert vel.dtype == np.float_
+        assert vel.dtype == float
 
     def test_custom_pos_type(self, custom_ball, var_name_map):
         pos = getattr(custom_ball, var_name_map["pos"])
         assert isinstance(pos, np.ndarray)
-        assert pos.dtype == np.float_
+        assert pos.dtype == float
 
     def test_custom_vel_type(self, custom_ball, var_name_map):
         vel = getattr(custom_ball, var_name_map["vel"])
         assert isinstance(vel, np.ndarray)
-        assert vel.dtype == np.float_
+        assert vel.dtype == float
 
     def test_set_vel_list_or_array_check(self, default_ball):
         with pytest.raises(Exception):
@@ -89,7 +89,7 @@ class TestBallInternals:
             default_ball.vel = [1., 2.]
         vel = getattr(default_ball, var_name_map["vel"])
         assert isinstance(vel, np.ndarray)
-        assert vel.dtype == np.float_
+        assert vel.dtype == float
 
 
 DATA_ATTRIBUTE_REGEX = re.compile(r"^\s*self\.([_a-zA-Z0-9]+)[^=]*=(?!=)", re.MULTILINE)
