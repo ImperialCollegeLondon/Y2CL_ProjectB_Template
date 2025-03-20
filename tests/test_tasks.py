@@ -6,6 +6,7 @@ import re
 from pathlib import Path
 from types import FunctionType, MethodType, NoneType
 from inspect import signature, getsource
+from base64 import b64encode, b64decode
 from unittest.mock import MagicMock, patch
 import pytest
 import numpy as np
@@ -516,6 +517,19 @@ class TestTask8:
 
 class TestTask9:
 
+    TASK9_DEFAULT = b'ZGVmIHRhc2s5KCk6CiAgICAiIiIKICAgIFRhc2sgOS4KCiAgICBJbiB0aGlzIGZ1bmN0aW9uLCB5b3Ugc2hvdWxkIHRlc3QgeW91ciBhbmltYXRpb24uIFRvIGRvIHRoaXMsIGNyZWF0ZSBhIGNvbnRhaW5lcgogICAgYW5kIGJhbGwgYXMgZGlyZWN0ZWQgaW4gdGhlIHByb2plY3QgYnJpZWYuIENyZWF0ZSBhIFNpbmdsZUJhbGxTaW11bGF0aW9uIG9iamVjdCBmcm9tIHRoZXNlCiAgICBhbmQgdHJ5IHJ1bm5pbmcgeW91ciBhbmltYXRpb24uIEVuc3VyZSB0aGF0IHRoaXMgZnVuY3Rpb24gcmV0dXJucyB0aGUgYmFsbHMgZmluYWwgcG9zaXRpb24gYW5kCiAgICB2ZWxvY2l0eS4KCiAgICBSZXR1cm5zOgogICAgICAgIHR1cGxlW05EQXJyYXlbbnAuZmxvYXQ2NF0sIE5EQXJyYXlbbnAuZmxvYXQ2NF1dOiBUaGUgYmFsbHMgZmluYWwgcG9zaXRpb24gYW5kIHZlbG9jaXR5CiAgICAiIiIKICAgIHJldHVybgo='
+
+    def test_doesnt_crash(self, an_sbs_run):
+        an, sbs_mock, run_mock = an_sbs_run
+        an.task9()
+        attempted = getsource(an.task9).encode('utf-8') != b64decode(TestTask9.TASK9_DEFAULT)
+        assert attempted, "Task9 not attempted."
+
+    def test_singleballsim_created(self, an_sbs_run):
+        an, sbs_mock, _ = an_sbs_run
+        an.task9()
+        sbs_mock.assert_called()
+
     def test_run_called(self, an, simulations_mod, monkeypatch):
         run_mock = MagicMock()
         with monkeypatch.context() as m:
@@ -535,6 +549,14 @@ class TestTask9:
 
 
 class TestTask10:
+
+    TASK10_DEFAULT = b'ZGVmIHRhc2sxMCgpOgogICAgIiIiCiAgICBUYXNrIDEwLgoKICAgIEluIHRoaXMgZnVuY3Rpb24gd2Ugc2hhbGwgdGVzdCB5b3VyIE11bHRpQmFsbFNpbXVsYXRpb24uIENyZWF0ZSBhbiBpbnN0YW5jZSBvZiB0aGlzIGNsYXNzIHVzaW5nCiAgICB0aGUgZGVmYXVsdCB2YWx1ZXMgZGVzY3JpYmVkIGluIHRoZSBwcm9qZWN0IGJyaWVmIGFuZCBydW4gdGhlIGFuaW1hdGlvbiBmb3IgNTAwIGNvbGxpc2lvbnMuCgogICAgV2F0Y2ggdGhlIHJlc3VsdGluZyBhbmltYXRpb24gY2FyZWZ1bGx5IGFuZCBtYWtlIHN1cmUgeW91IGFyZW4ndCBzZWVpbmcgZXJyb3JzIGxpa2UgYmFsbHMgc3RpY2tpbmcKICAgIHRvZ2V0aGVyIG9yIGVzY2FwaW5nIHRoZSBjb250YWluZXIuCiAgICAiIiIK'
+
+    def test_doesnt_crash(self, an_mock_run):
+        an, mbs_mock, run_mock = an_mock_run
+        an.task10()
+        attempted = getsource(an.task10).encode('utf-8') != b64decode(TestTask10.TASK10_DEFAULT)
+        assert attempted, "Task10 not attempted."
 
     def test_multiballsim_exists(self, simulations_mod):
         assert "MultiBallSimulation" in vars(simulations_mod)
@@ -601,15 +623,33 @@ class TestTask10:
 
 class TestTask11:
 
-    def test_running_simulation(self, an):
-        assert re.search(r"MultiBallSimulation", getsource(an.task11)) is not None
-        assert re.search(r"\.run", getsource(an.task11))
+    TASK11_DEFAULT = b'ZGVmIHRhc2sxMSgpOgogICAgIiIiCiAgICBUYXNrIDExLgoKICAgIEluIHRoaXMgZnVuY3Rpb24gd2Ugc2hhbGwgYmUgcXVhbnRpdGF0aXZlbHkgY2hlY2tpbmcgdGhhdCB0aGUgYmFsbHMgYXJlbid0IGVzY2FwaW5nIG9yIHN0aWNraW5nLgogICAgVG8gZG8gdGhpcywgY3JlYXRlIHRoZSB0d28gaGlzdG9ncmFtcyBhcyBkaXJlY3RlZCBpbiB0aGUgcHJvamVjdCBzY3JpcHQuIEVuc3VyZSB0aGF0IHRoZXNlIHR3bwogICAgaGlzdG9ncmFtIGZpZ3VyZXMgYXJlIHJldHVybmVkLgoKICAgIFJldHVybnM6CiAgICAgICAgdHVwbGVbRmlndXJlLCBGaXJndXJlXTogVGhlIGhpc3RvZ3JhbXMgKGRpc3RhbmNlIGZyb20gY2VudHJlLCBpbnRlci1iYWxsIHNwYWNpbmcpLgogICAgIiIiCiAgICByZXR1cm4K'
+
+    def test_doesnt_crash(self, an_mock_run):
+        an, mbs_mock, run_mock = an_mock_run
+        an.task11()
+        attempted = getsource(an.task11).encode('utf-8') != b64decode(TestTask11.TASK11_DEFAULT)
+        assert attempted, "Task11 not attempted."
+
+    def test_running_simulation(self, an_mock_run):
+        an, mbs_mock, run_mock = an_mock_run
+        an.task11()
+        mbs_mock.assert_called()
+        run_mock.assert_called()
 
     def test_creating_hist(self, an):
         assert re.search(r"hist\(", getsource(an.task11)) is not None
 
 
 class TestTask12:
+
+    TASK12_DEFAULT = b'ZGVmIHRhc2sxMigpOgogICAgIiIiCiAgICBUYXNrIDEyLgoKICAgIEluIHRoaXMgZnVuY3Rpb24gd2Ugc2hhbGwgY2hlY2sgdGhhdCB0aGUgZnVuZGFtZW50YWwgcXVhbnRpdGllcyBvZiBlbmVyZ3kgYW5kIG1vbWVudHVtIGFyZSBjb25zZXJ2ZWQuCiAgICBBZGRpdGlvbmFsbHkgd2Ugc2hhbGwgaW52ZXN0aWdhdGUgdGhlIHByZXNzdXJlIGV2b2x1dGlvbiBvZiB0aGUgc3lzdGVtLiBFbnN1cmUgdGhhdCB0aGUgNCBmaWd1cmVzCiAgICBvdXRsaW5lZCBpbiB0aGUgcHJvamVjdCBzY3JpcHQgYXJlIHJldHVybmVkLgoKICAgIFJldHVybnM6CiAgICAgICAgdHVwbGVbRmlndXJlLCBGaWd1cmUsIEZpZ3VyZSwgRmlndXJlXTogbWF0cGxvdGxpYiBGaWd1cmVzIG9mIHRoZSBLRSwgbW9tZW50dW1feCwgbW9tZW50dW1feSByYXRpb3MKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBhcyB3ZWxsIGFzIHByZXNzdXJlIGV2b2x1dGlvbi4KICAgICIiIgogICAgcmV0dXJuCg=='
+
+    def test_doesnt_crash(self, an_mock_run):
+        an, mbs_mock, run_mock = an_mock_run
+        an.task12()
+        attempted = getsource(an.task12).encode('utf-8') != b64decode(TestTask12.TASK12_DEFAULT)
+        assert attempted, "Task12 not attempted."
 
     def test_ke_exists(self, simulations_mod):
         assert isinstance(simulations_mod.MultiBallSimulation.kinetic_energy, (FunctionType, property))
@@ -723,6 +763,14 @@ class TestTask12:
 
 class TestTask13:
 
+    TASK13_DEFAULT = b'ZGVmIHRhc2sxMygpOgogICAgIiIiCiAgICBUYXNrIDEzLgoKICAgIEluIHRoaXMgZnVuY3Rpb24gd2UgaW52ZXN0aWdhdGUgaG93IHdlbGwgb3VyIHNpbXVsYXRpb24gcmVwcm9kdWNlcyB0aGUgZGlzdHJpYnV0aW9ucyBvZiB0aGUgSUdMLgogICAgQ3JlYXRlIHRoZSAzIGZpZ3VyZXMgZGlyZWN0ZWQgYnkgdGhlIHByb2plY3Qgc2NyaXB0LCBuYW1lbHk6CiAgICAxKSBQVCBwbG90CiAgICAyKSBQViBwbG90CiAgICAzKSBQTiBwbG90CiAgICBFbnN1cmUgdGhhdCB0aGlzIGZ1bmN0aW9uIHJldHVybnMgdGhlIHRocmVlIG1hdHBsb3RsaWIgZmlndXJlcy4KCiAgICBSZXR1cm5zOgogICAgICAgIHR1cGxlW0ZpZ3VyZSwgRmlndXJlLCBGaWd1cmVdOiBUaGUgMyByZXF1ZXN0ZWQgZmlndXJlczogKFBULCBQViwgUE4pCiAgICAiIiIKICAgIHJldHVybgo='
+
+    def test_doesnt_crash(self, an_mock_run):
+        an, mbs_mock, run_mock = an_mock_run
+        an.task13()
+        attempted = getsource(an.task13).encode('utf-8') != b64decode(TestTask13.TASK13_DEFAULT)
+        assert attempted, "Task13 not attempted."
+
     def test_t_equipartition_exists(self, simulations_mod):
         assert isinstance(simulations_mod.MultiBallSimulation.t_equipartition, (FunctionType, property))
 
@@ -752,6 +800,14 @@ class TestTask13:
 
 
 class TestTask14:
+
+    TASK14_DEFAULT = b'ZGVmIHRhc2sxNCgpOgogICAgIiIiCiAgICBUYXNrIDE0LgoKICAgIEluIHRoaXMgZnVuY3Rpb24gd2Ugc2hhbGwgYmUgbG9va2luZyBhdCB0aGUgZGl2ZXJnZW5jZSBvZiBvdXIgc2ltdWxhdGlvbiBmcm9tIHRoZSBJR0wuIFdlIHNoYWxsCiAgICBxdWFudGlmeSB0aGUgYmFsbCByYWRpaSBkZXBlbmRlbmNlIG9mIHRoaXMgZGl2ZXJnZW5jZSBieSBwbG90dGluZyB0aGUgdGVtcGVyYXR1cmUgcmF0aW8gZGVmaW5lZCBpbgogICAgdGhlIHByb2plY3QgYnJpZWYuCgogICAgUmV0dXJuczoKICAgICAgICBGaWd1cmU6IFRoZSB0ZW1wZXJhdHVyZSByYXRpbyBmaWd1cmUuCiAgICAiIiIKICAgIHJldHVybgo='
+
+    def test_doesnt_crash(self, an_mock_run):
+        an, mbs_mock, run_mock = an_mock_run
+        an.task14()
+        attempted = getsource(an.task14).encode('utf-8') != b64decode(TestTask14.TASK14_DEFAULT)
+        assert attempted, "Task14 not attempted."
 
     def test_t_ideal_exists(self, simulations_mod):
         assert isinstance(simulations_mod.MultiBallSimulation.t_ideal, (FunctionType, property))
@@ -790,8 +846,13 @@ class TestTask14:
 
 class TestTask15:
 
+    TASK15_DEFAULT = b'ZGVmIHRhc2sxNSgpOgogICAgIiIiCiAgICBUYXNrIDE1LgoKICAgIEluIHRoaXMgZnVuY3Rpb24gd2Ugc2hhbGwgYWxzbyBiZSBsb29raW5nIGF0IHRoZSBkaXZlcmdlbmNlIG9mIG91ciBzaW11bGF0aW9uIGZyb20gdGhlIElHTC4gV2Ugc2hhbGwKICAgIHF1YW50aWZ5IHRoZSBiYWxsIHJhZGlpIGRlcGVuZGVuY2Ugb2YgdGhpcyBkaXZlcmdlbmNlIGJ5IHBsb3R0aW5nIHRoZSB0ZW1wZXJhdHVyZSByYXRpbwogICAgYW5kIHZvbHVtZSBmcmFjdGlvbiBkZWZpbmVkIGluIHRoZSBwcm9qZWN0IGJyaWVmLiBXZSBzaGFsbCBmaXQgdGhpcyB0ZW1wZXJhdHVyZSByYXRpbyBiZWZvcmUKICAgIHBsb3R0aW5nIHRoZSBWRFcgYiBwYXJhbWV0ZXJzIHJhZGlpIGRlcGVuZGVuY2UuCgogICAgUmV0dXJuczoKICAgICAgICB0dXBsZVtGaWd1cmUsIEZpZ3VyZV06IFRoZSByYXRpbyBmaWd1cmUuIGFuZCBiIHBhcmFtZXRlciBmaWd1cmUuCiAgICAiIiIKICAgIHJldHVybgo='
+
     def test_doesnt_crash(self, an_mock_run):
-        an_mock_run[0].task15()
+        an, mbs_mock, run_mock = an_mock_run
+        an.task15()
+        attempted = getsource(an.task15).encode('utf-8') != b64decode(TestTask15.TASK15_DEFAULT)
+        assert attempted, "Task15 not attempted."
 
     def test_output(self, an_mock_run):
         an_mod, mbs_mock, run_mock = an_mock_run
@@ -812,6 +873,14 @@ class TestTask15:
 
 
 class TestTask16:
+
+    TASK16_DEFAULT = b'ZGVmIHRhc2sxNigpOgogICAgIiIiCiAgICBUYXNrIDE2LgoKICAgIEluIHRoaXMgZnVuY3Rpb24gd2Ugc2hhbGwgcGxvdCBhIGhpc3RvZ3JhbSB0byBpbnZlc3RpZ2F0ZSBob3cgdGhlIHNwZWVkcyBvZiB0aGUgYmFsbHMgZXZvbHZlIGZyb20gdGhlIGluaXRpYWwKICAgIHZhbHVlLiBXZSBzaGFsbCB0aGVuIGNvbXBhcmUgdGhpcyB0byB0aGUgTWF4d2VsbC1Cb2x0em1hbm4gZGlzdHJpYnV0aW9uLiBFbnN1cmUgdGhhdCB0aGlzIGZ1bmN0aW9uIHJldHVybnMKICAgIHRoZSBjcmVhdGVkIGhpc3RvZ3JhbS4KCiAgICBSZXR1cm5zOgogICAgICAgIEZpZ3VyZTogVGhlIHNwZWVkIGhpc3RvZ3JhbS4KICAgICIiIgogICAgcmV0dXJuCg=='
+
+    def test_doesnt_crash(self, an_mock_run):
+        an, mbs_mock, run_mock = an_mock_run
+        an.task16()
+        attempted = getsource(an.task16).encode('utf-8') != b64decode(TestTask16.TASK16_DEFAULT)
+        assert attempted, "Task16 not attempted."
 
     def test_speeds_exists(self, simulations_mod):
         assert isinstance(simulations_mod.MultiBallSimulation.speeds, (FunctionType, property))
@@ -859,12 +928,16 @@ class TestTask16:
 
 class TestTask17:
 
-    def test_browniansimulation_exists(self, simulations_mod):
-        assert "BrownianSimulation" in vars(simulations_mod)
+    TASK17_DEFAULT = b'ZGVmIHRhc2sxNygpOgogICAgIiIiCiAgICBUYXNrIDE3LgoKICAgIEluIHRoaXMgZnVuY3Rpb24gd2Ugc2hhbGwgcnVuIGEgQnJvd25pYW4gbW90aW9uIHNpbXVsYXRpb24gYW5kIHBsb3QgdGhlIHJlc3VsdGluZyB0cmFqZWN0b3J5IG9mIHRoZSAnYmlnJyBiYWxsLgogICAgIiIiCg=='
 
     def test_doesnt_crash(self, an_bms_mock):
-        an_mod, _, _ = an_bms_mock
-        an_mod.task17()
+        an, bms_mock, run_mock = an_bms_mock
+        an.task17()
+        attempted = getsource(an.task17).encode('utf-8') != b64decode(TestTask17.TASK17_DEFAULT)
+        assert attempted, "Task17 not attempted."
+
+    def test_browniansimulation_exists(self, simulations_mod):
+        assert "BrownianSimulation" in vars(simulations_mod)
 
     def test_browniansimulation_created(self, an_bms_mock):
         an_mod, bms_mock, _ = an_bms_mock

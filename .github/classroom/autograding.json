@@ -291,6 +291,16 @@
       "points": 1
     },
     {
+      "name": "Test task10 - doesnt crash",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask10::test_doesnt_crash",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 300,
+      "points": 1
+    },
+    {
       "name": "Test task10 - multiballsim args",
       "setup": "",
       "run": "pytest -vv tests/test_tasks.py::TestTask10::test_multiballsim_args",
@@ -351,9 +361,29 @@
       "points": 1
     },
     {
+      "name": "Test task11 - doesnt crash",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask11::test_doesnt_crash",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 300,
+      "points": 1
+    },
+    {
       "name": "Test task11 - running simulation",
       "setup": "",
       "run": "pytest -vv tests/test_tasks.py::TestTask11::test_running_simulation",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 300,
+      "points": 1
+    },
+    {
+      "name": "Test task12 - doesnt crash",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask12::test_doesnt_crash",
       "input": "",
       "output": "",
       "comparison": "included",
@@ -441,6 +471,16 @@
       "points": 1
     },
     {
+      "name": "Test task13 - doesnt crash",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask13::test_doesnt_crash",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 300,
+      "points": 1
+    },
+    {
       "name": "Test task13 - t equipartition correct",
       "setup": "",
       "run": "pytest -vv tests/test_tasks.py::TestTask13::test_t_equipartition_correct",
@@ -454,6 +494,16 @@
       "name": "Test task13 - t equipartition exists",
       "setup": "",
       "run": "pytest -vv tests/test_tasks.py::TestTask13::test_t_equipartition_exists",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 300,
+      "points": 1
+    },
+    {
+      "name": "Test task14 - doesnt crash",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask14::test_doesnt_crash",
       "input": "",
       "output": "",
       "comparison": "included",
@@ -514,6 +564,16 @@
       "name": "Test task15 - output",
       "setup": "",
       "run": "pytest -vv tests/test_tasks.py::TestTask15::test_output",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 300,
+      "points": 1
+    },
+    {
+      "name": "Test task16 - doesnt crash",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask16::test_doesnt_crash",
       "input": "",
       "output": "",
       "comparison": "included",
@@ -1301,6 +1361,16 @@
       "points": 1
     },
     {
+      "name": "Test task9 - doesnt crash",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask9::test_doesnt_crash",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 300,
+      "points": 1
+    },
+    {
       "name": "Test task9 - run called",
       "setup": "",
       "run": "pytest -vv tests/test_tasks.py::TestTask9::test_run_called",
@@ -1314,6 +1384,16 @@
       "name": "Test task9 - run correct",
       "setup": "",
       "run": "pytest -vv tests/test_tasks.py::TestTask9::test_run_correct",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 300,
+      "points": 1
+    },
+    {
+      "name": "Test task9 - singleballsim created",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask9::test_singleballsim_created",
       "input": "",
       "output": "",
       "comparison": "included",
