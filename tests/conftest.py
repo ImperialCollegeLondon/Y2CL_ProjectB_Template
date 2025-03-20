@@ -87,6 +87,23 @@ def curve_fit_mock():
         yield cf_mock
 
 @pytest.fixture(scope="function")
+def an_sbs_run(simulations_mod):
+    matplotlib.use("agg")  # Non-interactive backend more stable for testing that interactive Tk
+
+    simulations_mod.SingleBallSimulation._run = simulations_mod.SingleBallSimulation.run
+    with (patch.object(simulations_mod.SingleBallSimulation,
+                       "__init__",
+                       autospec=True,
+                       wraps=simulations_mod.SingleBallSimulation.__init__) as sbs_mock, 
+          patch.object(simulations_mod.SingleBallSimulation,
+                       "run",
+                       autospec=True,
+                       side_effect=lambda self, *args, **kwargs: simulations_mod.SingleBallSimulation._run(self, 1)) as run_mock):
+        yield import_module("thermosnooker.analysis"), sbs_mock, run_mock
+    delattr(simulations_mod.SingleBallSimulation, "_run")
+    plt.close()
+
+@pytest.fixture(scope="function")
 def an_mock_run(simulations_mod):
     matplotlib.use("agg")  # Non-interactive backend more stable for testing that interactive Tk
 
