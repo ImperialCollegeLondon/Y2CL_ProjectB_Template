@@ -99,7 +99,7 @@ def task15():
     plotting the VDW b parameters radii dependence.
 
     Returns:
-        tuple[Figure, Figure]: The ratio figure. and b parameter figure.
+        tuple[Figure, Figure]: The ratio figure and b parameter figure.
     """
     return
 
