@@ -18,40 +18,40 @@ from matplotlib.figure import Figure
 
 class TestTask2():
 
-    def test_module_exists(self, balls_mod):
+    def test_module_exists(self, balls):
         pass
 
-    def test_ball_class_exists(self, balls_mod):
-        assert "Ball" in vars(balls_mod)
+    def test_ball_class_exists(self, balls):
+        assert "Ball" in vars(balls)
 
-    def test_init_args(self, balls_mod):
-        assert {"pos", "vel", "radius", "mass"}.issubset(signature(balls_mod.Ball).parameters.keys())
+    def test_init_args(self, balls):
+        assert {"pos", "vel", "radius", "mass"}.issubset(signature(balls.Ball).parameters.keys())
 
     def test_construction(self, default_ball, custom_ball):
         pass
 
-    def test_pos_method_exists(self, balls_mod):
-        assert isinstance(balls_mod.Ball.pos, (FunctionType, property))
+    def test_pos_method_exists(self, balls):
+        assert isinstance(balls.Ball.pos, (FunctionType, property))
 
-    def test_vel_method_exists(self, balls_mod):
-        assert isinstance(balls_mod.Ball.vel, (FunctionType, property))
+    def test_vel_method_exists(self, balls):
+        assert isinstance(balls.Ball.vel, (FunctionType, property))
 
-    def test_set_vel_method_exists(self, balls_mod):
-        ball = balls_mod.Ball
+    def test_set_vel_method_exists(self, balls):
+        ball = balls.Ball
         if hasattr(ball, "set_vel"):
-            assert isinstance(balls_mod.Ball.set_vel, FunctionType)
+            assert isinstance(balls.Ball.set_vel, FunctionType)
         else:
-            assert isinstance(balls_mod.Ball.vel, property)
-            assert isinstance(balls_mod.Ball.vel.fset, FunctionType)
+            assert isinstance(balls.Ball.vel, property)
+            assert isinstance(balls.Ball.vel.fset, FunctionType)
 
-    def test_mass_method_exists(self, balls_mod):
-        assert isinstance(balls_mod.Ball.mass, (FunctionType, property))
+    def test_mass_method_exists(self, balls):
+        assert isinstance(balls.Ball.mass, (FunctionType, property))
 
-    def test_radius_method_exists(self, balls_mod):
-        assert isinstance(balls_mod.Ball.radius, (FunctionType, property))
+    def test_radius_method_exists(self, balls):
+        assert isinstance(balls.Ball.radius, (FunctionType, property))
 
-    def test_move_method_exists(self, balls_mod):
-        assert isinstance(balls_mod.Ball.move, FunctionType)
+    def test_move_method_exists(self, balls):
+        assert isinstance(balls.Ball.move, FunctionType)
 
     def test_pos_returns_array(self, default_ball, custom_ball):
         default_pos = default_ball.pos
@@ -173,8 +173,8 @@ class TestTask2():
 
 class TestTask3():
 
-    def test_patch_exists(self, balls_mod):
-        assert isinstance(balls_mod.Ball.patch, (FunctionType, property))
+    def test_patch_exists(self, balls):
+        assert isinstance(balls.Ball.patch, (FunctionType, property))
 
     def test_patch_type(self, default_ball, custom_ball):
         default_patch = default_ball.patch
@@ -216,35 +216,35 @@ class TestTask3():
 
 class TestTask4():
 
-    def test_ttc_exists(self, balls_mod):
-        assert isinstance(balls_mod.Ball.time_to_collision, FunctionType)
+    def test_ttc_exists(self, balls):
+        assert isinstance(balls.Ball.time_to_collision, FunctionType)
 
-    def test_ttc_return_type(self, balls_mod, default_ball):
-        ball1 = balls_mod.Ball(pos=[5, 0], vel=[-1, 0])
+    def test_ttc_return_type(self, balls, default_ball):
+        ball1 = balls.Ball(pos=[5, 0], vel=[-1, 0])
         assert isinstance(default_ball.time_to_collision(ball1), float)
 
-        ball2 = balls_mod.Ball(pos=[5, 0], vel=[1, 0])
+        ball2 = balls.Ball(pos=[5, 0], vel=[1, 0])
         assert isinstance(default_ball.time_to_collision(ball2), type(None))
 
-    def test_ttc_correct(self, balls_mod, default_ball):
-        ball1 = balls_mod.Ball(pos=[5, 0], vel=[-1, 0])
+    def test_ttc_correct(self, balls, default_ball):
+        ball1 = balls.Ball(pos=[5, 0], vel=[-1, 0])
         assert np.isclose(default_ball.time_to_collision(ball1), 1.5)
 
-        ball2 = balls_mod.Ball(pos=[5, 1], vel=[-1, 0])
+        ball2 = balls.Ball(pos=[5, 1], vel=[-1, 0])
         assert np.isclose(default_ball.time_to_collision(ball2), 1.6339745962155614)
 
-        ball1 = balls_mod.Ball(pos=[1, 1], vel=[1., 0])
-        ball2 = balls_mod.Ball(pos=[5., 4.], vel=[0, -0.75])
+        ball1 = balls.Ball(pos=[1, 1], vel=[1., 0])
+        ball2 = balls.Ball(pos=[5., 4.], vel=[0, -0.75])
         assert np.isclose(ball1.time_to_collision(ball2), 2.4)
 
-    def test_ttc_parallel(self, balls_mod):
-        ball1 = balls_mod.Ball(pos=[0.1, 0], vel=[0., 2.])
-        ball2 = balls_mod.Ball(pos=[0., 1.], vel=[0., 2.])
+    def test_ttc_parallel(self, balls):
+        ball1 = balls.Ball(pos=[0.1, 0], vel=[0., 2.])
+        ball2 = balls.Ball(pos=[0., 1.], vel=[0., 2.])
         assert ball1.time_to_collision(ball2) in (None, np.inf)
 
-    def test_ttc_going_away(self, balls_mod):
-        ball1 = balls_mod.Ball(pos=[2, 0], vel=[1, 0])
-        ball2 = balls_mod.Ball(pos=[-3, 0], vel=[-1, 0])
+    def test_ttc_going_away(self, balls):
+        ball1 = balls.Ball(pos=[2, 0], vel=[1, 0])
+        ball2 = balls.Ball(pos=[-3, 0], vel=[-1, 0])
         assert ball1.time_to_collision(ball2) in (None, np.inf)
 
     # def test_time_to_collision_con(self, ball_mod, default_con):
@@ -254,11 +254,11 @@ class TestTask4():
 
 class TestTask5():
 
-    def test_collide_exists(self, balls_mod):
-        assert isinstance(balls_mod.Ball.collide, FunctionType)
+    def test_collide_exists(self, balls):
+        assert isinstance(balls.Ball.collide, FunctionType)
 
-    def test_collide_correct_1D(self, balls_mod, default_ball):
-        ball = balls_mod.Ball(pos=[5., 0], vel=[-1, 0.])
+    def test_collide_correct_1D(self, balls, default_ball):
+        ball = balls.Ball(pos=[5., 0], vel=[-1, 0.])
         default_ball.collide(ball)
 
         default_vel = default_ball.vel
@@ -272,9 +272,9 @@ class TestTask5():
         assert np.allclose(ball_vel, [1, 0.])
         assert np.allclose(default_vel, [-1, 0.])
 
-    def test_collide_correct_2D(self, balls_mod):
-        ball1 = balls_mod.Ball(pos=[1, 1.], vel=[1, 0])
-        ball2 = balls_mod.Ball(pos=[5, 4], vel=[0., -0.75])
+    def test_collide_correct_2D(self, balls):
+        ball1 = balls.Ball(pos=[1, 1.], vel=[1, 0])
+        ball2 = balls.Ball(pos=[5, 4], vel=[0., -0.75])
         ball1.collide(ball2)
 
         ball1_vel = ball1.vel
@@ -302,15 +302,15 @@ class TestTask5():
 
 class TestTask6:
 
-    def test_container_exists(self, balls_mod):
-        assert "Container" in vars(balls_mod)
+    def test_container_exists(self, balls):
+        assert "Container" in vars(balls)
 
-    def test_container_args(self, balls_mod):
-        assert {"radius", "mass"}.issubset(signature(balls_mod.Container).parameters.keys())
+    def test_container_args(self, balls):
+        assert {"radius", "mass"}.issubset(signature(balls.Container).parameters.keys())
 
-    def test_container_construction(self, balls_mod, default_container):
-        balls_mod.Container(radius=11.)
-        balls_mod.Container(radius=12., mass=10000000.)
+    def test_container_construction(self, balls, default_container):
+        balls.Container(radius=11.)
+        balls.Container(radius=12., mass=10000000.)
 
     def test_default_args(self, default_container):
         default_radius = default_container.radius
@@ -329,10 +329,10 @@ class TestTask6:
     def test_ttc_return_type(self, default_container, default_ball):
         assert isinstance(default_container.time_to_collision(default_ball), float)
 
-    def test_ttc_correct(self, balls_mod, default_container, default_ball):
+    def test_ttc_correct(self, balls, default_container, default_ball):
         assert np.isclose(default_container.time_to_collision(default_ball), 9.)
 
-        ball = balls_mod.Ball(pos=[3, 5.], vel=[-1, 1.])
+        ball = balls.Ball(pos=[3, 5.], vel=[-1, 1.])
         assert np.isclose(default_container.time_to_collision(ball), 3.9497474683058327)
 
     def test_collide_exists(self, container_class):
@@ -394,67 +394,67 @@ class TestTask6:
 
 class TestTask7:
 
-    def test_simulations_exits(self, simulations_mod):
+    def test_simulations_exits(self, simulations):
         pass
 
-    def test_simulation_class_exists(self, simulations_mod):
-        assert "Simulation" in vars(simulations_mod)
+    def test_simulation_class_exists(self, simulations):
+        assert "Simulation" in vars(simulations)
 
-    def test_simulation_not_inherited(self, simulations_mod):
-        assert len(simulations_mod.Simulation.__bases__) == 1
-        assert object in simulations_mod.Simulation.__bases__
+    def test_simulation_not_inherited(self, simulations):
+        assert len(simulations.Simulation.__bases__) == 1
+        assert object in simulations.Simulation.__bases__
 
-    def test_run_exists(self, simulations_mod):
-        assert isinstance(simulations_mod.Simulation.run, FunctionType)
+    def test_run_exists(self, simulations):
+        assert isinstance(simulations.Simulation.run, FunctionType)
 
-    def test_run_signature(self, simulations_mod):
+    def test_run_signature(self, simulations):
         assert {"num_collisions",
                 "animate",
-                "pause_time"}.issubset(signature(simulations_mod.Simulation.run).parameters.keys())
+                "pause_time"}.issubset(signature(simulations.Simulation.run).parameters.keys())
 
-    def test_next_collision_exists(self, simulations_mod):
-        assert isinstance(simulations_mod.Simulation.next_collision, FunctionType)
+    def test_next_collision_exists(self, simulations):
+        assert isinstance(simulations.Simulation.next_collision, FunctionType)
 
-    def test_next_collision_not_implemented(self, simulations_mod):
-        sim = simulations_mod.Simulation()
+    def test_next_collision_not_implemented(self, simulations):
+        sim = simulations.Simulation()
         with pytest.raises(NotImplementedError):
             sim.next_collision()
 
-    def test_setup_figure_exists(self, simulations_mod):
-        assert isinstance(simulations_mod.Simulation.setup_figure, FunctionType)
+    def test_setup_figure_exists(self, simulations):
+        assert isinstance(simulations.Simulation.setup_figure, FunctionType)
 
-    def test_setup_figure_not_implemented(self, simulations_mod):
-        sim = simulations_mod.Simulation()
+    def test_setup_figure_not_implemented(self, simulations):
+        sim = simulations.Simulation()
         with pytest.raises(NotImplementedError):
             sim.setup_figure()
 
 
 class TestTask8:
 
-    def test_singleballsimulation_exists(self, simulations_mod):
-        assert "SingleBallSimulation" in vars(simulations_mod)
+    def test_singleballsimulation_exists(self, simulations):
+        assert "SingleBallSimulation" in vars(simulations)
 
-    def test_initialisation_args(self, simulations_mod):
+    def test_initialisation_args(self, simulations):
         assert {"container",
-                "ball"}.issubset(signature(simulations_mod.SingleBallSimulation).parameters.keys())
+                "ball"}.issubset(signature(simulations.SingleBallSimulation).parameters.keys())
 
-    def test_initialisation(self, balls_mod, simulations_mod):
-        c = balls_mod.Container(radius=10.)
-        b = balls_mod.Ball(pos=[-5, 0], vel=[1, 0.], radius=1., mass=1.)
-        simulations_mod.SingleBallSimulation(container=c, ball=b)
+    def test_initialisation(self, balls, simulations):
+        c = balls.Container(radius=10.)
+        b = balls.Ball(pos=[-5, 0], vel=[1, 0.], radius=1., mass=1.)
+        simulations.SingleBallSimulation(container=c, ball=b)
 
-    def test_container_exists(self, simulations_mod):
-        assert isinstance(simulations_mod.SingleBallSimulation.container, (FunctionType, property))
+    def test_container_exists(self, simulations):
+        assert isinstance(simulations.SingleBallSimulation.container, (FunctionType, property))
 
-    def test_container_correct(self, balls_mod, simulations_mod):
-        c = balls_mod.Container(radius=10.)
-        b = balls_mod.Ball(pos=[-5, 0], vel=[1, 0.], radius=1., mass=1.)
-        sim = simulations_mod.SingleBallSimulation(container=c, ball=b)
+    def test_container_correct(self, balls, simulations):
+        c = balls.Container(radius=10.)
+        b = balls.Ball(pos=[-5, 0], vel=[1, 0.], radius=1., mass=1.)
+        sim = simulations.SingleBallSimulation(container=c, ball=b)
 
         cont = sim.container
         if isinstance(cont, MethodType):
             cont = cont()
-        assert isinstance(cont, balls_mod.Container)
+        assert isinstance(cont, balls.Container)
         assert cont is c
 
         radius = cont.radius
@@ -462,18 +462,18 @@ class TestTask8:
             radius = radius()
         assert np.fabs(radius) == 10.
 
-    def test_ball_exists(self, simulations_mod):
-        assert isinstance(simulations_mod.SingleBallSimulation.ball, (FunctionType, property))
+    def test_ball_exists(self, simulations):
+        assert isinstance(simulations.SingleBallSimulation.ball, (FunctionType, property))
 
-    def test_ball_correct(self, balls_mod, simulations_mod):
-        c = balls_mod.Container(radius=10.)
-        b = balls_mod.Ball(pos=[-5, 0], vel=[1, 0.], radius=1., mass=1.)
-        sim = simulations_mod.SingleBallSimulation(container=c, ball=b)
+    def test_ball_correct(self, balls, simulations):
+        c = balls.Container(radius=10.)
+        b = balls.Ball(pos=[-5, 0], vel=[1, 0.], radius=1., mass=1.)
+        sim = simulations.SingleBallSimulation(container=c, ball=b)
 
         ball = sim.ball
         if isinstance(ball, MethodType):
             ball = ball()
-        assert isinstance(ball, balls_mod.Ball)
+        assert isinstance(ball, balls.Ball)
         assert ball is b
 
         radius = ball.radius
@@ -481,8 +481,8 @@ class TestTask8:
             radius = radius()
         assert radius == 1.
 
-    def test_setup_figure_exists(self, simulations_mod):
-        assert "setup_figure" in vars(simulations_mod.SingleBallSimulation)
+    def test_setup_figure_exists(self, simulations):
+        assert "setup_figure" in vars(simulations.SingleBallSimulation)
 
     # # dulplicate of task7
     # def test_setup_figure_base_raises(self, simulations_mod):
@@ -490,8 +490,8 @@ class TestTask8:
     #     with pytest.raises(NotImplementedError):
     #         sim.setup_figure()
 
-    def test_next_collision_exists(self, simulations_mod):
-        assert "next_collision" in vars(simulations_mod.SingleBallSimulation)
+    def test_next_collision_exists(self, simulations):
+        assert "next_collision" in vars(simulations.SingleBallSimulation)
 
     # # dulplicate of task7
     # def test_next_collision_base_raises(self, simulations_mod):
@@ -499,10 +499,10 @@ class TestTask8:
     #     with pytest.raises(NotImplementedError):
     #         sim.next_collision()
 
-    def test_next_collision_functionality(self, balls_mod, simulations_mod, monkeypatch):
-        c = balls_mod.Container(radius=10.)
-        b = balls_mod.Ball(pos=[-5, 0], vel=[1, 0.], radius=1., mass=1.)
-        sim = simulations_mod.SingleBallSimulation(container=c, ball=b)
+    def test_next_collision_functionality(self, balls, simulations, monkeypatch):
+        c = balls.Container(radius=10.)
+        b = balls.Ball(pos=[-5, 0], vel=[1, 0.], radius=1., mass=1.)
+        sim = simulations.SingleBallSimulation(container=c, ball=b)
         ttc_mock = MagicMock(return_value=9.)
         collide_mock = MagicMock()
         with monkeypatch.context() as m:
@@ -519,21 +519,20 @@ class TestTask9:
 
     TASK9_DEFAULT = b'ZGVmIHRhc2s5KCk6CiAgICAiIiIKICAgIFRhc2sgOS4KCiAgICBJbiB0aGlzIGZ1bmN0aW9uLCB5b3Ugc2hvdWxkIHRlc3QgeW91ciBhbmltYXRpb24uIFRvIGRvIHRoaXMsIGNyZWF0ZSBhIGNvbnRhaW5lcgogICAgYW5kIGJhbGwgYXMgZGlyZWN0ZWQgaW4gdGhlIHByb2plY3QgYnJpZWYuIENyZWF0ZSBhIFNpbmdsZUJhbGxTaW11bGF0aW9uIG9iamVjdCBmcm9tIHRoZXNlCiAgICBhbmQgdHJ5IHJ1bm5pbmcgeW91ciBhbmltYXRpb24uIEVuc3VyZSB0aGF0IHRoaXMgZnVuY3Rpb24gcmV0dXJucyB0aGUgYmFsbHMgZmluYWwgcG9zaXRpb24gYW5kCiAgICB2ZWxvY2l0eS4KCiAgICBSZXR1cm5zOgogICAgICAgIHR1cGxlW05EQXJyYXlbbnAuZmxvYXQ2NF0sIE5EQXJyYXlbbnAuZmxvYXQ2NF1dOiBUaGUgYmFsbHMgZmluYWwgcG9zaXRpb24gYW5kIHZlbG9jaXR5CiAgICAiIiIKICAgIHJldHVybgo='
 
-    def test_doesnt_crash(self, an_sbs_run):
-        an, sbs_mock, run_mock = an_sbs_run
+    def test_doesnt_crash(self, sbs_run_mock, an):
         an.task9()
         attempted = getsource(an.task9).encode('utf-8') != b64decode(TestTask9.TASK9_DEFAULT)
         assert attempted, "Task9 not attempted."
 
-    def test_singleballsim_created(self, an_sbs_run):
-        an, sbs_mock, _ = an_sbs_run
+    def test_singleballsim_created(self, sbs_run_mock, an):
+        sbs_mock, _ = sbs_run_mock
         an.task9()
         sbs_mock.assert_called()
 
-    def test_run_called(self, an, simulations_mod, monkeypatch):
+    def test_run_called(self, an, simulations, monkeypatch):
         run_mock = MagicMock()
         with monkeypatch.context() as m:
-            m.setattr(simulations_mod.SingleBallSimulation, "run", run_mock)
+            m.setattr(simulations.SingleBallSimulation, "run", run_mock)
             if hasattr(an, "SingleBallSimulation"):
                 m.setattr(an.SingleBallSimulation, "run", run_mock)
             an.task9()
@@ -552,69 +551,68 @@ class TestTask10:
 
     TASK10_DEFAULT = b'ZGVmIHRhc2sxMCgpOgogICAgIiIiCiAgICBUYXNrIDEwLgoKICAgIEluIHRoaXMgZnVuY3Rpb24gd2Ugc2hhbGwgdGVzdCB5b3VyIE11bHRpQmFsbFNpbXVsYXRpb24uIENyZWF0ZSBhbiBpbnN0YW5jZSBvZiB0aGlzIGNsYXNzIHVzaW5nCiAgICB0aGUgZGVmYXVsdCB2YWx1ZXMgZGVzY3JpYmVkIGluIHRoZSBwcm9qZWN0IGJyaWVmIGFuZCBydW4gdGhlIGFuaW1hdGlvbiBmb3IgNTAwIGNvbGxpc2lvbnMuCgogICAgV2F0Y2ggdGhlIHJlc3VsdGluZyBhbmltYXRpb24gY2FyZWZ1bGx5IGFuZCBtYWtlIHN1cmUgeW91IGFyZW4ndCBzZWVpbmcgZXJyb3JzIGxpa2UgYmFsbHMgc3RpY2tpbmcKICAgIHRvZ2V0aGVyIG9yIGVzY2FwaW5nIHRoZSBjb250YWluZXIuCiAgICAiIiIK'
 
-    def test_doesnt_crash(self, an_mock_run):
-        an, mbs_mock, run_mock = an_mock_run
+    def test_doesnt_crash(self, mbs_run_mock, an):
         an.task10()
         attempted = getsource(an.task10).encode('utf-8') != b64decode(TestTask10.TASK10_DEFAULT)
         assert attempted, "Task10 not attempted."
 
-    def test_multiballsim_exists(self, simulations_mod):
-        assert "MultiBallSimulation" in vars(simulations_mod)
+    def test_multiballsim_exists(self, simulations):
+        assert "MultiBallSimulation" in vars(simulations)
 
-    def test_multiballsim_args(self, simulations_mod):
-        args = signature(simulations_mod.MultiBallSimulation).parameters.keys()
+    def test_multiballsim_args(self, simulations):
+        args = signature(simulations.MultiBallSimulation).parameters.keys()
         assert {"c_radius", "b_radius", "b_speed", "b_mass"}.issubset(args)
 
-    def test_construction(self, simulations_mod):
-        simulations_mod.MultiBallSimulation()
-        simulations_mod.MultiBallSimulation(c_radius=10., b_radius=1., b_speed=10., b_mass=1.)
+    def test_construction(self, simulations):
+        simulations.MultiBallSimulation()
+        simulations.MultiBallSimulation(c_radius=10., b_radius=1., b_speed=10., b_mass=1.)
 
-    def test_container_exists(self, simulations_mod):
-        assert isinstance(simulations_mod.MultiBallSimulation.container, (FunctionType, property))
+    def test_container_exists(self, simulations):
+        assert isinstance(simulations.MultiBallSimulation.container, (FunctionType, property))
 
-    def test_container_correct(self, balls_mod, simulations_mod):
-        sim = simulations_mod.MultiBallSimulation()
+    def test_container_correct(self, balls, simulations):
+        sim = simulations.MultiBallSimulation()
 
         cont = sim.container
         if isinstance(cont, MethodType):
             cont = cont()
-        assert isinstance(cont, balls_mod.Container)
+        assert isinstance(cont, balls.Container)
 
         radius = cont.radius
         if isinstance(radius, MethodType):
             radius = radius()
         assert np.fabs(radius) == 10.
 
-    def test_balls_exists(self, simulations_mod):
-        assert isinstance(simulations_mod.MultiBallSimulation.balls, (FunctionType, property))
+    def test_balls_exists(self, simulations):
+        assert isinstance(simulations.MultiBallSimulation.balls, (FunctionType, property))
 
-    def test_balls_correct(self, balls_mod, simulations_mod):
-        sim = simulations_mod.MultiBallSimulation()
+    def test_balls_correct(self, balls, simulations):
+        sim = simulations.MultiBallSimulation()
 
-        balls = sim.balls
-        if isinstance(balls, MethodType):
-            balls = balls()
-        assert isinstance(balls, list)
+        balls_list = sim.balls
+        if isinstance(balls_list, MethodType):
+            balls_list = balls_list()
+        assert isinstance(balls_list, list)
 
-        if balls:
-            b = balls[0]
-            assert isinstance(b, balls_mod.Ball)
+        if balls_list:
+            b = balls_list[0]
+            assert isinstance(b, balls.Ball)
 
             radius = b.radius
             if isinstance(radius, MethodType):
                 radius = radius()
             assert radius == 1.
 
-    def test_setup_figure_exists(self, simulations_mod):
-        assert "setup_figure" in vars(simulations_mod.MultiBallSimulation)
+    def test_setup_figure_exists(self, simulations):
+        assert "setup_figure" in vars(simulations.MultiBallSimulation)
 
-    def test_next_collision_exists(self, simulations_mod):
-        assert "next_collision" in vars(simulations_mod.MultiBallSimulation)
+    def test_next_collision_exists(self, simulations):
+        assert "next_collision" in vars(simulations.MultiBallSimulation)
 
-    def test_run_called(self, an, simulations_mod, monkeypatch):
+    def test_run_called(self, an, simulations, monkeypatch):
         run_mock = MagicMock()
         with monkeypatch.context() as m:
-            m.setattr(simulations_mod.MultiBallSimulation, "run", run_mock)
+            m.setattr(simulations.MultiBallSimulation, "run", run_mock)
             if hasattr(an, "MultiBallSimulation"):
                 m.setattr(an.MultiBallSimulation, "run", run_mock)
             an.task10()
@@ -625,14 +623,13 @@ class TestTask11:
 
     TASK11_DEFAULT = b'ZGVmIHRhc2sxMSgpOgogICAgIiIiCiAgICBUYXNrIDExLgoKICAgIEluIHRoaXMgZnVuY3Rpb24gd2Ugc2hhbGwgYmUgcXVhbnRpdGF0aXZlbHkgY2hlY2tpbmcgdGhhdCB0aGUgYmFsbHMgYXJlbid0IGVzY2FwaW5nIG9yIHN0aWNraW5nLgogICAgVG8gZG8gdGhpcywgY3JlYXRlIHRoZSB0d28gaGlzdG9ncmFtcyBhcyBkaXJlY3RlZCBpbiB0aGUgcHJvamVjdCBzY3JpcHQuIEVuc3VyZSB0aGF0IHRoZXNlIHR3bwogICAgaGlzdG9ncmFtIGZpZ3VyZXMgYXJlIHJldHVybmVkLgoKICAgIFJldHVybnM6CiAgICAgICAgdHVwbGVbRmlndXJlLCBGaXJndXJlXTogVGhlIGhpc3RvZ3JhbXMgKGRpc3RhbmNlIGZyb20gY2VudHJlLCBpbnRlci1iYWxsIHNwYWNpbmcpLgogICAgIiIiCiAgICByZXR1cm4K'
 
-    def test_doesnt_crash(self, an_mock_run):
-        an, mbs_mock, run_mock = an_mock_run
+    def test_doesnt_crash(self, mbs_run_mock, an):
         an.task11()
         attempted = getsource(an.task11).encode('utf-8') != b64decode(TestTask11.TASK11_DEFAULT)
         assert attempted, "Task11 not attempted."
 
-    def test_running_simulation(self, an_mock_run):
-        an, mbs_mock, run_mock = an_mock_run
+    def test_running_simulation(self, mbs_run_mock, an):
+        mbs_mock, run_mock = mbs_run_mock
         an.task11()
         mbs_mock.assert_called()
         run_mock.assert_called()
@@ -645,17 +642,16 @@ class TestTask12:
 
     TASK12_DEFAULT = b'ZGVmIHRhc2sxMigpOgogICAgIiIiCiAgICBUYXNrIDEyLgoKICAgIEluIHRoaXMgZnVuY3Rpb24gd2Ugc2hhbGwgY2hlY2sgdGhhdCB0aGUgZnVuZGFtZW50YWwgcXVhbnRpdGllcyBvZiBlbmVyZ3kgYW5kIG1vbWVudHVtIGFyZSBjb25zZXJ2ZWQuCiAgICBBZGRpdGlvbmFsbHkgd2Ugc2hhbGwgaW52ZXN0aWdhdGUgdGhlIHByZXNzdXJlIGV2b2x1dGlvbiBvZiB0aGUgc3lzdGVtLiBFbnN1cmUgdGhhdCB0aGUgNCBmaWd1cmVzCiAgICBvdXRsaW5lZCBpbiB0aGUgcHJvamVjdCBzY3JpcHQgYXJlIHJldHVybmVkLgoKICAgIFJldHVybnM6CiAgICAgICAgdHVwbGVbRmlndXJlLCBGaWd1cmUsIEZpZ3VyZSwgRmlndXJlXTogbWF0cGxvdGxpYiBGaWd1cmVzIG9mIHRoZSBLRSwgbW9tZW50dW1feCwgbW9tZW50dW1feSByYXRpb3MKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBhcyB3ZWxsIGFzIHByZXNzdXJlIGV2b2x1dGlvbi4KICAgICIiIgogICAgcmV0dXJuCg=='
 
-    def test_doesnt_crash(self, an_mock_run):
-        an, mbs_mock, run_mock = an_mock_run
+    def test_doesnt_crash(self, mbs_run_mock, an):
         an.task12()
         attempted = getsource(an.task12).encode('utf-8') != b64decode(TestTask12.TASK12_DEFAULT)
         assert attempted, "Task12 not attempted."
 
-    def test_ke_exists(self, simulations_mod):
-        assert isinstance(simulations_mod.MultiBallSimulation.kinetic_energy, (FunctionType, property))
+    def test_ke_exists(self, simulations):
+        assert isinstance(simulations.MultiBallSimulation.kinetic_energy, (FunctionType, property))
 
-    def test_ke_correct(self, simulations_mod):
-        sim = simulations_mod.MultiBallSimulation()
+    def test_ke_correct(self, simulations):
+        sim = simulations.MultiBallSimulation()
         ke_tot = 0.
         balls = sim.balls
         if isinstance(balls, MethodType):
@@ -675,13 +671,13 @@ class TestTask12:
             sim_ke = sim_ke()
         assert np.isclose(ke_tot, sim_ke)
 
-    def test_time_exists(self, simulations_mod):
-        assert isinstance(simulations_mod.MultiBallSimulation.time, (FunctionType, property))
+    def test_time_exists(self, simulations):
+        assert isinstance(simulations.MultiBallSimulation.time, (FunctionType, property))
 
-    def test_time_correct(self, balls_mod, simulations_mod, monkeypatch):
+    def test_time_correct(self, balls, simulations, monkeypatch):
 
         time_tot = set()
-        original_move = balls_mod.Ball.move
+        original_move = balls.Ball.move
 
         def move_wrapper(self, dt):
             nonlocal time_tot
@@ -689,11 +685,11 @@ class TestTask12:
             original_move(self, dt)
 
         with monkeypatch.context() as m:
-            m.setattr(balls_mod.Ball, "move", move_wrapper)
-            if "Ball" in vars(simulations_mod):
-                m.setattr(simulations_mod.Ball, "move", move_wrapper)
+            m.setattr(balls.Ball, "move", move_wrapper)
+            if "Ball" in vars(simulations):
+                m.setattr(simulations.Ball, "move", move_wrapper)
 
-            sim = simulations_mod.MultiBallSimulation()
+            sim = simulations.MultiBallSimulation()
             sim.run(10)
 
         assert len(time_tot) == 10, "Incorrect number of collisions."
@@ -703,11 +699,11 @@ class TestTask12:
             time = time()
         assert np.isclose(sum(time_tot), time)
 
-    def test_momentum_exists(self, simulations_mod):
-        assert isinstance(simulations_mod.MultiBallSimulation.momentum, (FunctionType, property))
+    def test_momentum_exists(self, simulations):
+        assert isinstance(simulations.MultiBallSimulation.momentum, (FunctionType, property))
 
-    def test_momentum_correct(self, simulations_mod):
-        sim = simulations_mod.MultiBallSimulation()
+    def test_momentum_correct(self, simulations):
+        sim = simulations.MultiBallSimulation()
 
         mom_tot = np.zeros(2, dtype=np.float64)
         balls = sim.balls
@@ -728,11 +724,11 @@ class TestTask12:
             sim_mom = sim_mom()
         assert np.allclose(mom_tot, sim_mom)
 
-    def test_pressure_exists(self, simulations_mod):
-        assert isinstance(simulations_mod.MultiBallSimulation.pressure, (FunctionType, property))
+    def test_pressure_exists(self, simulations):
+        assert isinstance(simulations.MultiBallSimulation.pressure, (FunctionType, property))
 
-    def test_pressure_correct(self, simulations_mod):
-        sim = simulations_mod.MultiBallSimulation()
+    def test_pressure_correct(self, simulations):
+        sim = simulations.MultiBallSimulation()
         sim.run(10)
 
         cont = sim.container
@@ -765,17 +761,16 @@ class TestTask13:
 
     TASK13_DEFAULT = b'ZGVmIHRhc2sxMygpOgogICAgIiIiCiAgICBUYXNrIDEzLgoKICAgIEluIHRoaXMgZnVuY3Rpb24gd2UgaW52ZXN0aWdhdGUgaG93IHdlbGwgb3VyIHNpbXVsYXRpb24gcmVwcm9kdWNlcyB0aGUgZGlzdHJpYnV0aW9ucyBvZiB0aGUgSUdMLgogICAgQ3JlYXRlIHRoZSAzIGZpZ3VyZXMgZGlyZWN0ZWQgYnkgdGhlIHByb2plY3Qgc2NyaXB0LCBuYW1lbHk6CiAgICAxKSBQVCBwbG90CiAgICAyKSBQViBwbG90CiAgICAzKSBQTiBwbG90CiAgICBFbnN1cmUgdGhhdCB0aGlzIGZ1bmN0aW9uIHJldHVybnMgdGhlIHRocmVlIG1hdHBsb3RsaWIgZmlndXJlcy4KCiAgICBSZXR1cm5zOgogICAgICAgIHR1cGxlW0ZpZ3VyZSwgRmlndXJlLCBGaWd1cmVdOiBUaGUgMyByZXF1ZXN0ZWQgZmlndXJlczogKFBULCBQViwgUE4pCiAgICAiIiIKICAgIHJldHVybgo='
 
-    def test_doesnt_crash(self, an_mock_run):
-        an, mbs_mock, run_mock = an_mock_run
+    def test_doesnt_crash(self, mbs_run_mock, an):
         an.task13()
         attempted = getsource(an.task13).encode('utf-8') != b64decode(TestTask13.TASK13_DEFAULT)
         assert attempted, "Task13 not attempted."
 
-    def test_t_equipartition_exists(self, simulations_mod):
-        assert isinstance(simulations_mod.MultiBallSimulation.t_equipartition, (FunctionType, property))
+    def test_t_equipartition_exists(self, simulations):
+        assert isinstance(simulations.MultiBallSimulation.t_equipartition, (FunctionType, property))
 
-    def test_t_equipartition_correct(self, simulations_mod):
-        sim = simulations_mod.MultiBallSimulation()
+    def test_t_equipartition_correct(self, simulations):
+        sim = simulations.MultiBallSimulation()
         sim.run(10)
 
         ke_tot = sim.kinetic_energy
@@ -803,17 +798,16 @@ class TestTask14:
 
     TASK14_DEFAULT = b'ZGVmIHRhc2sxNCgpOgogICAgIiIiCiAgICBUYXNrIDE0LgoKICAgIEluIHRoaXMgZnVuY3Rpb24gd2Ugc2hhbGwgYmUgbG9va2luZyBhdCB0aGUgZGl2ZXJnZW5jZSBvZiBvdXIgc2ltdWxhdGlvbiBmcm9tIHRoZSBJR0wuIFdlIHNoYWxsCiAgICBxdWFudGlmeSB0aGUgYmFsbCByYWRpaSBkZXBlbmRlbmNlIG9mIHRoaXMgZGl2ZXJnZW5jZSBieSBwbG90dGluZyB0aGUgdGVtcGVyYXR1cmUgcmF0aW8gZGVmaW5lZCBpbgogICAgdGhlIHByb2plY3QgYnJpZWYuCgogICAgUmV0dXJuczoKICAgICAgICBGaWd1cmU6IFRoZSB0ZW1wZXJhdHVyZSByYXRpbyBmaWd1cmUuCiAgICAiIiIKICAgIHJldHVybgo='
 
-    def test_doesnt_crash(self, an_mock_run):
-        an, mbs_mock, run_mock = an_mock_run
+    def test_doesnt_crash(self, mbs_run_mock, an):
         an.task14()
         attempted = getsource(an.task14).encode('utf-8') != b64decode(TestTask14.TASK14_DEFAULT)
         assert attempted, "Task14 not attempted."
 
-    def test_t_ideal_exists(self, simulations_mod):
-        assert isinstance(simulations_mod.MultiBallSimulation.t_ideal, (FunctionType, property))
+    def test_t_ideal_exists(self, simulations):
+        assert isinstance(simulations.MultiBallSimulation.t_ideal, (FunctionType, property))
 
-    def test_t_ideal_correct(self, simulations_mod):
-        sim = simulations_mod.MultiBallSimulation()
+    def test_t_ideal_correct(self, simulations):
+        sim = simulations.MultiBallSimulation()
         sim.run(10)
 
         balls = sim.balls
@@ -848,27 +842,24 @@ class TestTask15:
 
     TASK15_DEFAULT = b'ZGVmIHRhc2sxNSgpOgogICAgIiIiCiAgICBUYXNrIDE1LgoKICAgIEluIHRoaXMgZnVuY3Rpb24gd2Ugc2hhbGwgYWxzbyBiZSBsb29raW5nIGF0IHRoZSBkaXZlcmdlbmNlIG9mIG91ciBzaW11bGF0aW9uIGZyb20gdGhlIElHTC4gV2Ugc2hhbGwKICAgIHF1YW50aWZ5IHRoZSBiYWxsIHJhZGlpIGRlcGVuZGVuY2Ugb2YgdGhpcyBkaXZlcmdlbmNlIGJ5IHBsb3R0aW5nIHRoZSB0ZW1wZXJhdHVyZSByYXRpbwogICAgYW5kIHZvbHVtZSBmcmFjdGlvbiBkZWZpbmVkIGluIHRoZSBwcm9qZWN0IGJyaWVmLiBXZSBzaGFsbCBmaXQgdGhpcyB0ZW1wZXJhdHVyZSByYXRpbyBiZWZvcmUKICAgIHBsb3R0aW5nIHRoZSBWRFcgYiBwYXJhbWV0ZXJzIHJhZGlpIGRlcGVuZGVuY2UuCgogICAgUmV0dXJuczoKICAgICAgICB0dXBsZVtGaWd1cmUsIEZpZ3VyZV06IFRoZSByYXRpbyBmaWd1cmUuIGFuZCBiIHBhcmFtZXRlciBmaWd1cmUuCiAgICAiIiIKICAgIHJldHVybgo='
 
-    def test_doesnt_crash(self, an_mock_run):
-        an, mbs_mock, run_mock = an_mock_run
+    def test_doesnt_crash(self, mbs_run_mock, an):
         an.task15()
         attempted = getsource(an.task15).encode('utf-8') != b64decode(TestTask15.TASK15_DEFAULT)
         assert attempted, "Task15 not attempted."
 
-    def test_output(self, an_mock_run):
-        an_mod, mbs_mock, run_mock = an_mock_run
-        task15_output = an_mod.task15()
+    def test_output(self, mbs_run_mock, an):
+        task15_output = an.task15()
         assert isinstance(task15_output, tuple)
         assert isinstance(task15_output[0], Figure)
         assert isinstance(task15_output[1], Figure)
 
-    def test_multiple_sims_created(self, an_mock_run):
-        an_mod, mbs_mock, _ = an_mock_run
-        an_mod.task15()
+    def test_multiple_sims_created(self, mbs_run_mock, an):
+        mbs_mock, _ = mbs_run_mock
+        an.task15()
         assert mbs_mock.call_count > 3
 
-    def test_curve_fit_called(self, curve_fit_mock, an_mock_run):
-        an_mod, _, _ = an_mock_run
-        an_mod.task15()
+    def test_curve_fit_called(self, curve_fit_mock, mbs_run_mock, an):
+        an.task15()
         assert curve_fit_mock.called
 
 
@@ -876,17 +867,16 @@ class TestTask16:
 
     TASK16_DEFAULT = b'ZGVmIHRhc2sxNigpOgogICAgIiIiCiAgICBUYXNrIDE2LgoKICAgIEluIHRoaXMgZnVuY3Rpb24gd2Ugc2hhbGwgcGxvdCBhIGhpc3RvZ3JhbSB0byBpbnZlc3RpZ2F0ZSBob3cgdGhlIHNwZWVkcyBvZiB0aGUgYmFsbHMgZXZvbHZlIGZyb20gdGhlIGluaXRpYWwKICAgIHZhbHVlLiBXZSBzaGFsbCB0aGVuIGNvbXBhcmUgdGhpcyB0byB0aGUgTWF4d2VsbC1Cb2x0em1hbm4gZGlzdHJpYnV0aW9uLiBFbnN1cmUgdGhhdCB0aGlzIGZ1bmN0aW9uIHJldHVybnMKICAgIHRoZSBjcmVhdGVkIGhpc3RvZ3JhbS4KCiAgICBSZXR1cm5zOgogICAgICAgIEZpZ3VyZTogVGhlIHNwZWVkIGhpc3RvZ3JhbS4KICAgICIiIgogICAgcmV0dXJuCg=='
 
-    def test_doesnt_crash(self, an_mock_run):
-        an, mbs_mock, run_mock = an_mock_run
+    def test_doesnt_crash(self, mbs_run_mock, an):
         an.task16()
         attempted = getsource(an.task16).encode('utf-8') != b64decode(TestTask16.TASK16_DEFAULT)
         assert attempted, "Task16 not attempted."
 
-    def test_speeds_exists(self, simulations_mod):
-        assert isinstance(simulations_mod.MultiBallSimulation.speeds, (FunctionType, property))
+    def test_speeds_exists(self, simulations):
+        assert isinstance(simulations.MultiBallSimulation.speeds, (FunctionType, property))
 
-    def test_speeds_correct(self, simulations_mod):
-        sim = simulations_mod.MultiBallSimulation()
+    def test_speeds_correct(self, simulations):
+        sim = simulations.MultiBallSimulation()
         sim.run(5)
 
         balls = sim.balls
@@ -906,20 +896,20 @@ class TestTask16:
 
         assert np.allclose(sim_speeds, b_speeds)
 
-    def test_maxwell_exists(self, physics_mod):
-        assert isinstance(physics_mod.maxwell, FunctionType)
+    def test_maxwell_exists(self, physics):
+        assert isinstance(physics.maxwell, FunctionType)
 
-    def test_maxwell_args(self, physics_mod):
-        args = signature(physics_mod.maxwell).parameters.keys()
+    def test_maxwell_args(self, physics):
+        args = signature(physics.maxwell).parameters.keys()
         assert {"speed", "kbt", "mass"}.issubset(args)
 
-    def test_maxwell_correct(self, physics_mod):
+    def test_maxwell_correct(self, physics):
         mass = 2.
         speed = 0.5
         kbt = Boltzmann * 2000
 
         mb_prob = mass * speed * np.exp(-mass * speed * speed / (2. * kbt)) / kbt
-        assert np.isclose(mb_prob, physics_mod.maxwell(speed=speed, kbt=kbt, mass=mass))
+        assert np.isclose(mb_prob, physics.maxwell(speed=speed, kbt=kbt, mass=mass))
 
     # @pytest.mark.skip
     # def test_task16_plots(self):
@@ -930,27 +920,26 @@ class TestTask17:
 
     TASK17_DEFAULT = b'ZGVmIHRhc2sxNygpOgogICAgIiIiCiAgICBUYXNrIDE3LgoKICAgIEluIHRoaXMgZnVuY3Rpb24gd2Ugc2hhbGwgcnVuIGEgQnJvd25pYW4gbW90aW9uIHNpbXVsYXRpb24gYW5kIHBsb3QgdGhlIHJlc3VsdGluZyB0cmFqZWN0b3J5IG9mIHRoZSAnYmlnJyBiYWxsLgogICAgIiIiCg=='
 
-    def test_doesnt_crash(self, an_bms_mock):
-        an, bms_mock, run_mock = an_bms_mock
+    def test_doesnt_crash(self, bms_run_mock, an):
         an.task17()
         attempted = getsource(an.task17).encode('utf-8') != b64decode(TestTask17.TASK17_DEFAULT)
         assert attempted, "Task17 not attempted."
 
-    def test_browniansimulation_exists(self, simulations_mod):
-        assert "BrownianSimulation" in vars(simulations_mod)
+    def test_browniansimulation_exists(self, simulations):
+        assert "BrownianSimulation" in vars(simulations)
 
-    def test_browniansimulation_created(self, an_bms_mock):
-        an_mod, bms_mock, _ = an_bms_mock
-        an_mod.task17()
+    def test_browniansimulation_created(self, bms_run_mock, an):
+        bms_mock, _ = bms_run_mock
+        an.task17()
         assert bms_mock.called
 
-    def test_bbpositions_exists(self, simulations_mod):
-        assert isinstance(simulations_mod.BrownianSimulation.bb_positions, (FunctionType, property))
+    def test_bbpositions_exists(self, simulations):
+        assert isinstance(simulations.BrownianSimulation.bb_positions, (FunctionType, property))
 
-    def test_initialisation_args(self, simulations_mod):
-        assert {"bb_radius", "bb_mass"}.issubset(signature(simulations_mod.BrownianSimulation).parameters.keys())
+    def test_initialisation_args(self, simulations):
+        assert {"bb_radius", "bb_mass"}.issubset(signature(simulations.BrownianSimulation).parameters.keys())
 
-    def test_defaults_init_args(self, simulations_mod):
-        params = signature(simulations_mod.BrownianSimulation).parameters
+    def test_defaults_init_args(self, simulations):
+        params = signature(simulations.BrownianSimulation).parameters
         assert params['bb_radius'].default == 2.
         assert params['bb_mass'].default == 10.

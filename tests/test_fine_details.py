@@ -10,36 +10,36 @@ from matplotlib.patches import Circle
 
 class TestBallInternals:
 
-    def test_pos_list_or_array_check(self, balls_mod):
+    def test_pos_list_or_array_check(self, balls):
         with pytest.raises(Exception) as excinfo:
-            balls_mod.Ball(pos=12)
+            balls.Ball(pos=12)
 
-    def test_pos_too_long_check(self, balls_mod):
+    def test_pos_too_long_check(self, balls):
         with pytest.raises(Exception) as excinfo:
-            balls_mod.Ball(pos=[1., 2., 3., 4.])
+            balls.Ball(pos=[1., 2., 3., 4.])
 
-    def test_pos_too_short_check(self, balls_mod):
+    def test_pos_too_short_check(self, balls):
         with pytest.raises(Exception) as excinfo:
-            balls_mod.Ball(pos=[1.])
+            balls.Ball(pos=[1.])
 
-    def test_hidden_vars(self, balls_mod):
-        a = set(vars(balls_mod.Ball()).keys())
+    def test_hidden_vars(self, balls):
+        a = set(vars(balls.Ball()).keys())
         b = set(vars(Circle([0., 0.], 5)).keys())
 
         public_vars = {i for i in a.difference(b) if not i.startswith("_")}
         assert not public_vars
 
-    def test_vel_list_or_array_check(self, balls_mod):
+    def test_vel_list_or_array_check(self, balls):
         with pytest.raises(Exception) as excinfo:
-            balls_mod.Ball(pos=12)
+            balls.Ball(pos=12)
 
-    def test_vel_too_long_check(self, balls_mod):
+    def test_vel_too_long_check(self, balls):
         with pytest.raises(Exception) as excinfo:
-            balls_mod.Ball(pos=[1., 2., 3., 4.])
+            balls.Ball(pos=[1., 2., 3., 4.])
 
-    def test_vel_too_short_check(self, balls_mod):
+    def test_vel_too_short_check(self, balls):
         with pytest.raises(Exception) as excinfo:
-            balls_mod.Ball(pos=[1.])
+            balls.Ball(pos=[1.])
 
     def test_default_pos_type(self, default_ball, var_name_map):
         pos = getattr(default_ball, var_name_map["pos"])
@@ -97,27 +97,27 @@ DATA_ATTRIBUTE_REGEX = re.compile(r"^\s*self\.([_a-zA-Z0-9]+)[^=]*=(?!=)", re.MU
 
 class TestAdvancedDesign:
 
-    def test_brownian_inheritance(self, simulations_mod):
-        assert simulations_mod.BrownianSimulation.__bases__ == (simulations_mod.MultiBallSimulation,)
+    def test_brownian_inheritance(self, simulations):
+        assert simulations.BrownianSimulation.__bases__ == (simulations.MultiBallSimulation,)
 
-    def test_container_inheritance(self, balls_mod):
-        assert balls_mod.Container.__bases__ == (balls_mod.Ball,)
+    def test_container_inheritance(self, balls):
+        assert balls.Container.__bases__ == (balls.Ball,)
 
-    def test_container_inherits_ttc(self, balls_mod):
-        assert "time_to_collision" not in vars(balls_mod.Container)
-        assert hasattr(balls_mod.Container, "time_to_collision")
+    def test_container_inherits_ttc(self, balls):
+        assert "time_to_collision" not in vars(balls.Container)
+        assert hasattr(balls.Container, "time_to_collision")
 
-    def test_container_doesnt_hide_vars(self, balls_mod):
-        ball_vars = set(DATA_ATTRIBUTE_REGEX.findall(getsource(balls_mod.Ball.__init__)))
-        cont_vars = set(DATA_ATTRIBUTE_REGEX.findall(getsource(balls_mod.Container.__init__)))
+    def test_container_doesnt_hide_vars(self, balls):
+        ball_vars = set(DATA_ATTRIBUTE_REGEX.findall(getsource(balls.Ball.__init__)))
+        cont_vars = set(DATA_ATTRIBUTE_REGEX.findall(getsource(balls.Container.__init__)))
         hidden_vars = ball_vars.intersection(cont_vars)
         assert not hidden_vars, f"Container hides the following variables from Base class Ball:\n {pformat(hidden_vars)}"
 
-    def test_hidden_variables(self, balls_mod, simulations_mod):
+    def test_hidden_variables(self, balls, simulations):
         non_hidden_vars = set()
-        for module in (balls_mod, simulations_mod):
+        for module in (balls, simulations):
             for name, cls in getmembers(module, isclass):
-                if module == balls_mod and cls == Circle:
+                if module == balls and cls == Circle:
                     continue
                 if init_func := vars(cls).get("__init__", False):
                     non_hidden_vars.update(f"{name}.{var}" for var in DATA_ATTRIBUTE_REGEX.findall(getsource(init_func))
@@ -125,9 +125,9 @@ class TestAdvancedDesign:
 
         assert not non_hidden_vars, f"Non hidden data attributes:\n {pformat(non_hidden_vars)}"
 
-    def test_collide_doesnt_call_ttc(self, balls_mod, monkeypatch):
-        b1 = balls_mod.Ball(pos=[-5., 0.], vel=[1., 0.])
-        b2 = balls_mod.Ball(pos=[5., 0.], vel=[-1., 0.])
+    def test_collide_doesnt_call_ttc(self, balls, monkeypatch):
+        b1 = balls.Ball(pos=[-5., 0.], vel=[1., 0.])
+        b2 = balls.Ball(pos=[5., 0.], vel=[-1., 0.])
 
         ttc_mock1 = MagicMock(wraps=b1.time_to_collision)
         ttc_mock2 = MagicMock(wraps=b2.time_to_collision)

@@ -41,29 +41,29 @@ class TestNoRelativeImports:
                                                        module=module_name,
                                                        rel_imports=relative_imports_str))
 
-    def test_balls_module(self, balls_mod):
+    def test_balls_module(self, balls):
         """
         Test the balls.py module.
 
         Args:
-            balls_mod (fixture): The balls_mod fixture
+            balls (fixture): The balls fixture
         """
-        self._test_module('balls', balls_mod)
+        self._test_module('balls', balls)
 
-    def test_simulations_module(self, simulations_mod):
+    def test_simulations_module(self, simulations):
         """
         Test the simulations.py module.
 
         Args:
-            simulations_mod (fixture): The simulations_mod fixture
+            simulations (fixture): The simulations fixture
         """
-        self._test_module('simulations', simulations_mod)
+        self._test_module('simulations', simulations)
 
-    def test_physics_module(self, physics_mod):
+    def test_physics_module(self, physics):
         """
         Test the physics.py module.
 
         Args:
-            physics_mod (fixture): The physics_mod fixture
+            physics (fixture): The physics fixture
         """
-        self._test_module('physics', physics_mod)
+        self._test_module('physics', physics)
