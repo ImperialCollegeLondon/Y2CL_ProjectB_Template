@@ -4,7 +4,7 @@ Septemvber 2023
     """
 import re
 from pathlib import Path
-from types import FunctionType, MethodType, NoneType
+from types import FunctionType, MethodType
 from inspect import signature, getsource
 from base64 import b64encode, b64decode
 from unittest.mock import MagicMock, patch
@@ -224,7 +224,7 @@ class TestTask4():
         assert isinstance(default_ball.time_to_collision(ball1), float)
 
         ball2 = balls_mod.Ball(pos=[5, 0], vel=[1, 0])
-        assert isinstance(default_ball.time_to_collision(ball2), NoneType)
+        assert isinstance(default_ball.time_to_collision(ball2), type(None))
 
     def test_ttc_correct(self, balls_mod, default_ball):
         ball1 = balls_mod.Ball(pos=[5, 0], vel=[-1, 0])
