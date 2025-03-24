@@ -1,51 +1,62 @@
 """Pytest fixtures."""
 from importlib import import_module
 from pathlib import Path
-from unittest.mock import MagicMock, patch
+from unittest.mock import patch
 import pytest
 import numpy as np
 import scipy.optimize as spo
 import matplotlib
 import matplotlib.pyplot as plt
 
+matplotlib.use("agg")  # Non-interactive backend more stable for testing than interactive Tk
 
+
+# pylint: disable=redefined-outer-name
 @pytest.fixture(scope="function")
 def balls():
     return import_module('thermosnooker.balls')
+
 
 @pytest.fixture(scope="function")
 def simulations():
     return import_module("thermosnooker.simulations")
 
+
 @pytest.fixture(scope="function")
 def physics():
     return import_module("thermosnooker.physics")
 
+
 @pytest.fixture(scope="function")
 def an():
-    matplotlib.use("agg")  # Non-interactive backend more stable for testing that interactive Tk
     yield import_module("thermosnooker.analysis")
-    plt.close()
+    plt.close('all')
+
 
 @pytest.fixture
 def default_ball(balls):
     return balls.Ball()
 
+
 @pytest.fixture
 def custom_ball(balls):
     return balls.Ball(pos=[1., 2.], vel=[3., 4.], radius=5., mass=6.)
+
 
 @pytest.fixture
 def container_class(balls):
     return balls.Container
 
+
 @pytest.fixture
 def default_container(balls):
     return balls.Container()
 
+
 @pytest.fixture
 def colliding_ball(balls):
     return balls.Ball(pos=[9., 0.])
+
 
 @pytest.fixture(scope="module")
 def source_files():
@@ -55,11 +66,10 @@ def source_files():
     assert src_files, "No source files found to check!"
     return src_files
 
+
 @pytest.fixture(scope="module")
 def source_files_str(source_files):
     return ' '.join(source_files)
-
-
 
 # @pytest.fixture(scope="function")
 # def an_mock_run(simulations_mod, monkeypatch):
@@ -83,52 +93,53 @@ def source_files_str(source_files):
 #     delattr(simulations_mod.MultiBallSimulation, "_run")
 #     plt.close()
 
+
 @pytest.fixture(scope="function")
 def curve_fit_mock():
     with patch("scipy.optimize.curve_fit", wraps=spo.curve_fit) as cf_mock:
         yield cf_mock
 
+
 @pytest.fixture(scope="function")
 def sbs_run_mock(simulations):
-    simulations.SingleBallSimulation._run = simulations.SingleBallSimulation.run
+    original_run = simulations.SingleBallSimulation.run
     with (patch.object(simulations.SingleBallSimulation,
                        "__init__",
                        autospec=True,
-                       wraps=simulations.SingleBallSimulation.__init__) as sbs_mock, 
+                       wraps=simulations.SingleBallSimulation.__init__) as sbs_mock,
           patch.object(simulations.SingleBallSimulation,
                        "run",
                        autospec=True,
-                       side_effect=lambda self, *args, **kwargs: simulations.SingleBallSimulation._run(self, 1)) as run_mock):
+                       side_effect=lambda self, *args, **kwargs: original_run(self, 1)) as run_mock):
         yield sbs_mock, run_mock
-    delattr(simulations.SingleBallSimulation, "_run")
+
 
 @pytest.fixture(scope="function")
 def mbs_run_mock(simulations):
-    simulations.MultiBallSimulation._run = simulations.MultiBallSimulation.run
+    original_run = simulations.MultiBallSimulation.run
     with (patch.object(simulations.MultiBallSimulation,
                        "__init__",
                        autospec=True,
-                       wraps=simulations.MultiBallSimulation.__init__) as mbs_mock, 
+                       wraps=simulations.MultiBallSimulation.__init__) as mbs_mock,
           patch.object(simulations.MultiBallSimulation,
                        "run",
                        autospec=True,
-                       side_effect=lambda self, *args, **kwargs: simulations.MultiBallSimulation._run(self, 1)) as run_mock):
+                       side_effect=lambda self, *args, **kwargs: original_run(self, 1)) as run_mock):
         yield mbs_mock, run_mock
-    delattr(simulations.MultiBallSimulation, "_run")
+
 
 @pytest.fixture(scope="function")
 def bms_run_mock(simulations):
-    simulations.BrownianSimulation._run = simulations.BrownianSimulation.run
+    original_run = simulations.BrownianSimulation.run
     with (patch.object(simulations.BrownianSimulation,
                        "__init__",
                        autospec=True,
-                       wraps=simulations.BrownianSimulation.__init__) as bms_mock, 
+                       wraps=simulations.BrownianSimulation.__init__) as bms_mock,
           patch.object(simulations.BrownianSimulation,
                        "run",
                        autospec=True,
-                       side_effect=lambda self, *args, **kwargs: simulations.BrownianSimulation._run(self, 1)) as run_mock):
+                       side_effect=lambda self, *args, **kwargs: original_run(self, 1)) as run_mock):
         yield bms_mock, run_mock
-    delattr(simulations.BrownianSimulation, "_run")
 
 
 @pytest.fixture
