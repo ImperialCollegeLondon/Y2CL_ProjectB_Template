@@ -371,6 +371,16 @@
       "points": 1
     },
     {
+      "name": "Test task11 - output",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask11::test_output",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 300,
+      "points": 1
+    },
+    {
       "name": "Test task11 - running simulation",
       "setup": "",
       "run": "pytest -vv tests/test_tasks.py::TestTask11::test_running_simulation",
@@ -431,6 +441,16 @@
       "points": 1
     },
     {
+      "name": "Test task12 - output",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask12::test_output",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 300,
+      "points": 1
+    },
+    {
       "name": "Test task12 - pressure correct",
       "setup": "",
       "run": "pytest -vv tests/test_tasks.py::TestTask12::test_pressure_correct",
@@ -481,6 +501,16 @@
       "points": 1
     },
     {
+      "name": "Test task13 - output",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask13::test_output",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 300,
+      "points": 1
+    },
+    {
       "name": "Test task13 - t equipartition correct",
       "setup": "",
       "run": "pytest -vv tests/test_tasks.py::TestTask13::test_t_equipartition_correct",
@@ -504,6 +534,16 @@
       "name": "Test task14 - doesnt crash",
       "setup": "",
       "run": "pytest -vv tests/test_tasks.py::TestTask14::test_doesnt_crash",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 300,
+      "points": 1
+    },
+    {
+      "name": "Test task14 - output",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask14::test_output",
       "input": "",
       "output": "",
       "comparison": "included",
@@ -604,6 +644,16 @@
       "name": "Test task16 - maxwell exists",
       "setup": "",
       "run": "pytest -vv tests/test_tasks.py::TestTask16::test_maxwell_exists",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 300,
+      "points": 1
+    },
+    {
+      "name": "Test task16 - output",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask16::test_output",
       "input": "",
       "output": "",
       "comparison": "included",

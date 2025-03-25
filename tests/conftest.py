@@ -6,12 +6,13 @@ import pytest
 import numpy as np
 import scipy.optimize as spo
 import matplotlib
+import matplotlib.axes as mplaxes
 import matplotlib.pyplot as plt
 
 matplotlib.use("agg")  # Non-interactive backend more stable for testing than interactive Tk
 
 
-# pylint: disable=redefined-outer-name
+# pylint: disable=redefined-outer-name, unused-argument
 @pytest.fixture(scope="function")
 def balls():
     return import_module('thermosnooker.balls')
@@ -115,6 +116,21 @@ def sbs_run_mock(simulations):
 
 
 @pytest.fixture(scope="function")
+def sbs_run20_mock(simulations):
+    """Specially for Task9 running to get numerical output."""
+    original_run = simulations.SingleBallSimulation.run
+    with (patch.object(simulations.SingleBallSimulation,
+                       "__init__",
+                       autospec=True,
+                       wraps=simulations.SingleBallSimulation.__init__) as sbs_mock,
+          patch.object(simulations.SingleBallSimulation,
+                       "run",
+                       autospec=True,
+                       side_effect=lambda self, *args, **kwargs: original_run(self, 20)) as run_mock):
+        yield sbs_mock, run_mock
+
+
+@pytest.fixture(scope="function")
 def mbs_run_mock(simulations):
     original_run = simulations.MultiBallSimulation.run
     with (patch.object(simulations.MultiBallSimulation,
@@ -156,6 +172,58 @@ def var_name_map(custom_ball):
             ret["mass"] = var_name
     return ret
 
+
+@pytest.fixture(scope="function")
+def range_mock(an):
+    with patch.object(an, "range", return_value=range(1, 10)) as range_mock:
+        yield range_mock
+
+
+@pytest.fixture(scope="function")
+def hist_mock():
+    with (patch("matplotlib.pyplot.hist") as hist_mock1,
+          patch.object(mplaxes.Axes, "hist", autospec=True) as hist_mock2):
+        yield hist_mock1, hist_mock2
+
+
+@pytest.fixture(scope="function")
+def task9_output(an):
+    yield an.task9()
+
+
+@pytest.fixture(scope="function")
+def task11_output(range_mock, an):
+    yield an.task11()
+
+
+@pytest.fixture(scope="function")
+def task12_output(range_mock, an):
+    yield an.task12()
+
+
+@pytest.fixture(scope="function")
+def task13_output(an):
+    yield an.task13()
+
+
+@pytest.fixture(scope="function")
+def task14_output(an):
+    yield an.task14()
+
+
+@pytest.fixture(scope="function")
+def task15_output(an):
+    yield an.task15()
+
+
+@pytest.fixture(scope="function")
+def task16_output(an):
+    yield an.task16()
+
+
+@pytest.fixture(scope="function")
+def task17_output(an):
+    yield an.task17()
 
 # @pytest.fixture
 # def sim_module():
