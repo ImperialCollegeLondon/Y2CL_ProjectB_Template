@@ -213,6 +213,33 @@ class TestTask3():
             custom_patch = custom_patch()
         assert np.allclose(custom_patch.center, [13., 18])
 
+    def test_single_patch(self, default_ball):
+        default_patch = default_ball.patch
+        if isinstance(default_patch, MethodType):
+            init_patch = default_patch()
+            second_patch = default_patch()
+            third_patch = default_patch()
+            assert init_patch is second_patch
+            assert init_patch is third_patch
+        else:
+            second_patch = default_ball.patch
+            third_patch = default_ball.patch
+            assert default_patch is second_patch
+            assert default_patch is third_patch
+
+    def test_move_single_patch(self, default_ball):
+        default_patch = default_ball.patch
+        if isinstance(default_patch, MethodType):
+            default_patch = default_patch()
+
+        default_ball.move(3)
+
+        new_patch = default_ball.patch
+        if isinstance(new_patch, MethodType):
+            new_patch = new_patch()
+
+        assert default_patch is new_patch
+
 
 class TestTask4():
 

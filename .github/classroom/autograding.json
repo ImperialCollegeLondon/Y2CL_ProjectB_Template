@@ -951,6 +951,16 @@
       "points": 1
     },
     {
+      "name": "Test task3 - move single patch",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask3::test_move_single_patch",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 300,
+      "points": 1
+    },
+    {
       "name": "Test task3 - patch correct",
       "setup": "",
       "run": "pytest -vv tests/test_tasks.py::TestTask3::test_patch_correct",
@@ -984,6 +994,16 @@
       "name": "Test task3 - patch type",
       "setup": "",
       "run": "pytest -vv tests/test_tasks.py::TestTask3::test_patch_type",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 300,
+      "points": 1
+    },
+    {
+      "name": "Test task3 - single patch",
+      "setup": "",
+      "run": "pytest -vv tests/test_tasks.py::TestTask3::test_single_patch",
       "input": "",
       "output": "",
       "comparison": "included",
