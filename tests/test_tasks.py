@@ -874,35 +874,14 @@ class TestTask14:
 
 class TestTask15:
 
-    TASK15_DEFAULT = b'ZGVmIHRhc2sxNSgpOgogICAgIiIiCiAgICBUYXNrIDE1LgoKICAgIEluIHRoaXMgZnVuY3Rpb24gd2Ugc2hhbGwgYWxzbyBiZSBsb29raW5nIGF0IHRoZSBkaXZlcmdlbmNlIG9mIG91ciBzaW11bGF0aW9uIGZyb20gdGhlIElHTC4gV2Ugc2hhbGwKICAgIHF1YW50aWZ5IHRoZSBiYWxsIHJhZGlpIGRlcGVuZGVuY2Ugb2YgdGhpcyBkaXZlcmdlbmNlIGJ5IHBsb3R0aW5nIHRoZSB0ZW1wZXJhdHVyZSByYXRpbwogICAgYW5kIHZvbHVtZSBmcmFjdGlvbiBkZWZpbmVkIGluIHRoZSBwcm9qZWN0IGJyaWVmLiBXZSBzaGFsbCBmaXQgdGhpcyB0ZW1wZXJhdHVyZSByYXRpbyBiZWZvcmUKICAgIHBsb3R0aW5nIHRoZSBWRFcgYiBwYXJhbWV0ZXJzIHJhZGlpIGRlcGVuZGVuY2UuCgogICAgUmV0dXJuczoKICAgICAgICB0dXBsZVtGaWd1cmUsIEZpZ3VyZV06IFRoZSByYXRpbyBmaWd1cmUgYW5kIGIgcGFyYW1ldGVyIGZpZ3VyZS4KICAgICIiIgogICAgcmV0dXJuCg=='
+    TASK15_DEFAULT = b'ZGVmIHRhc2sxNSgpOgogICAgIiIiCiAgICBUYXNrIDE1LgoKICAgIEluIHRoaXMgZnVuY3Rpb24gd2Ugc2hhbGwgcGxvdCBhIGhpc3RvZ3JhbSB0byBpbnZlc3RpZ2F0ZSBob3cgdGhlIHNwZWVkcyBvZiB0aGUgYmFsbHMgZXZvbHZlIGZyb20gdGhlIGluaXRpYWwKICAgIHZhbHVlLiBXZSBzaGFsbCB0aGVuIGNvbXBhcmUgdGhpcyB0byB0aGUgTWF4d2VsbC1Cb2x0em1hbm4gZGlzdHJpYnV0aW9uLiBFbnN1cmUgdGhhdCB0aGlzIGZ1bmN0aW9uIHJldHVybnMKICAgIHRoZSBjcmVhdGVkIGhpc3RvZ3JhbS4KCiAgICBSZXR1cm5zOgogICAgICAgIEZpZ3VyZTogVGhlIHNwZWVkIGhpc3RvZ3JhbS4KICAgICIiIgogICAgcmV0dXJuCg=='
 
     def test_doesnt_crash(self, mbs_run_mock, task15_output, an):
         attempted = getsource(an.task15).encode('utf-8') != b64decode(TestTask15.TASK15_DEFAULT)
         assert attempted, "Task15 not attempted."
 
     def test_output(self, mbs_run_mock, task15_output):
-        assert len(task15_output) == 2
-        assert isinstance(task15_output[0], Figure)
-        assert isinstance(task15_output[1], Figure)
-
-    def test_multiple_sims_created(self, mbs_run_mock, task15_output):
-        mbs_mock, _ = mbs_run_mock
-        assert mbs_mock.call_count > 3
-
-    def test_curve_fit_called(self, curve_fit_mock, mbs_run_mock, task15_output):
-        assert curve_fit_mock.called
-
-
-class TestTask16:
-
-    TASK16_DEFAULT = b'ZGVmIHRhc2sxNigpOgogICAgIiIiCiAgICBUYXNrIDE2LgoKICAgIEluIHRoaXMgZnVuY3Rpb24gd2Ugc2hhbGwgcGxvdCBhIGhpc3RvZ3JhbSB0byBpbnZlc3RpZ2F0ZSBob3cgdGhlIHNwZWVkcyBvZiB0aGUgYmFsbHMgZXZvbHZlIGZyb20gdGhlIGluaXRpYWwKICAgIHZhbHVlLiBXZSBzaGFsbCB0aGVuIGNvbXBhcmUgdGhpcyB0byB0aGUgTWF4d2VsbC1Cb2x0em1hbm4gZGlzdHJpYnV0aW9uLiBFbnN1cmUgdGhhdCB0aGlzIGZ1bmN0aW9uIHJldHVybnMKICAgIHRoZSBjcmVhdGVkIGhpc3RvZ3JhbS4KCiAgICBSZXR1cm5zOgogICAgICAgIEZpZ3VyZTogVGhlIHNwZWVkIGhpc3RvZ3JhbS4KICAgICIiIgogICAgcmV0dXJuCg=='
-
-    def test_doesnt_crash(self, mbs_run_mock, task16_output, an):
-        attempted = getsource(an.task16).encode('utf-8') != b64decode(TestTask16.TASK16_DEFAULT)
-        assert attempted, "Task16 not attempted."
-
-    def test_output(self, mbs_run_mock, task16_output):
-        assert isinstance(task16_output, Figure)
+        assert isinstance(task15_output, Figure)
 
     def test_speeds_exists(self, simulations):
         assert isinstance(simulations.MultiBallSimulation.speeds, (FunctionType, property))
@@ -944,8 +923,29 @@ class TestTask16:
         assert np.isclose(mb_prob, physics.maxwell(speed=speed, kbt=kbt, mass=mass))
 
     # @pytest.mark.skip
-    # def test_task16_plots(self):
+    # def test_task15_plots(self):
     #     pass
+
+
+class TestTask16:
+
+    TASK16_DEFAULT = b'ZGVmIHRhc2sxNigpOgogICAgIiIiCiAgICBUYXNrIDE2LgoKICAgIEluIHRoaXMgZnVuY3Rpb24gd2Ugc2hhbGwgYWxzbyBiZSBsb29raW5nIGF0IHRoZSBkaXZlcmdlbmNlIG9mIG91ciBzaW11bGF0aW9uIGZyb20gdGhlIElHTC4gV2Ugc2hhbGwKICAgIHF1YW50aWZ5IHRoZSBiYWxsIHJhZGlpIGRlcGVuZGVuY2Ugb2YgdGhpcyBkaXZlcmdlbmNlIGJ5IHBsb3R0aW5nIHRoZSB0ZW1wZXJhdHVyZSByYXRpbwogICAgYW5kIHZvbHVtZSBmcmFjdGlvbiBkZWZpbmVkIGluIHRoZSBwcm9qZWN0IGJyaWVmLiBXZSBzaGFsbCBmaXQgdGhpcyB0ZW1wZXJhdHVyZSByYXRpbyBiZWZvcmUKICAgIHBsb3R0aW5nIHRoZSBWRFcgYiBwYXJhbWV0ZXJzIHJhZGlpIGRlcGVuZGVuY2UuCgogICAgUmV0dXJuczoKICAgICAgICB0dXBsZVtGaWd1cmUsIEZpZ3VyZV06IFRoZSByYXRpbyBmaWd1cmUgYW5kIGIgcGFyYW1ldGVyIGZpZ3VyZS4KICAgICIiIgogICAgcmV0dXJuCg=='
+
+    def test_doesnt_crash(self, mbs_run_mock, task16_output, an):
+        attempted = getsource(an.task16).encode('utf-8') != b64decode(TestTask16.TASK16_DEFAULT)
+        assert attempted, "Task16 not attempted."
+
+    def test_output(self, mbs_run_mock, task16_output):
+        assert len(task16_output) == 2
+        assert isinstance(task16_output[0], Figure)
+        assert isinstance(task16_output[1], Figure)
+
+    def test_multiple_sims_created(self, mbs_run_mock, task16_output):
+        mbs_mock, _ = mbs_run_mock
+        assert mbs_mock.call_count > 3
+
+    def test_curve_fit_called(self, curve_fit_mock, mbs_run_mock, task16_output):
+        assert curve_fit_mock.called
 
 
 class TestTask17:
