@@ -93,13 +93,12 @@ def task15():
     """
     Task 15.
 
-    In this function we shall also be looking at the divergence of our simulation from the IGL. We shall
-    quantify the ball radii dependence of this divergence by plotting the temperature ratio
-    and volume fraction defined in the project brief. We shall fit this temperature ratio before
-    plotting the VDW b parameters radii dependence.
+    In this function we shall plot a histogram to investigate how the speeds of the balls evolve from the initial
+    value. We shall then compare this to the Maxwell-Boltzmann distribution. Ensure that this function returns
+    the created histogram.
 
     Returns:
-        tuple[Figure, Figure]: The ratio figure and b parameter figure.
+        Figure: The speed histogram.
     """
     return
 
@@ -108,12 +107,13 @@ def task16():
     """
     Task 16.
 
-    In this function we shall plot a histogram to investigate how the speeds of the balls evolve from the initial
-    value. We shall then compare this to the Maxwell-Boltzmann distribution. Ensure that this function returns
-    the created histogram.
+    In this function we shall also be looking at the divergence of our simulation from the IGL. We shall
+    quantify the ball radii dependence of this divergence by plotting the temperature ratio
+    and volume fraction defined in the project brief. We shall fit this temperature ratio before
+    plotting the VDW b parameters radii dependence.
 
     Returns:
-        Figure: The speed histogram.
+        tuple[Figure, Figure]: The ratio figure and b parameter figure.
     """
     return
 
