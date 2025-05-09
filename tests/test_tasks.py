@@ -443,17 +443,21 @@ class TestTask7:
         assert isinstance(simulations.Simulation.next_collision, FunctionType)
 
     def test_next_collision_not_implemented(self, simulations):
-        sim = simulations.Simulation()
+        class ConcreteSimulation(simulations.Simulation):  # incase they use ABC
+            def next_collision(self):
+                super().next_collision()
+
         with pytest.raises(NotImplementedError):
-            sim.next_collision()
+            ConcreteSimulation().next_collision()
 
     def test_setup_figure_exists(self, simulations):
         assert isinstance(simulations.Simulation.setup_figure, FunctionType)
 
-    def test_setup_figure_not_implemented(self, simulations):
-        sim = simulations.Simulation()
-        with pytest.raises(NotImplementedError):
-            sim.setup_figure()
+    # might be call to abstract some setup features to the abstract base class
+    # def test_setup_figure_not_implemented(self, simulations):
+    #     sim = simulations.Simulation()
+    #     with pytest.raises(NotImplementedError):
+    #         sim.setup_figure()
 
 
 class TestTask8:

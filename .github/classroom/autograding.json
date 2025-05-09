@@ -1291,16 +1291,6 @@
       "points": 1
     },
     {
-      "name": "Test task7 - setup figure not implemented",
-      "setup": "",
-      "run": "pytest -vv tests/test_tasks.py::TestTask7::test_setup_figure_not_implemented",
-      "input": "",
-      "output": "",
-      "comparison": "included",
-      "timeout": 300,
-      "points": 1
-    },
-    {
       "name": "Test task7 - simulation class exists",
       "setup": "",
       "run": "pytest -vv tests/test_tasks.py::TestTask7::test_simulation_class_exists",
