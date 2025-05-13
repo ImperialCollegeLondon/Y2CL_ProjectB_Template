@@ -31,15 +31,15 @@ class TestBallInternals:
 
     def test_vel_list_or_array_check(self, balls):
         with pytest.raises(Exception) as excinfo:
-            balls.Ball(pos=12)
+            balls.Ball(pos=[0., 0.], vel=12)
 
     def test_vel_too_long_check(self, balls):
         with pytest.raises(Exception) as excinfo:
-            balls.Ball(pos=[1., 2., 3., 4.])
+            balls.Ball(pos=[0., 0.], vel=[1., 2., 3., 4.])
 
     def test_vel_too_short_check(self, balls):
         with pytest.raises(Exception) as excinfo:
-            balls.Ball(pos=[1.])
+            balls.Ball(pos=[0., 0.], vel=[1.])
 
     def test_default_pos_type(self, default_ball, var_name_map):
         pos = getattr(default_ball, var_name_map["pos"])
