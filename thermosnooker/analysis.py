@@ -147,10 +147,10 @@ if __name__ == "__main__":
     # FIG14 = task14()
 
     # Run task 15 function
-    # FIG15_RATIO, FIG15_BPARAM = task15()
+    # FIG15 = task15()
 
     # Run task 16 function
-    # FIG16 = task16()
+    # FIG16_RATIO, FIG16_BPARAM = task16()
 
     # Run task 17 function
     # task17()
