@@ -1,6 +1,8 @@
 """Analysis Module."""
 import matplotlib.pyplot as plt
 
+from thermosnooker._utils.decorators import SaveOutput
+
 
 def task9():
     """
@@ -17,6 +19,7 @@ def task9():
     return
 
 
+@SaveOutput("task10")
 def task10():
     """
     Task 10.
@@ -26,9 +29,14 @@ def task10():
 
     Watch the resulting animation carefully and make sure you aren't seeing errors like balls sticking
     together or escaping the container.
+
+    Returns:
+        Figure: The MultiBallSimulation simulation plot
     """
+    return
 
 
+@SaveOutput(["task11a", "task11b"])
 def task11():
     """
     Task 11.
@@ -43,6 +51,7 @@ def task11():
     return
 
 
+@SaveOutput(["task12a", "task12b", "task12c", "task12d"])
 def task12():
     """
     Task 12.
@@ -58,6 +67,7 @@ def task12():
     return
 
 
+@SaveOutput(["task13a", "task13b", "task13c"])
 def task13():
     """
     Task 13.
@@ -75,6 +85,7 @@ def task13():
     return
 
 
+@SaveOutput("task14")
 def task14():
     """
     Task 14.
@@ -89,6 +100,7 @@ def task14():
     return
 
 
+@SaveOutput("task15")
 def task15():
     """
     Task 15.
@@ -103,6 +115,7 @@ def task15():
     return
 
 
+@SaveOutput(["task16a", "task16b"])
 def task16():
     """
     Task 16.
@@ -118,12 +131,47 @@ def task16():
     return
 
 
+@SaveOutput("task17")
 def task17():
     """
     Task 17.
 
     In this function we shall run a Brownian motion simulation and plot the resulting trajectory of the 'big' ball.
+
+    Returns:
+        Figure: The Brownian motion simulation plot.
     """
+    return
+
+
+@SaveOutput("task18")
+def task18():
+    """
+    Task 18.
+
+    In this function we shall calculate and plot the radial dependence of the mean free path and compare to the
+    dilute-gas Boltzmann mean free path. We shall then investigate the Enskog correction as the larger radii put us in
+    dense-gas region.
+
+    Returns:
+        Figure: The plot of your mean free path investigation.
+    """
+    return
+
+
+@SaveOutput(["task19a", "task19b", "task19c"])
+def task19():
+    """
+    Task 19.
+
+    In this function, we shall be computing the radial distribution function. We will see what the function looks like
+    at time t = 0 as well as a later time t for a MultiBallSimulation where only a single ball has some velocity.
+    We will also create an animation to so the evolution of this function as our simulation progresses.
+
+    Returns:
+        tuple[Figure, Figure, ArtistAnimation]: The g(r) histograms for t = 0, t = some time later, g(r) animation
+    """
+    return
 
 
 if __name__ == "__main__":
@@ -132,7 +180,7 @@ if __name__ == "__main__":
     BALL_POS, BALL_VEL = task9()
 
     # Run task 10 function
-    # task10()
+    # FIG10 = task10()
 
     # Run task 11 function
     # FIG11_BALLCENTRE, FIG11_INTERBALL = task11()
@@ -153,6 +201,12 @@ if __name__ == "__main__":
     # FIG16_RATIO, FIG16_BPARAM = task16()
 
     # Run task 17 function
-    # task17()
+    # FIG17 = task17()
+
+    # Run task 18 function
+    # FIG18 = task18()
+
+    # Run task 19 function
+    # FIG19_HIST1, FIG19_HIST2, FIG19_ANIM = task19()
 
     plt.show()
