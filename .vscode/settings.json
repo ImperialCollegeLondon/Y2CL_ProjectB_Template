@@ -1,16 +1,16 @@
 {
     "files.exclude": {
         "**/.*": true,
+        "thermosnooker/_utils": true,
         "**/__pycache__": true,
         "**/venv": true,
-        "**/settings.json": true,
-        "**/result_images": true,
         "**/pyproject.toml": true,
         "**/*.egg-info": true,
         "**/tests": true,
         "**/__init__.py": true
     },
     "editor.tabCompletion": "on",
+    "editor.inlineSuggest.enabled": false,
     "python.testing.pytestArgs": [
         "tests", "-vv"
     ],
