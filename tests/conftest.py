@@ -30,7 +30,9 @@ def physics():
 
 @pytest.fixture(scope="function")
 def an():
-    yield import_module("thermosnooker.analysis")
+    with patch('thermosnooker._utils.decorators.SaveOutput') as pp:
+        pp.return_value = lambda x: x
+        yield import_module("thermosnooker.analysis")
     plt.close('all')
 
 
@@ -225,14 +227,10 @@ def task16_output(an):
 def task17_output(an):
     yield an.task17()
 
-# @pytest.fixture
-# def sim_module():
-#     return import_module("simulation")
+@pytest.fixture(scope="function")
+def task18_output(an):
+    yield an.task18()
 
-# @pytest.fixture
-# def my_simulation(simulation_module):
-#     """
-#     create simulation instance
-#     """
-#     my_simulation = simulation_module.Simulation()
-#     return my_simulation
+@pytest.fixture(scope="function")
+def task19_output(an):
+    yield an.task19()

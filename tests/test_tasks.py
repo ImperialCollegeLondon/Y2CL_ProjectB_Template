@@ -3,8 +3,11 @@ Laura Hollister
 Septemvber 2023
     """
 import re
+import abc
 from pathlib import Path
 from types import FunctionType, MethodType
+from itertools import product
+from string import ascii_lowercase
 from inspect import signature, getsource
 from base64 import b64encode, b64decode
 from unittest.mock import MagicMock, patch
@@ -429,7 +432,7 @@ class TestTask7:
 
     def test_simulation_not_inherited(self, simulations):
         assert len(simulations.Simulation.__bases__) == 1
-        assert object in simulations.Simulation.__bases__
+        assert {abc.ABC, object}.intersection(simulations.Simulation.__bases__)
 
     def test_run_exists(self, simulations):
         assert isinstance(simulations.Simulation.run, FunctionType)
@@ -570,7 +573,7 @@ class TestTask9:
 
 class TestTask10:
 
-    TASK10_DEFAULT = b'ZGVmIHRhc2sxMCgpOgogICAgIiIiCiAgICBUYXNrIDEwLgoKICAgIEluIHRoaXMgZnVuY3Rpb24gd2Ugc2hhbGwgdGVzdCB5b3VyIE11bHRpQmFsbFNpbXVsYXRpb24uIENyZWF0ZSBhbiBpbnN0YW5jZSBvZiB0aGlzIGNsYXNzIHVzaW5nCiAgICB0aGUgZGVmYXVsdCB2YWx1ZXMgZGVzY3JpYmVkIGluIHRoZSBwcm9qZWN0IGJyaWVmIGFuZCBydW4gdGhlIGFuaW1hdGlvbiBmb3IgNTAwIGNvbGxpc2lvbnMuCgogICAgV2F0Y2ggdGhlIHJlc3VsdGluZyBhbmltYXRpb24gY2FyZWZ1bGx5IGFuZCBtYWtlIHN1cmUgeW91IGFyZW4ndCBzZWVpbmcgZXJyb3JzIGxpa2UgYmFsbHMgc3RpY2tpbmcKICAgIHRvZ2V0aGVyIG9yIGVzY2FwaW5nIHRoZSBjb250YWluZXIuCiAgICAiIiIK'
+    TASK10_DEFAULT = b'QFNhdmVPdXRwdXQoInRhc2sxMCIpCmRlZiB0YXNrMTAoKToKICAgICIiIgogICAgVGFzayAxMC4KCiAgICBJbiB0aGlzIGZ1bmN0aW9uIHdlIHNoYWxsIHRlc3QgeW91ciBNdWx0aUJhbGxTaW11bGF0aW9uLiBDcmVhdGUgYW4gaW5zdGFuY2Ugb2YgdGhpcyBjbGFzcyB1c2luZwogICAgdGhlIGRlZmF1bHQgdmFsdWVzIGRlc2NyaWJlZCBpbiB0aGUgcHJvamVjdCBicmllZiBhbmQgcnVuIHRoZSBhbmltYXRpb24gZm9yIDUwMCBjb2xsaXNpb25zLgoKICAgIFdhdGNoIHRoZSByZXN1bHRpbmcgYW5pbWF0aW9uIGNhcmVmdWxseSBhbmQgbWFrZSBzdXJlIHlvdSBhcmVuJ3Qgc2VlaW5nIGVycm9ycyBsaWtlIGJhbGxzIHN0aWNraW5nCiAgICB0b2dldGhlciBvciBlc2NhcGluZyB0aGUgY29udGFpbmVyLgoKICAgIFJldHVybnM6CiAgICAgICAgRmlndXJlOiBUaGUgTXVsdGlCYWxsU2ltdWxhdGlvbiBzaW11bGF0aW9uIHBsb3QKICAgICIiIgogICAgcmV0dXJuCg=='
 
     def test_doesnt_crash(self, mbs_run_mock, an):
         an.task10()
@@ -639,10 +642,16 @@ class TestTask10:
             an.task10()
         run_mock.assert_called_once()
 
+    def test_plot_ready_for_marking(self, plots_for_marking_dir):
+        for ext in ['png', 'pkl']:
+            plot = plots_for_marking_dir / f"task10.{ext}"
+            assert plot.exists(), f"plot file {plot.name!r} does not exist in {plot.parent}"
+            assert plot.stat().st_size > 0, f"plot file {plot.name!r} is empty"
+
 
 class TestTask11:
 
-    TASK11_DEFAULT = b'ZGVmIHRhc2sxMSgpOgogICAgIiIiCiAgICBUYXNrIDExLgoKICAgIEluIHRoaXMgZnVuY3Rpb24gd2Ugc2hhbGwgYmUgcXVhbnRpdGF0aXZlbHkgY2hlY2tpbmcgdGhhdCB0aGUgYmFsbHMgYXJlbid0IGVzY2FwaW5nIG9yIHN0aWNraW5nLgogICAgVG8gZG8gdGhpcywgY3JlYXRlIHRoZSB0d28gaGlzdG9ncmFtcyBhcyBkaXJlY3RlZCBpbiB0aGUgcHJvamVjdCBzY3JpcHQuIEVuc3VyZSB0aGF0IHRoZXNlIHR3bwogICAgaGlzdG9ncmFtIGZpZ3VyZXMgYXJlIHJldHVybmVkLgoKICAgIFJldHVybnM6CiAgICAgICAgdHVwbGVbRmlndXJlLCBGaXJndXJlXTogVGhlIGhpc3RvZ3JhbXMgKGRpc3RhbmNlIGZyb20gY2VudHJlLCBpbnRlci1iYWxsIHNwYWNpbmcpLgogICAgIiIiCiAgICByZXR1cm4K'
+    TASK11_DEFAULT = b'QFNhdmVPdXRwdXQoWyJ0YXNrMTFhIiwgInRhc2sxMWIiXSkKZGVmIHRhc2sxMSgpOgogICAgIiIiCiAgICBUYXNrIDExLgoKICAgIEluIHRoaXMgZnVuY3Rpb24gd2Ugc2hhbGwgYmUgcXVhbnRpdGF0aXZlbHkgY2hlY2tpbmcgdGhhdCB0aGUgYmFsbHMgYXJlbid0IGVzY2FwaW5nIG9yIHN0aWNraW5nLgogICAgVG8gZG8gdGhpcywgY3JlYXRlIHRoZSB0d28gaGlzdG9ncmFtcyBhcyBkaXJlY3RlZCBpbiB0aGUgcHJvamVjdCBzY3JpcHQuIEVuc3VyZSB0aGF0IHRoZXNlIHR3bwogICAgaGlzdG9ncmFtIGZpZ3VyZXMgYXJlIHJldHVybmVkLgoKICAgIFJldHVybnM6CiAgICAgICAgdHVwbGVbRmlndXJlLCBGaXJndXJlXTogVGhlIGhpc3RvZ3JhbXMgKGRpc3RhbmNlIGZyb20gY2VudHJlLCBpbnRlci1iYWxsIHNwYWNpbmcpLgogICAgIiIiCiAgICByZXR1cm4K'
 
     def test_doesnt_crash(self, mbs_run_mock, task11_output, an):
         attempted = getsource(an.task11).encode('utf-8') != b64decode(TestTask11.TASK11_DEFAULT)
@@ -662,10 +671,16 @@ class TestTask11:
         assert re.search(r"hist\(", getsource(an.task11)) is not None
         assert hist_mock[0].called or hist_mock[1].called
 
+    def test_plots_ready_for_marking(self, plots_for_marking_dir):
+        for index, ext in product(ascii_lowercase[:2], ['png', 'pkl']):
+            plot = plots_for_marking_dir / f"task11{index}.{ext}"
+            assert plot.exists(), f"plot file {plot.name!r} does not exist in {plot.parent}"
+            assert plot.stat().st_size > 0, f"plot file {plot.name!r} is empty"
+
 
 class TestTask12:
 
-    TASK12_DEFAULT = b'ZGVmIHRhc2sxMigpOgogICAgIiIiCiAgICBUYXNrIDEyLgoKICAgIEluIHRoaXMgZnVuY3Rpb24gd2Ugc2hhbGwgY2hlY2sgdGhhdCB0aGUgZnVuZGFtZW50YWwgcXVhbnRpdGllcyBvZiBlbmVyZ3kgYW5kIG1vbWVudHVtIGFyZSBjb25zZXJ2ZWQuCiAgICBBZGRpdGlvbmFsbHkgd2Ugc2hhbGwgaW52ZXN0aWdhdGUgdGhlIHByZXNzdXJlIGV2b2x1dGlvbiBvZiB0aGUgc3lzdGVtLiBFbnN1cmUgdGhhdCB0aGUgNCBmaWd1cmVzCiAgICBvdXRsaW5lZCBpbiB0aGUgcHJvamVjdCBzY3JpcHQgYXJlIHJldHVybmVkLgoKICAgIFJldHVybnM6CiAgICAgICAgdHVwbGVbRmlndXJlLCBGaWd1cmUsIEZpZ3VyZSwgRmlndXJlXTogbWF0cGxvdGxpYiBGaWd1cmVzIG9mIHRoZSBLRSwgbW9tZW50dW1feCwgbW9tZW50dW1feSByYXRpb3MKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBhcyB3ZWxsIGFzIHByZXNzdXJlIGV2b2x1dGlvbi4KICAgICIiIgogICAgcmV0dXJuCg=='
+    TASK12_DEFAULT = b'QFNhdmVPdXRwdXQoWyJ0YXNrMTJhIiwgInRhc2sxMmIiLCAidGFzazEyYyIsICJ0YXNrMTJkIl0pCmRlZiB0YXNrMTIoKToKICAgICIiIgogICAgVGFzayAxMi4KCiAgICBJbiB0aGlzIGZ1bmN0aW9uIHdlIHNoYWxsIGNoZWNrIHRoYXQgdGhlIGZ1bmRhbWVudGFsIHF1YW50aXRpZXMgb2YgZW5lcmd5IGFuZCBtb21lbnR1bSBhcmUgY29uc2VydmVkLgogICAgQWRkaXRpb25hbGx5IHdlIHNoYWxsIGludmVzdGlnYXRlIHRoZSBwcmVzc3VyZSBldm9sdXRpb24gb2YgdGhlIHN5c3RlbS4gRW5zdXJlIHRoYXQgdGhlIDQgZmlndXJlcwogICAgb3V0bGluZWQgaW4gdGhlIHByb2plY3Qgc2NyaXB0IGFyZSByZXR1cm5lZC4KCiAgICBSZXR1cm5zOgogICAgICAgIHR1cGxlW0ZpZ3VyZSwgRmlndXJlLCBGaWd1cmUsIEZpZ3VyZV06IG1hdHBsb3RsaWIgRmlndXJlcyBvZiB0aGUgS0UsIG1vbWVudHVtX3gsIG1vbWVudHVtX3kgcmF0aW9zCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgYXMgd2VsbCBhcyBwcmVzc3VyZSBldm9sdXRpb24uCiAgICAiIiIKICAgIHJldHVybgo='
 
     def test_doesnt_crash(self, mbs_run_mock, task12_output, an):
         attempted = getsource(an.task12).encode('utf-8') != b64decode(TestTask12.TASK12_DEFAULT)
@@ -783,14 +798,16 @@ class TestTask12:
             pressure = pressure()
         assert np.isclose(dp_tot / (time * sa), pressure)
 
-    # @pytest.mark.skip
-    # def test_test12_plots(self):
-    #     pass
+    def test_plots_ready_for_marking(self, plots_for_marking_dir):
+        for index, ext in product(ascii_lowercase[:4], ['png', 'pkl']):
+            plot = plots_for_marking_dir / f"task12{index}.{ext}"
+            assert plot.exists(), f"plot file {plot.name!r} does not exist in {plot.parent}"
+            assert plot.stat().st_size > 0, f"plot file {plot.name!r} is empty"
 
 
 class TestTask13:
 
-    TASK13_DEFAULT = b'ZGVmIHRhc2sxMygpOgogICAgIiIiCiAgICBUYXNrIDEzLgoKICAgIEluIHRoaXMgZnVuY3Rpb24gd2UgaW52ZXN0aWdhdGUgaG93IHdlbGwgb3VyIHNpbXVsYXRpb24gcmVwcm9kdWNlcyB0aGUgZGlzdHJpYnV0aW9ucyBvZiB0aGUgSUdMLgogICAgQ3JlYXRlIHRoZSAzIGZpZ3VyZXMgZGlyZWN0ZWQgYnkgdGhlIHByb2plY3Qgc2NyaXB0LCBuYW1lbHk6CiAgICAxKSBQVCBwbG90CiAgICAyKSBQViBwbG90CiAgICAzKSBQTiBwbG90CiAgICBFbnN1cmUgdGhhdCB0aGlzIGZ1bmN0aW9uIHJldHVybnMgdGhlIHRocmVlIG1hdHBsb3RsaWIgZmlndXJlcy4KCiAgICBSZXR1cm5zOgogICAgICAgIHR1cGxlW0ZpZ3VyZSwgRmlndXJlLCBGaWd1cmVdOiBUaGUgMyByZXF1ZXN0ZWQgZmlndXJlczogKFBULCBQViwgUE4pCiAgICAiIiIKICAgIHJldHVybgo='
+    TASK13_DEFAULT = b'QFNhdmVPdXRwdXQoWyJ0YXNrMTNhIiwgInRhc2sxM2IiLCAidGFzazEzYyJdKQpkZWYgdGFzazEzKCk6CiAgICAiIiIKICAgIFRhc2sgMTMuCgogICAgSW4gdGhpcyBmdW5jdGlvbiB3ZSBpbnZlc3RpZ2F0ZSBob3cgd2VsbCBvdXIgc2ltdWxhdGlvbiByZXByb2R1Y2VzIHRoZSBkaXN0cmlidXRpb25zIG9mIHRoZSBJR0wuCiAgICBDcmVhdGUgdGhlIDMgZmlndXJlcyBkaXJlY3RlZCBieSB0aGUgcHJvamVjdCBzY3JpcHQsIG5hbWVseToKICAgIDEpIFBUIHBsb3QKICAgIDIpIFBWIHBsb3QKICAgIDMpIFBOIHBsb3QKICAgIEVuc3VyZSB0aGF0IHRoaXMgZnVuY3Rpb24gcmV0dXJucyB0aGUgdGhyZWUgbWF0cGxvdGxpYiBmaWd1cmVzLgoKICAgIFJldHVybnM6CiAgICAgICAgdHVwbGVbRmlndXJlLCBGaWd1cmUsIEZpZ3VyZV06IFRoZSAzIHJlcXVlc3RlZCBmaWd1cmVzOiAoUFQsIFBWLCBQTikKICAgICIiIgogICAgcmV0dXJuCg=='
 
     def test_doesnt_crash(self, mbs_run_mock, task13_output, an):
         attempted = getsource(an.task13).encode('utf-8') != b64decode(TestTask13.TASK13_DEFAULT)
@@ -825,6 +842,12 @@ class TestTask13:
         assert np.any(np.isclose(t_equi, [ke_tot / nballs, ke_tot / (Boltzmann * nballs)]))
         # assert t_equi in {ke_tot / nballs, ke_tot / (Boltzmann * nballs)}
 
+    def test_plots_ready_for_marking(self, plots_for_marking_dir):
+        for index, ext in product(ascii_lowercase[:3], ['png', 'pkl']):
+            plot = plots_for_marking_dir / f"task13{index}.{ext}"
+            assert plot.exists(), f"plot file {plot.name!r} does not exist in {plot.parent}"
+            assert plot.stat().st_size > 0, f"plot file {plot.name!r} is empty"
+
     # @pytest.mark.skip
     # def test_task13_plots(self):
     #     pass
@@ -832,7 +855,7 @@ class TestTask13:
 
 class TestTask14:
 
-    TASK14_DEFAULT = b'ZGVmIHRhc2sxNCgpOgogICAgIiIiCiAgICBUYXNrIDE0LgoKICAgIEluIHRoaXMgZnVuY3Rpb24gd2Ugc2hhbGwgYmUgbG9va2luZyBhdCB0aGUgZGl2ZXJnZW5jZSBvZiBvdXIgc2ltdWxhdGlvbiBmcm9tIHRoZSBJR0wuIFdlIHNoYWxsCiAgICBxdWFudGlmeSB0aGUgYmFsbCByYWRpaSBkZXBlbmRlbmNlIG9mIHRoaXMgZGl2ZXJnZW5jZSBieSBwbG90dGluZyB0aGUgdGVtcGVyYXR1cmUgcmF0aW8gZGVmaW5lZCBpbgogICAgdGhlIHByb2plY3QgYnJpZWYuCgogICAgUmV0dXJuczoKICAgICAgICBGaWd1cmU6IFRoZSB0ZW1wZXJhdHVyZSByYXRpbyBmaWd1cmUuCiAgICAiIiIKICAgIHJldHVybgo='
+    TASK14_DEFAULT = b'QFNhdmVPdXRwdXQoInRhc2sxNCIpCmRlZiB0YXNrMTQoKToKICAgICIiIgogICAgVGFzayAxNC4KCiAgICBJbiB0aGlzIGZ1bmN0aW9uIHdlIHNoYWxsIGJlIGxvb2tpbmcgYXQgdGhlIGRpdmVyZ2VuY2Ugb2Ygb3VyIHNpbXVsYXRpb24gZnJvbSB0aGUgSUdMLiBXZSBzaGFsbAogICAgcXVhbnRpZnkgdGhlIGJhbGwgcmFkaWkgZGVwZW5kZW5jZSBvZiB0aGlzIGRpdmVyZ2VuY2UgYnkgcGxvdHRpbmcgdGhlIHRlbXBlcmF0dXJlIHJhdGlvIGRlZmluZWQgaW4KICAgIHRoZSBwcm9qZWN0IGJyaWVmLgoKICAgIFJldHVybnM6CiAgICAgICAgRmlndXJlOiBUaGUgdGVtcGVyYXR1cmUgcmF0aW8gZmlndXJlLgogICAgIiIiCiAgICByZXR1cm4K'
 
     def test_doesnt_crash(self, mbs_run_mock, task14_output, an):
         attempted = getsource(an.task14).encode('utf-8') != b64decode(TestTask14.TASK14_DEFAULT)
@@ -871,14 +894,16 @@ class TestTask14:
         assert np.any(np.isclose(t_ideal, [pressure * volume / nballs, pressure * volume / (Boltzmann * nballs)]))
         # assert t_ideal in {pressure * volume / nballs, pressure * volume / (Boltzmann * nballs)}
 
-    # @pytest.mark.skip
-    # def test_task14_plots(self):
-    #     pass
+    def test_plot_ready_for_marking(self, plots_for_marking_dir):
+        for ext in ['png', 'pkl']:
+            plot = plots_for_marking_dir / f"task14.{ext}"
+            assert plot.exists(), f"plot file {plot.name!r} does not exist in {plot.parent}"
+            assert plot.stat().st_size > 0, f"plot file {plot.name!r} is empty"
 
 
 class TestTask15:
 
-    TASK15_DEFAULT = b'ZGVmIHRhc2sxNSgpOgogICAgIiIiCiAgICBUYXNrIDE1LgoKICAgIEluIHRoaXMgZnVuY3Rpb24gd2Ugc2hhbGwgcGxvdCBhIGhpc3RvZ3JhbSB0byBpbnZlc3RpZ2F0ZSBob3cgdGhlIHNwZWVkcyBvZiB0aGUgYmFsbHMgZXZvbHZlIGZyb20gdGhlIGluaXRpYWwKICAgIHZhbHVlLiBXZSBzaGFsbCB0aGVuIGNvbXBhcmUgdGhpcyB0byB0aGUgTWF4d2VsbC1Cb2x0em1hbm4gZGlzdHJpYnV0aW9uLiBFbnN1cmUgdGhhdCB0aGlzIGZ1bmN0aW9uIHJldHVybnMKICAgIHRoZSBjcmVhdGVkIGhpc3RvZ3JhbS4KCiAgICBSZXR1cm5zOgogICAgICAgIEZpZ3VyZTogVGhlIHNwZWVkIGhpc3RvZ3JhbS4KICAgICIiIgogICAgcmV0dXJuCg=='
+    TASK15_DEFAULT = b'QFNhdmVPdXRwdXQoInRhc2sxNSIpCmRlZiB0YXNrMTUoKToKICAgICIiIgogICAgVGFzayAxNS4KCiAgICBJbiB0aGlzIGZ1bmN0aW9uIHdlIHNoYWxsIHBsb3QgYSBoaXN0b2dyYW0gdG8gaW52ZXN0aWdhdGUgaG93IHRoZSBzcGVlZHMgb2YgdGhlIGJhbGxzIGV2b2x2ZSBmcm9tIHRoZSBpbml0aWFsCiAgICB2YWx1ZS4gV2Ugc2hhbGwgdGhlbiBjb21wYXJlIHRoaXMgdG8gdGhlIE1heHdlbGwtQm9sdHptYW5uIGRpc3RyaWJ1dGlvbi4gRW5zdXJlIHRoYXQgdGhpcyBmdW5jdGlvbiByZXR1cm5zCiAgICB0aGUgY3JlYXRlZCBoaXN0b2dyYW0uCgogICAgUmV0dXJuczoKICAgICAgICBGaWd1cmU6IFRoZSBzcGVlZCBoaXN0b2dyYW0uCiAgICAiIiIKICAgIHJldHVybgo='
 
     def test_doesnt_crash(self, mbs_run_mock, task15_output, an):
         attempted = getsource(an.task15).encode('utf-8') != b64decode(TestTask15.TASK15_DEFAULT)
@@ -926,6 +951,12 @@ class TestTask15:
         mb_prob = mass * speed * np.exp(-mass * speed * speed / (2. * kbt)) / kbt
         assert np.isclose(mb_prob, physics.maxwell(speed=speed, kbt=kbt, mass=mass))
 
+    def test_plot_ready_for_marking(self, plots_for_marking_dir):
+        for ext in ['png', 'pkl']:
+            plot = plots_for_marking_dir / f"task15.{ext}"
+            assert plot.exists(), f"plot file {plot.name!r} does not exist in {plot.parent}"
+            assert plot.stat().st_size > 0, f"plot file {plot.name!r} is empty"
+
     # @pytest.mark.skip
     # def test_task15_plots(self):
     #     pass
@@ -933,7 +964,7 @@ class TestTask15:
 
 class TestTask16:
 
-    TASK16_DEFAULT = b'ZGVmIHRhc2sxNigpOgogICAgIiIiCiAgICBUYXNrIDE2LgoKICAgIEluIHRoaXMgZnVuY3Rpb24gd2Ugc2hhbGwgYWxzbyBiZSBsb29raW5nIGF0IHRoZSBkaXZlcmdlbmNlIG9mIG91ciBzaW11bGF0aW9uIGZyb20gdGhlIElHTC4gV2Ugc2hhbGwKICAgIHF1YW50aWZ5IHRoZSBiYWxsIHJhZGlpIGRlcGVuZGVuY2Ugb2YgdGhpcyBkaXZlcmdlbmNlIGJ5IHBsb3R0aW5nIHRoZSB0ZW1wZXJhdHVyZSByYXRpbwogICAgYW5kIHZvbHVtZSBmcmFjdGlvbiBkZWZpbmVkIGluIHRoZSBwcm9qZWN0IGJyaWVmLiBXZSBzaGFsbCBmaXQgdGhpcyB0ZW1wZXJhdHVyZSByYXRpbyBiZWZvcmUKICAgIHBsb3R0aW5nIHRoZSBWRFcgYiBwYXJhbWV0ZXJzIHJhZGlpIGRlcGVuZGVuY2UuCgogICAgUmV0dXJuczoKICAgICAgICB0dXBsZVtGaWd1cmUsIEZpZ3VyZV06IFRoZSByYXRpbyBmaWd1cmUgYW5kIGIgcGFyYW1ldGVyIGZpZ3VyZS4KICAgICIiIgogICAgcmV0dXJuCg=='
+    TASK16_DEFAULT = b'QFNhdmVPdXRwdXQoWyJ0YXNrMTZhIiwgInRhc2sxNmIiXSkKZGVmIHRhc2sxNigpOgogICAgIiIiCiAgICBUYXNrIDE2LgoKICAgIEluIHRoaXMgZnVuY3Rpb24gd2Ugc2hhbGwgYWxzbyBiZSBsb29raW5nIGF0IHRoZSBkaXZlcmdlbmNlIG9mIG91ciBzaW11bGF0aW9uIGZyb20gdGhlIElHTC4gV2Ugc2hhbGwKICAgIHF1YW50aWZ5IHRoZSBiYWxsIHJhZGlpIGRlcGVuZGVuY2Ugb2YgdGhpcyBkaXZlcmdlbmNlIGJ5IHBsb3R0aW5nIHRoZSB0ZW1wZXJhdHVyZSByYXRpbwogICAgYW5kIHZvbHVtZSBmcmFjdGlvbiBkZWZpbmVkIGluIHRoZSBwcm9qZWN0IGJyaWVmLiBXZSBzaGFsbCBmaXQgdGhpcyB0ZW1wZXJhdHVyZSByYXRpbyBiZWZvcmUKICAgIHBsb3R0aW5nIHRoZSBWRFcgYiBwYXJhbWV0ZXJzIHJhZGlpIGRlcGVuZGVuY2UuCgogICAgUmV0dXJuczoKICAgICAgICB0dXBsZVtGaWd1cmUsIEZpZ3VyZV06IFRoZSByYXRpbyBmaWd1cmUgYW5kIGIgcGFyYW1ldGVyIGZpZ3VyZS4KICAgICIiIgogICAgcmV0dXJuCg=='
 
     def test_doesnt_crash(self, mbs_run_mock, task16_output, an):
         attempted = getsource(an.task16).encode('utf-8') != b64decode(TestTask16.TASK16_DEFAULT)
@@ -951,10 +982,16 @@ class TestTask16:
     def test_curve_fit_called(self, curve_fit_mock, mbs_run_mock, task16_output):
         assert curve_fit_mock.called
 
+    def test_plots_ready_for_marking(self, plots_for_marking_dir):
+        for index, ext in product(ascii_lowercase[:2], ['png', 'pkl']):
+            plot = plots_for_marking_dir / f"task16{index}.{ext}"
+            assert plot.exists(), f"plot file {plot.name!r} does not exist in {plot.parent}"
+            assert plot.stat().st_size > 0, f"plot file {plot.name!r} is empty"
+
 
 class TestTask17:
 
-    TASK17_DEFAULT = b'ZGVmIHRhc2sxNygpOgogICAgIiIiCiAgICBUYXNrIDE3LgoKICAgIEluIHRoaXMgZnVuY3Rpb24gd2Ugc2hhbGwgcnVuIGEgQnJvd25pYW4gbW90aW9uIHNpbXVsYXRpb24gYW5kIHBsb3QgdGhlIHJlc3VsdGluZyB0cmFqZWN0b3J5IG9mIHRoZSAnYmlnJyBiYWxsLgogICAgIiIiCg=='
+    TASK17_DEFAULT = b'QFNhdmVPdXRwdXQoInRhc2sxNyIpCmRlZiB0YXNrMTcoKToKICAgICIiIgogICAgVGFzayAxNy4KCiAgICBJbiB0aGlzIGZ1bmN0aW9uIHdlIHNoYWxsIHJ1biBhIEJyb3duaWFuIG1vdGlvbiBzaW11bGF0aW9uIGFuZCBwbG90IHRoZSByZXN1bHRpbmcgdHJhamVjdG9yeSBvZiB0aGUgJ2JpZycgYmFsbC4KCiAgICBSZXR1cm5zOgogICAgICAgIEZpZ3VyZTogVGhlIEJyb3duaWFuIG1vdGlvbiBzaW11bGF0aW9uIHBsb3QuCiAgICAiIiIKICAgIHJldHVybgo='
 
     def test_doesnt_crash(self, bms_run_mock, task17_output, an):
         attempted = getsource(an.task17).encode('utf-8') != b64decode(TestTask17.TASK17_DEFAULT)
@@ -977,3 +1014,64 @@ class TestTask17:
         params = signature(simulations.BrownianSimulation).parameters
         assert params['bb_radius'].default == 2.
         assert params['bb_mass'].default == 10.
+
+    def test_plot_ready_for_marking(self, plots_for_marking_dir):
+        for ext in ['png', 'pkl']:
+            plot = plots_for_marking_dir / f"task17.{ext}"
+            assert plot.exists(), f"plot file {plot.name!r} does not exist in {plot.parent}"
+            assert plot.stat().st_size > 0, f"plot file {plot.name!r} is empty"
+
+
+class TestTask18:
+
+
+    TASK18_DEFAULT = b'QFNhdmVPdXRwdXQoInRhc2sxOCIpCmRlZiB0YXNrMTgoKToKICAgICIiIgogICAgVGFzayAxOC4KCiAgICBJbiB0aGlzIGZ1bmN0aW9uIHdlIHNoYWxsIGNhbGN1bGF0ZSBhbmQgcGxvdCB0aGUgcmFkaWFsIGRlcGVuZGVuY2Ugb2YgdGhlIG1lYW4gZnJlZSBwYXRoIGFuZCBjb21wYXJlIHRvIHRoZQogICAgZGlsdXRlLWdhcyBCb2x0em1hbm4gbWVhbiBmcmVlIHBhdGguIFdlIHNoYWxsIHRoZW4gaW52ZXN0aWdhdGUgdGhlIEVuc2tvZyBjb3JyZWN0aW9uIGFzIHRoZSBsYXJnZXIgcmFkaWkgcHV0IHVzIGluCiAgICBkZW5zZS1nYXMgcmVnaW9uLgoKICAgIFJldHVybnM6CiAgICAgICAgRmlndXJlOiBUaGUgcGxvdCBvZiB5b3VyIG1lYW4gZnJlZSBwYXRoIGludmVzdGlnYXRpb24uCiAgICAiIiIKICAgIHJldHVybgo='
+
+    def test_n_container_collisions_exists(self, balls):
+        assert isinstance(balls.Container.n_container_collisions, (FunctionType, property))
+
+    def test_n_container_collisions_correct(self, balls, simulations):
+        sbs = simulations.SingleBallSimulation(container=balls.Container(radius=10.),
+                                               ball=balls.Ball(pos=[-5, 0], vel=[1, 0.], radius=1., mass=1.))
+        sbs.run(20)
+        container = sbs.container
+        if isinstance(container, MethodType):
+            container = container()
+        n_collisions = container.n_container_collisions
+        if isinstance(n_collisions, MethodType):
+            n_collisions = n_collisions()
+        assert n_collisions == 20
+
+    def test_doesnt_crash(self, mbs_run_mock, task18_output, an):
+        attempted = getsource(an.task18).encode('utf-8') != b64decode(TestTask18.TASK18_DEFAULT)
+        assert attempted, "Task18 not attempted."
+
+    def test_plot_ready_for_marking(self, plots_for_marking_dir):
+        for ext in ['png', 'pkl']:
+            plot = plots_for_marking_dir / f"task18.{ext}"
+            assert plot.exists(), f"plot file {plot.name!r} does not exist in {plot.parent}"
+            assert plot.stat().st_size > 0, f"plot file {plot.name!r} is empty"
+
+
+class TestTask19:
+
+    TASK19_DEFAULT = b'QFNhdmVPdXRwdXQoWyJ0YXNrMTlhIiwgInRhc2sxOWIiLCAidGFzazE5YyJdKQpkZWYgdGFzazE5KCk6CiAgICAiIiIKICAgIFRhc2sgMTkuCgogICAgSW4gdGhpcyBmdW5jdGlvbiwgd2Ugc2hhbGwgYmUgY29tcHV0aW5nIHRoZSByYWRpYWwgZGlzdHJpYnV0aW9uIGZ1bmN0aW9uLiBXZSB3aWxsIHNlZSB3aGF0IHRoZSBmdW5jdGlvbiBsb29rcyBsaWtlCiAgICBhdCB0aW1lIHQgPSAwIGFzIHdlbGwgYXMgYSBsYXRlciB0aW1lIHQgZm9yIGEgTXVsdGlCYWxsU2ltdWxhdGlvbiB3aGVyZSBvbmx5IGEgc2luZ2xlIGJhbGwgaGFzIHNvbWUgdmVsb2NpdHkuCiAgICBXZSB3aWxsIGFsc28gY3JlYXRlIGFuIGFuaW1hdGlvbiB0byBzbyB0aGUgZXZvbHV0aW9uIG9mIHRoaXMgZnVuY3Rpb24gYXMgb3VyIHNpbXVsYXRpb24gcHJvZ3Jlc3Nlcy4KCiAgICBSZXR1cm5zOgogICAgICAgIHR1cGxlW0ZpZ3VyZSwgRmlndXJlLCBBcnRpc3RBbmltYXRpb25dOiBUaGUgZyhyKSBoaXN0b2dyYW1zIGZvciB0ID0gMCwgdCA9IHNvbWUgdGltZSBsYXRlciwgZyhyKSBhbmltYXRpb24KICAgICIiIgogICAgcmV0dXJuCg=='
+
+    def test_rdf_exists(self, simulations):
+        assert isinstance(simulations.MultiBallSimulation.rdf, FunctionType)
+
+    def test_rdf_sig(self, simulations):
+        assert not {'nbins', "bin_range"}.difference(signature(simulations.MultiBallSimulation.rdf).parameters)
+
+    def test_doesnt_crash(self, mbs_run_mock, task19_output, an):
+        attempted = getsource(an.task19).encode('utf-8') != b64decode(TestTask19.TASK19_DEFAULT)
+        assert attempted, "Task19 not attempted."
+
+    def test_plots_ready_for_marking(self, plots_for_marking_dir):
+        for index, ext in product(ascii_lowercase[:2], ['png', 'pkl']):
+            plot = plots_for_marking_dir / f"task19{index}.{ext}"
+            assert plot.exists(), f"plot file {plot.name!r} does not exist in {plot.parent}"
+            assert plot.stat().st_size > 0, f"plot file {plot.name!r} is empty"
+        plot = plots_for_marking_dir / "task19c.gif"
+        assert plot.exists(), f"plot file {plot.name!r} does not exist in {plot.parent}"
+        assert plot.stat().st_size > 0, f"plot file {plot.name!r} is empty"
