@@ -12,6 +12,11 @@ import matplotlib.pyplot as plt
 matplotlib.use("agg")  # Non-interactive backend more stable for testing than interactive Tk
 
 
+@pytest.fixture(scope="session")
+def plots_for_marking_dir():
+    return Path(__file__).parent.parent / "plots_for_marking"
+
+
 # pylint: disable=redefined-outer-name, unused-argument
 @pytest.fixture(scope="function")
 def balls():
