@@ -607,6 +607,81 @@ class TestTask10:
             radius = radius()
         assert np.fabs(radius) == 10.
 
+    def test_balls_locations(self, simulations):
+        mbs = simulations.MultiBallSimulation()
+        balls_list = mbs.balls
+        if isinstance(balls_list, MethodType):
+            balls_list = balls_list()
+        assert isinstance(balls_list, list)
+        nballs = len(balls_list)
+        assert nballs == 37
+
+        positions = np.array([ball.pos if not isinstance(ball.pos, MethodType) else ball.pos() for ball in balls_list],
+                             dtype=np.float64)
+        expected_positions = np.array([[-7.87846202, -1.38918542],
+                                       [-7.87846202, 1.38918542],
+                                       [-6.92820323, -4.],
+                                       [-6.92820323, 4.],
+                                       [-5.33333333, -0.],
+                                       [-5.14230088, -6.12835554],
+                                       [-5.14230088, 6.12835554],
+                                       [-4.61880215, -2.66666667],
+                                       [-4.61880215, 2.66666667],
+                                       [-2.73616115, -7.51754097],
+                                       [-2.73616115, 7.51754097],
+                                       [-2.66666667, -4.61880215],
+                                       [-2.66666667, 4.61880215],
+                                       [-2.30940108, -1.33333333],
+                                       [-2.30940108, 1.33333333],
+                                       [0., 0.],
+                                       [0., -2.66666667],
+                                       [0., -5.33333333],
+                                       [0., -8.],
+                                       [0., 2.66666667],
+                                       [0., 5.33333333],
+                                       [0., 8.],
+                                       [2.30940108, -1.33333333],
+                                       [2.30940108, 1.33333333],
+                                       [2.66666667, -4.61880215],
+                                       [2.66666667, 4.61880215],
+                                       [2.73616115, -7.51754097],
+                                       [2.73616115, 7.51754097],
+                                       [4.61880215, -2.66666667],
+                                       [4.61880215, 2.66666667],
+                                       [5.14230088, -6.12835554],
+                                       [5.14230088, 6.12835554],
+                                       [5.33333333, 0.],
+                                       [6.92820323, -4.],
+                                       [6.92820323, 4.],
+                                       [7.87846202, -1.38918542],
+                                       [7.87846202, 1.38918542]], dtype=np.float64)
+
+        npositions = len(positions)
+        nexpected_positions = len(expected_positions)
+        assert npositions == nexpected_positions, f"Incorrect number of positions, expected {nexpected_positions}, got {npositions}"
+
+        # round to avoid floating point precisions messing up sorting
+        positions = np.round(positions, 12)
+        expected_positions = np.round(expected_positions, 12)
+
+        # lexsort is stable. Last one is primary sort
+        sorted_positions = positions[np.lexsort((positions[:, 1] > 0, positions[:, 0]))]
+        sorted_expected_positions = expected_positions[np.lexsort((expected_positions[:, 1] > 0,
+                                                                   expected_positions[:, 0]))]
+
+        # Compare row-by-row using isclose
+        row_matches = np.all(np.isclose(sorted_positions, sorted_expected_positions), axis=1)
+
+        # Invert to get mismatches
+        print("\tChecking:  Yours == Expected")
+        print("\t----------------------------")
+        mismatch_idx = np.where(~row_matches)[0]
+        for idx in mismatch_idx:
+            print(f"line: {idx}, {sorted_positions[idx]!s} != {sorted_expected_positions[idx]!s}")
+
+        n_mismatches = mismatch_idx.size
+        assert n_mismatches == 0, f"There are {n_mismatches} elements that mismatch"
+
     def test_balls_exists(self, simulations):
         assert isinstance(simulations.MultiBallSimulation.balls, (FunctionType, property))
 
@@ -1063,7 +1138,7 @@ class TestTask19:
     def test_rdf_sig(self, simulations):
         assert not {'nbins', "bin_range"}.difference(signature(simulations.MultiBallSimulation.rdf).parameters)
 
-    def test_doesnt_crash(self, mbs_run_mock, task19_output, an):
+    def test_doesnt_crash(self, mbs_run_2ball_mock, task19_output, an):
         attempted = getsource(an.task19).encode('utf-8') != b64decode(TestTask19.TASK19_DEFAULT)
         assert attempted, "Task19 not attempted."
 

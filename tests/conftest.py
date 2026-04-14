@@ -152,6 +152,56 @@ def mbs_run_mock(simulations):
 
 
 @pytest.fixture(scope="function")
+def mbs_run_2ball_mock(simulations, an):
+    original_run = simulations.MultiBallSimulation.run
+
+    if not hasattr(an, "MultiBallSimulation"):
+        assert False
+    with (patch.object(an.MultiBallSimulation,
+                       "run",
+                       autospec=True,
+                       side_effect=lambda self, *args, **kwargs: original_run(self, 1)) as run_mock):
+        simple_mbs = simulations.MultiBallSimulation(nrings=1, multi=1)
+        with (patch.object(an, "MultiBallSimulation", lambda *args, **kwargs: simple_mbs) as mbs_mock):
+            yield mbs_mock, run_mock
+
+# @pytest.fixture(scope="function")
+# def mbs_runballs_mock(simulations):
+#     # from types import FunctionType
+#     # from unittest.mock import PropertyMock, MagicMock
+#     original_run = simulations.MultiBallSimulation.run
+#     # if isinstance(simulations.MultiBallSimulation.balls, FunctionType):
+#     #     balls_mock = MagicMock(return_value=[balls.Ball([-5.,0.], [1.,0.]), balls.Ball([5.,0.], [-1, 0.])])
+#     #     print(balls_mock)
+#     # elif isinstance(simulations.MultiBallSimulation.balls, property):
+#     #     balls_mock = PropertyMock(return_value=[balls.Ball([-5.,0.], [1.,0.]), balls.Ball([5.,0.], [-1, 0.])])
+#     #     print(balls_mock)
+#     # try overriding init to make less balls
+
+#     with patch.object(simulations.MultiBallSimulation,
+#                       "run",
+#                       autospec=True,
+#                       side_effect=lambda self, *args, **kwargs: original_run(self, 1)) as run_mock:
+#         simple_mbs = simulations.MultiBallSimulation(nrings=1, multi=1, b_max=2)
+#         with patch.object(simulations, "MultiBallSimulation", lambda *args, **kwargs: simple_mbs) as mbs_mock:
+#             yield mbs_mock, run_mock
+
+#     # with (patch.object(simulations.MultiBallSimulation,
+#     #                    "__init__",
+#     #                    autospec=True,
+#     #                    wraps=simulations.MultiBallSimulation.__init__) as mbs_mock,
+#     #       patch.object(simulations.MultiBallSimulation,
+#     #                    "run",
+#     #                    autospec=True,
+#     #                    side_effect=lambda self, *args, **kwargs: original_run(self, 1)) as run_mock,
+#     #       patch.object(simulations.MultiBallSimulation,
+#     #                    "balls",
+#     #                    balls_mock) as bm):
+#     #     print("OCHH", bm)
+#     #     yield mbs_mock, run_mock
+
+
+@pytest.fixture(scope="function")
 def bms_run_mock(simulations):
     original_run = simulations.BrownianSimulation.run
     with (patch.object(simulations.BrownianSimulation,
