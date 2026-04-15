@@ -16,6 +16,16 @@ matplotlib.use("agg")  # Non-interactive backend more stable for testing than in
 def plots_for_marking_dir():
     return Path(__file__).parent.parent / "plots_for_marking"
 
+@pytest.fixture(scope="function", autouse=True)
+def clear_import_cache():
+    import sys
+    modules = (import_module("thermosnooker.physics"),
+               import_module('thermosnooker.balls'),
+               import_module("thermosnooker.simulations"),
+               import_module("thermosnooker.analysis"))
+    # allow reload to make sure each test gets a fresh impoted module not a cached one
+    for i in modules:
+        sys.modules.pop(i, None)
 
 # pylint: disable=redefined-outer-name, unused-argument
 @pytest.fixture(scope="function")
