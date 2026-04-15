@@ -614,73 +614,64 @@ class TestTask10:
             balls_list = balls_list()
         assert isinstance(balls_list, list)
         nballs = len(balls_list)
-        assert nballs == 37
+        assert nballs == 37, "Incorrect number of balls"
 
-        positions = np.array([ball.pos if not isinstance(ball.pos, MethodType) else ball.pos() for ball in balls_list],
-                             dtype=np.float64)
-        expected_positions = np.array([[-7.87846202, -1.38918542],
-                                       [-7.87846202, 1.38918542],
-                                       [-6.92820323, -4.],
-                                       [-6.92820323, 4.],
-                                       [-5.33333333, -0.],
-                                       [-5.14230088, -6.12835554],
-                                       [-5.14230088, 6.12835554],
-                                       [-4.61880215, -2.66666667],
-                                       [-4.61880215, 2.66666667],
-                                       [-2.73616115, -7.51754097],
-                                       [-2.73616115, 7.51754097],
-                                       [-2.66666667, -4.61880215],
-                                       [-2.66666667, 4.61880215],
-                                       [-2.30940108, -1.33333333],
-                                       [-2.30940108, 1.33333333],
-                                       [0., 0.],
-                                       [0., -2.66666667],
-                                       [0., -5.33333333],
-                                       [0., -8.],
-                                       [0., 2.66666667],
-                                       [0., 5.33333333],
-                                       [0., 8.],
-                                       [2.30940108, -1.33333333],
-                                       [2.30940108, 1.33333333],
-                                       [2.66666667, -4.61880215],
-                                       [2.66666667, 4.61880215],
-                                       [2.73616115, -7.51754097],
-                                       [2.73616115, 7.51754097],
-                                       [4.61880215, -2.66666667],
-                                       [4.61880215, 2.66666667],
-                                       [5.14230088, -6.12835554],
-                                       [5.14230088, 6.12835554],
-                                       [5.33333333, 0.],
-                                       [6.92820323, -4.],
-                                       [6.92820323, 4.],
-                                       [7.87846202, -1.38918542],
-                                       [7.87846202, 1.38918542]], dtype=np.float64)
+        positions = {tuple(ball.pos.round(12).tolist())
+                     if not isinstance(ball.pos, MethodType)
+                     else tuple(ball.pos().round(12).tolist())
+                     for ball in balls_list}
+        expected_positions = {(-7.878462024098, -1.389185421335),
+                              (-7.878462024098, 1.389185421335),
+                              (-6.928203230276, -4.0),
+                              (-6.928203230276, 4.0),
+                              (-5.333333333333, -0.0),
+                              (-5.142300877492, -6.128355544952),
+                              (-5.142300877492, 6.128355544952),
+                              (-4.618802153517, -2.666666666667),
+                              (-4.618802153517, 2.666666666667),
+                              (-2.736161146605, -7.517540966287),
+                              (-2.736161146605, 7.517540966287),
+                              (-2.666666666667, -4.618802153517),
+                              (-2.666666666667, 4.618802153517),
+                              (-2.309401076759, -1.333333333333),
+                              (-2.309401076759, 1.333333333333),
+                              (0.0, -8.0),
+                              (0.0, -5.333333333333),
+                              (0.0, -2.666666666667),
+                              (0.0, 0.0),
+                              (0.0, 2.666666666667),
+                              (0.0, 5.333333333333),
+                              (0.0, 8.0),
+                              (2.309401076759, -1.333333333333),
+                              (2.309401076759, 1.333333333333),
+                              (2.666666666667, -4.618802153517),
+                              (2.666666666667, 4.618802153517),
+                              (2.736161146605, -7.517540966287),
+                              (2.736161146605, 7.517540966287),
+                              (4.618802153517, -2.666666666667),
+                              (4.618802153517, 2.666666666667),
+                              (5.142300877492, -6.128355544952),
+                              (5.142300877492, 6.128355544952),
+                              (5.333333333333, 0.0),
+                              (6.928203230276, -4.0),
+                              (6.928203230276, 4.0),
+                              (7.878462024098, -1.389185421335),
+                              (7.878462024098, 1.389185421335)}
 
-        npositions = len(positions)
-        nexpected_positions = len(expected_positions)
-        assert npositions == nexpected_positions, f"Incorrect number of positions, expected {nexpected_positions}, got {npositions}"
+        missing = expected_positions - positions
+        extra = positions - expected_positions
 
-        # round to avoid floating point precisions messing up sorting
-        positions = np.round(positions, 12)
-        expected_positions = np.round(expected_positions, 12)
+        if missing:
+            print("Missing expected rows:")
+            for row in missing:
+                print("   ", row)
+        if extra:
+            print("Extra unexpected rows:")
+            for row in extra:
+                print("   ", row)
 
-        # lexsort is stable. Last one is primary sort
-        sorted_positions = positions[np.lexsort((positions[:, 1] > 0, positions[:, 0]))]
-        sorted_expected_positions = expected_positions[np.lexsort((expected_positions[:, 1] > 0,
-                                                                   expected_positions[:, 0]))]
-
-        # Compare row-by-row using isclose
-        row_matches = np.all(np.isclose(sorted_positions, sorted_expected_positions), axis=1)
-
-        # Invert to get mismatches
-        print("\tChecking:  Yours == Expected")
-        print("\t----------------------------")
-        mismatch_idx = np.where(~row_matches)[0]
-        for idx in mismatch_idx:
-            print(f"line: {idx}, {sorted_positions[idx]!s} != {sorted_expected_positions[idx]!s}")
-
-        n_mismatches = mismatch_idx.size
-        assert n_mismatches == 0, f"There are {n_mismatches} elements that mismatch"
+        n_mismatches = len(missing) + len(extra)
+        assert n_mismatches == 0, f"{n_mismatches} Mismatch(es) between actual and expected positions"
 
     def test_balls_exists(self, simulations):
         assert isinstance(simulations.MultiBallSimulation.balls, (FunctionType, property))
