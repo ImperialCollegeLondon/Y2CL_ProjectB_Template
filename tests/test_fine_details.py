@@ -92,7 +92,8 @@ class TestBallInternals:
         assert vel.dtype == float
 
 
-DATA_ATTRIBUTE_REGEX = re.compile(r"^\s*self\.([_a-zA-Z0-9]+)[^=]*=(?!=)", re.MULTILINE)
+# DATA_ATTRIBUTE_REGEX = re.compile(r"^\s*self\.([_a-zA-Z0-9]+)[^=]*=(?!=)$", re.MULTILINE)
+DATA_ATTRIBUTE_REGEX = re.compile(r"^\s*self\.([_a-zA-Z0-9]+)[^=\n]*=.*$", re.MULTILINE)
 
 
 class TestAdvancedDesign:
