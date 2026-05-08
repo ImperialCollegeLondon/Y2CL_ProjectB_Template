@@ -194,6 +194,8 @@ def var_name_map(custom_ball):
     ret = {}
     for var_name, var_val in vars(custom_ball).items():
         if isinstance(var_val, (list, np.ndarray)) and len(var_val) and np.allclose(var_val, [1., 2.]):
+            if "pos" in ret and "_center" not in ret["pos"] and "_center" in var_name:
+                continue
             ret["pos"] = var_name
         elif isinstance(var_val, (list, np.ndarray)) and len(var_val) and np.allclose(var_val, [3., 4.]):
             ret["vel"] = var_name
