@@ -49,14 +49,14 @@ class SaveOutput:
                 plot_base = self.plots_dir / name
                 match type(plot):
                     case mplf.Figure:
-                        with open(plot_base.with_suffix(".pkl"), "wb") as pickle_file:
-                            pickle.dump(plot, pickle_file)
+                        # with open(plot_base.with_suffix(".pkl"), "wb") as pickle_file:
+                        #     pickle.dump(plot, pickle_file)
                         cast(Figure, plot).savefig(plot_base.with_suffix(".png"), format='png')
-                        print(f"\t\t{plot_base.with_suffix(".pkl")!s}")
-                        print(f"\t\t{plot_base.with_suffix(".png")!s}")
+                        # print(f"\t\t{plot_base.with_suffix(".pkl")!s}")
+                        print(f"\t\t{plot_base.with_suffix('.png')!s}")
                     case mpla.ArtistAnimation:
                         cast(ArtistAnimation, plot).save(filename=plot_base.with_suffix(".gif"), writer="pillow")
-                        print(f"\t\t{plot_base.with_suffix(".gif")!s}")
+                        print(f"\t\t{plot_base.with_suffix('.gif')!s}")
             return func_ret
 
         return wrapper
